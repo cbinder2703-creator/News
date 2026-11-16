@@ -1,0 +1,35 @@
+# Zentrale Einstellungen der Nachrichtenmarke.
+# Secrets (API-Keys, Tokens) gehören NICHT hierher, sondern in .env bzw. GitHub Secrets.
+
+brand:
+  name: "TechPuls"                      # Arbeitstitel, einfach ändern
+  tagline: "KI- und Tech-News, kurz und verständlich"
+  site_url: "https://DEIN-NAME.github.io/news"   # ohne Slash am Ende
+  accent: "#ff4d2e"
+  contact_email: "kontakt@example.com"  # für Impressum
+
+ai:
+  model: "claude-opus-5-5"
+  disclosure: "Dieser Beitrag wurde von einer KI auf Basis der genannten Quelle erstellt."
+
+pipeline:
+  articles_per_run: 3        # neue Beiträge pro Lauf
+  max_age_hours: 24          # nur Meldungen, die jünger sind
+  max_auto_risk: medium      # low | medium  -> "high" wird nie automatisch veröffentlicht
+  videos_for_recent: 20      # Videos nur für die letzten N Beiträge erzeugen
+  publish_per_run: 2         # max. Social-Posts (Beiträge) pro Lauf und Plattform
+
+social:
+  graph_version: "v23.0"
+  facebook: [link]           # link | video | [] zum Abschalten
+  instagram: [image, reel]   # image | reel | []
+  tiktok: [video]            # video | []
+  tiktok_privacy: "SELF_ONLY"   # erst nach TikTok-Audit auf PUBLIC_TO_EVERYONE stellen
+
+# Quellen: nur Titel + RSS-Teaser werden gelesen, der Beitrag wird neu formuliert,
+# die Quelle wird immer genannt und verlinkt.
+sources:
+  - { name: "heise online", url: "https://www.heise.de/rss/heise-atom.xml" }
+  - { name: "Golem.de",     url: "https://rss.golem.de/rss.php?feed=RSS2.0" }
+  - { name: "THE DECODER",  url: "https://the-decoder.de/feed/" }
+  - { name: "t3n",          url: "https://t3n.de/rss.xml" }

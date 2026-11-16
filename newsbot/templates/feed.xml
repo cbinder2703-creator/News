@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>{{ cfg.brand_name }}</title>
+<link>{{ cfg.site_url }}/</link>
+<description>{{ cfg.tagline }}</description>
+<language>de</language>
+{% for r in records %}<item>
+<title>{{ r.article.headline }}</title>
+<link>{{ cfg.site_url }}/a/{{ r.slug }}/</link>
+<guid>{{ cfg.site_url }}/a/{{ r.slug }}/</guid>
+<pubDate>{{ r.created_at | rfc822 }}</pubDate>
+<description>{{ r.article.teaser }}</description>
+</item>
+{% endfor %}</channel></rss>

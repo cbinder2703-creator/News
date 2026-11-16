@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="post">
+  <h1>Impressum</h1>
+  <p class="ai-note"><strong>VORLAGE – vor dem Livegang ausfüllen.</strong> Für eine journalistisch-redaktionelle Website in Deutschland
+     sind nach § 5 DDG und § 18 MStV Name und Anschrift sowie ein inhaltlich Verantwortlicher Pflicht.
+     Bei Unsicherheit bitte rechtlich prüfen lassen.</p>
+  <p>[Vor- und Nachname bzw. Firma]<br>[Straße und Hausnummer]<br>[PLZ Ort]</p>
+  <p>E-Mail: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
+  <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: [Name, Anschrift]</p>
+  <p>Hinweis: Die Inhalte dieser Seite werden automatisiert mit Hilfe künstlicher Intelligenz erstellt.</p>
+</article>
+{% endblock %}

@@ -1,0 +1,77 @@
+name: newsbot
+
+# Alle 2 Stunden neue Beiträge erzeugen, Website veröffentlichen, dann auf Social Media posten.
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: newsbot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - name: Neue Beiträge erzeugen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m newsbot generate
+      - name: Zustand ins Repo sichern
+        run: |
+          git config user.name "newsbot"
+          git config user.email "newsbot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "Neue Beiträge" && git push)
+      - run: python -m newsbot build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: public }
+
+  deploy:
+    needs: generate-and-build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  social:
+    # Instagram/Facebook laden Bild und Video von der Website, daher erst nach dem Deploy.
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ github.ref_name }}" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+      - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - run: python -m newsbot build   # Videodatei für den TikTok-Upload lokal bereitstellen
+      - name: Auf Social Media posten
+        env:
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
+        run: python -m newsbot publish
+      - name: Veröffentlichungsstatus sichern
+        run: |
+          git config user.name "newsbot"
+          git config user.email "newsbot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "Social-Status" && git pull --rebase && git push)

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block desc %}{{ a.teaser }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ cfg.site_url }}/a/{{ rec.slug }}/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ a.headline }}">
+<meta property="og:description" content="{{ a.teaser }}">
+<meta property="og:image" content="{{ cfg.site_url }}/media/{{ rec.id }}/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "NewsArticle",
+  "headline": a.headline, "description": a.teaser, "datePublished": rec.created_at,
+  "image": cfg.site_url ~ "/media/" ~ rec.id ~ "/og.jpg",
+  "publisher": {"@type": "Organization", "name": cfg.brand_name},
+  "isBasedOn": rec.source.url
+} | tojson }}</script>
+{% endblock %}
+{% block main %}
+<article class="post">
+  <div class="meta"><span class="cat">{{ a.category }}</span> · {{ rec.created_at | de_date }}</div>
+  <h1>{{ a.headline }}</h1>
+  <p class="lead-text">{{ a.teaser }}</p>
+  <img class="hero" src="{{ base }}/media/{{ rec.id }}/card.jpg" alt="{{ a.image_alt }}">
+  {% for p in a.body %}<p>{{ p }}</p>{% endfor %}
+  <h3>Das Wichtigste</h3>
+  <ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul>
+  {% if rec.has_video %}
+  <video controls playsinline preload="none" poster="{{ base }}/media/{{ rec.id }}/og.jpg" src="{{ base }}/media/{{ rec.id }}/video.mp4"></video>
+  {% endif %}
+  <p class="source">Quelle: <a href="{{ rec.source.url }}" rel="nofollow noopener" target="_blank">{{ rec.source.name }}</a> –
+     „{{ rec.source.title }}“</p>
+  <p class="ai-note">{{ cfg.disclosure }}</p>
+</article>
+{% endblock %}

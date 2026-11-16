@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="post">
+  <h1>Über {{ cfg.brand_name }}</h1>
+  <p>{{ cfg.brand_name }} fasst aktuelle Meldungen aus Tech und KI kurz und verständlich zusammen.</p>
+  <h3>So entstehen unsere Beiträge</h3>
+  <p>Ein KI-System liest die Schlagzeilen und Teaser öffentlicher Nachrichtenquellen und formuliert daraus eigene Kurzmeldungen.
+     Jeder Beitrag nennt und verlinkt seine Quelle. Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.
+     Bei sensiblen Themen (z. B. Straftaten, Gesundheit, Wahlen) veröffentlicht das System nichts automatisch.</p>
+  <p>Fehler gefunden? Schreib uns an <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a>, wir korrigieren oder entfernen den Beitrag.</p>
+</article>
+{% endblock %}
