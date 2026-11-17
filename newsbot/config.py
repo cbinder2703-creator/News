@@ -28,6 +28,9 @@ class Config:
     instagram: list[str]
     tiktok: list[str]
     tiktok_privacy: str
+    voice_enabled: bool = True
+    voice_id: str = "21m00Tcm4TlvDq8ikWAM"
+    voice_model: str = "eleven_multilingual_v2"
     sources: list[dict] = field(default_factory=list)
 
     @property
@@ -43,6 +46,7 @@ class Config:
 def load_config(path: str | Path = "config.yaml") -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     b, ai, p, s = raw["brand"], raw["ai"], raw["pipeline"], raw["social"]
+    v = raw.get("voice") or {}
     return Config(
         brand_name=b["name"],
         tagline=b.get("tagline", ""),
@@ -61,5 +65,8 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         instagram=s.get("instagram") or [],
         tiktok=s.get("tiktok") or [],
         tiktok_privacy=s.get("tiktok_privacy", "SELF_ONLY"),
+        voice_enabled=bool(v.get("enabled", True)),
+        voice_id=v.get("voice_id", "21m00Tcm4TlvDq8ikWAM"),
+        voice_model=v.get("model_id", "eleven_multilingual_v2"),
         sources=raw.get("sources", []),
     )

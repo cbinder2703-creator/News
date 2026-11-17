@@ -8,7 +8,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from .config import Config
-from .media import make_images, make_video
+from .media import make_images, make_narrated_video, make_video
 
 PKG = Path(__file__).parent
 MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
@@ -28,7 +28,7 @@ def rfc822(value: str) -> str:
     return _dt(value).strftime("%a, %d %b %Y %H:%M:%S +0000")
 
 
-def build_site(cfg: Config, records: list[dict], out: Path) -> dict[str, Path]:
+def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | None = None) -> dict[str, Path]:
     """Schreibt die Seite nach `out`. Gibt {article_id: Video-Pfad} der vorhandenen Videos zurück."""
     out = Path(out)
     if out.exists():
@@ -48,7 +48,13 @@ def build_site(cfg: Config, records: list[dict], out: Path) -> dict[str, Path]:
         make_images(rec, cfg.brand_name, cfg.accent, media_dir)
         rec["has_video"] = False
         if n < cfg.videos_for_recent:
-            vid = make_video(rec, cfg.brand_name, cfg.accent, cfg.host, media_dir / "video.mp4")
+            target = media_dir / "video.mp4"
+            audio = audio_dir / f"{rec['id']}.mp3" if audio_dir else None
+            vid = None
+            if audio and audio.exists():  # mit Sprecherstimme und Untertiteln
+                vid = make_narrated_video(rec, cfg.brand_name, cfg.accent, cfg.host, audio, target)
+            if vid is None:  # ohne Stimme: stummes Folienvideo
+                vid = make_video(rec, cfg.brand_name, cfg.accent, cfg.host, target)
             if vid:
                 videos[rec["id"]] = vid
                 rec["has_video"] = True

@@ -10,6 +10,7 @@ from .config import RISK_ORDER, Config
 from .ingest import SourceItem, fetch, select
 from .site import build_site
 from .social import publish_pending
+from . import voice as voice_mod
 from .store import Store, now_iso, slugify
 
 log = logging.getLogger("newsbot.pipeline")
@@ -19,8 +20,24 @@ def article_id(link: str) -> str:
     return hashlib.sha1(link.encode()).hexdigest()[:10]
 
 
+def add_voice(cfg: Config, store: Store, rec: dict, synth=None) -> bool:
+    """Erzeugt die Sprachaufnahme einmal pro Beitrag. Ein Fehler stoppt den Beitrag nicht (dann stummes Video)."""
+    synth = synth or voice_mod.synthesize
+    text = rec["article"].get("narration", "").strip()
+    if not (cfg.voice_enabled and text):
+        return False
+    try:
+        audio = synth(text, cfg.voice_id, cfg.voice_model)
+    except Exception as exc:
+        log.warning("Sprachaufnahme für %s fehlgeschlagen: %s", rec["id"], exc)
+        return False
+    store.audio_dir.mkdir(parents=True, exist_ok=True)
+    store.audio_path(rec["id"]).write_bytes(audio)
+    return True
+
+
 def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None = None,
-             now: datetime | None = None) -> list[dict]:
+             now: datetime | None = None, synth=None) -> list[dict]:
     """Holt neue Meldungen, lässt die KI Beiträge schreiben und speichert sie.
 
     Status: "live" (wird veröffentlicht), "held" (Risiko zu hoch, bleibt unveröffentlicht),
@@ -55,14 +72,17 @@ def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None =
         }
         store.save(rec)
         created.append(rec)
+        if status == "live" and (synth or voice_mod.available()):
+            add_voice(cfg, store, rec, synth)  # nur für Beiträge, die wirklich erscheinen
         log.info("[%s] %s (Risiko: %s%s)", status, art.headline, art.risk,
                  f", {art.risk_reason}" if art.risk_reason else "")
+    store.prune_audio([r["id"] for r in store.live()[: cfg.videos_for_recent]])
     return created
 
 
 def build(cfg: Config, store: Store, out: str | Path = "public") -> Path:
     records = store.live()
-    build_site(cfg, records, Path(out))
+    build_site(cfg, records, Path(out), audio_dir=store.audio_dir)
     log.info("Website mit %d Beiträgen nach %s gebaut", len(records), out)
     return Path(out)
 

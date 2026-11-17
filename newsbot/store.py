@@ -25,6 +25,7 @@ class Store:
         self.dir = Path(data_dir)
         self.articles_dir = self.dir / "articles"
         self.articles_dir.mkdir(parents=True, exist_ok=True)
+        self.audio_dir = self.dir / "audio"
         self.seen_path = self.dir / "seen.json"
 
     # --- gesehene Quell-URLs (verhindert doppelte Beiträge und doppelte API-Kosten)
@@ -41,6 +42,18 @@ class Store:
         if len(seen) > SEEN_LIMIT:
             seen = dict(sorted(seen.items(), key=lambda kv: kv[1])[-SEEN_LIMIT:])
         self.seen_path.write_text(json.dumps(seen, indent=0, ensure_ascii=False), encoding="utf-8")
+
+    # --- Sprachaufnahmen (einmal erzeugt und committet, damit CI-Läufe nicht erneut bezahlen)
+    def audio_path(self, article_id: str) -> Path:
+        return self.audio_dir / f"{article_id}.mp3"
+
+    def prune_audio(self, keep_ids: list[str]) -> None:
+        """Löscht Aufnahmen älterer Beiträge, die kein Video mehr bekommen (hält das Repo klein)."""
+        keep = {f"{i}.mp3" for i in keep_ids}
+        if self.audio_dir.exists():
+            for p in self.audio_dir.glob("*.mp3"):
+                if p.name not in keep:
+                    p.unlink()
 
     # --- Beiträge
     def save(self, rec: dict) -> None:

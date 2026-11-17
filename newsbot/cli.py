@@ -38,11 +38,11 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_config(args.config)
 
     if args.command == "demo":
-        from .demo_data import demo_items
+        from .demo_data import demo_items, fake_synth
 
         cfg.site_url = "http://localhost:8000"
         store = Store(".demo/data")
-        pipeline.generate(cfg, store, StubWriter(), items=demo_items())
+        pipeline.generate(cfg, store, StubWriter(), items=demo_items(), synth=fake_synth)
         out = pipeline.build(cfg, store, ".demo/public")
         print(f"\nDemo gebaut: {out}\nAnsehen:  python -m http.server 8000 --directory {out}")
         return 0

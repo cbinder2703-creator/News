@@ -30,6 +30,23 @@ python -m pytest                     # Tests
 5. **Social-Kanäle anbinden** (je ein Secret-Satz, siehe `.env.example`), siehe unten.
    Das kann parallel zum Website-Betrieb laufen; die Freigaben der Plattformen dauern Tage bis Wochen.
 
+## Sprecherstimme und Videos
+
+Jedes Video hat eine KI-Sprecherstimme (ElevenLabs) und eingebrannte Untertitel, die zum gesprochenen Text passen.
+Claude schreibt dafür pro Beitrag einen kurzen Sprechtext (`narration`, ca. 15–20 Sekunden).
+
+- Secret `ELEVENLABS_API_KEY` setzen. Ohne Key entstehen stumme Folienvideos statt Videos mit Stimme.
+- Stimme wählen: in der ElevenLabs-Bibliothek eine deutsche Stimme aussuchen und ihre ID in `config.yaml` unter `voice.voice_id` eintragen.
+  Die voreingestellte Standardstimme ist nur ein Platzhalter; Modell und Stimme vorher mit einem deutschen Text anhören.
+- Pro Beitrag wird die Aufnahme **einmal** erzeugt und in `data/audio/` gespeichert, damit spätere Läufe nicht erneut bezahlen.
+  Aufnahmen älterer Beiträge, die kein Video mehr bekommen, werden automatisch gelöscht.
+- Die Untertitel werden nach Zeichenanzahl auf die Sprechdauer verteilt und können deshalb leicht neben dem gesprochenen Wort liegen.
+- Das Video ist als „KI-generiert · KI-Stimme“ gekennzeichnet. Nutze nur Standardstimmen, keine Nachbildung echter Personen.
+
+## Bilder
+
+Es werden **keine Fotos aus dem Internet** verwendet, nur selbst erzeugte Typografie-Karten. Quellfotos sind urheberrechtlich geschützt.
+
 ## Social-Kanäle
 
 | Plattform | Was du brauchst | Hürden |

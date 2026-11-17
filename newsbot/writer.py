@@ -39,7 +39,10 @@ Formate:
 - facebook_text: 2-3 Sätze, die zum Klick auf den Beitrag einladen.
 - hashtags: 4-6 passende Hashtags ohne '#'.
 - category: ein Wort, z. B. KI, Gaming, Hardware, Software, Sicherheit, Netz, Wirtschaft.
-- image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz."""
+- image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz.
+- narration: gesprochener Text für das Video, 35-50 Wörter (ca. 15-20 Sekunden), in kurzen Sätzen, die man gut
+  laut sprechen kann. Beginne mit einem sachlichen Aufhänger, nenne am Ende die Quelle ("Quelle: {{Quellname}}").
+  Keine Hashtags, keine Links, keine Klammern, keine schwer sprechbaren Abkürzungen und Sonderzeichen."""
 
 
 class Article(BaseModel):
@@ -58,6 +61,7 @@ class Article(BaseModel):
     facebook_text: str
     hashtags: list[str] = Field(default_factory=list)
     image_alt: str = ""
+    narration: str = ""
 
     def normalized(self) -> "Article":
         """Harte Längenlimits (Plattformgrenzen) unabhängig vom Modell durchsetzen."""
@@ -73,6 +77,7 @@ class Article(BaseModel):
             "tiktok_caption": cut(self.tiktok_caption, 150),
             "instagram_caption": cut(self.instagram_caption, 1500),
             "facebook_text": cut(self.facebook_text, 500),
+            "narration": cut(self.narration, 450),
             "hashtags": [h.lstrip("#").replace(" ", "") for h in self.hashtags[:6]],
             "body": [p.strip() for p in self.body if p.strip()],
         })
@@ -132,4 +137,5 @@ class StubWriter:
             facebook_text=f"Neu: {item.title}",
             hashtags=["news", "tech", "ki", "demo"],
             image_alt="Nachrichtenkarte mit Schlagzeile",
+            narration=f"{item.title}. {(item.summary or '')[:160]} Quelle: {item.source}.",
         ).normalized()

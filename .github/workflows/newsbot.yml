@@ -27,6 +27,7 @@ jobs:
       - name: Neue Beiträge erzeugen
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos
         run: python -m newsbot generate
       - name: Zustand ins Repo sichern
         run: |
