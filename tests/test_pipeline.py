@@ -23,6 +23,7 @@ RSS = b"""<?xml version="1.0"?><rss version="2.0"><channel><title>x</title>
 def cfg():
     c = load_config(ROOT / "config.yaml")
     c.site_url = "https://news.example"
+    c.review = False  # diese Tests prüfen den Ablauf ohne Freigabeschritt
     return c
 
 
@@ -56,8 +57,9 @@ def test_slugify_umlauts():
 
 def test_generate_holds_risky_skips_unnewsworthy_and_marks_seen(cfg, tmp_path):
     class W:
-        def write(self, it):
-            base = StubWriter().write(it)
+        def write(self, items, topic=None):
+            it = items[0]
+            base = StubWriter().write(items, topic)
             if "riskant" in it.title:
                 return base.model_copy(update={"risk": "high", "risk_reason": "Straftat"})
             if "werbung" in it.title:
@@ -79,7 +81,7 @@ def test_generate_holds_risky_skips_unnewsworthy_and_marks_seen(cfg, tmp_path):
 
 
 def test_article_normalized_enforces_limits():
-    a = StubWriter().write(item("x", "u")).model_copy(
+    a = StubWriter().write([item("x", "u")]).model_copy(
         update={"tiktok_caption": "a" * 400, "hashtags": ["#KI", "Tech News", "c", "d", "e", "f", "g"]})
     n = a.normalized()
     assert len(n.tiktok_caption) <= 150

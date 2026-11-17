@@ -31,6 +31,11 @@ class Config:
     voice_enabled: bool = True
     voice_id: str = "21m00Tcm4TlvDq8ikWAM"
     voice_model: str = "eleven_multilingual_v2"
+    review: bool = True
+    haltung: str = ""
+    rubriken: list[dict] = field(default_factory=list)
+    focus: list[str] = field(default_factory=list)
+    avoid: list[str] = field(default_factory=list)
     sources: list[dict] = field(default_factory=list)
 
     @property
@@ -47,6 +52,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     b, ai, p, s = raw["brand"], raw["ai"], raw["pipeline"], raw["social"]
     v = raw.get("voice") or {}
+    ed = raw.get("editorial") or {}
     return Config(
         brand_name=b["name"],
         tagline=b.get("tagline", ""),
@@ -68,5 +74,10 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         voice_enabled=bool(v.get("enabled", True)),
         voice_id=v.get("voice_id", "21m00Tcm4TlvDq8ikWAM"),
         voice_model=v.get("model_id", "eleven_multilingual_v2"),
+        review=ed.get("mode", "review") != "auto",
+        haltung=(ed.get("haltung") or "").strip(),
+        rubriken=ed.get("rubriken") or [],
+        focus=ed.get("focus") or [],
+        avoid=ed.get("avoid") or [],
         sources=raw.get("sources", []),
     )

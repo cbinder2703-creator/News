@@ -12,23 +12,28 @@
   "headline": a.headline, "description": a.teaser, "datePublished": rec.created_at,
   "image": cfg.site_url ~ "/media/" ~ rec.id ~ "/og.jpg",
   "publisher": {"@type": "Organization", "name": cfg.brand_name},
-  "isBasedOn": rec.source.url
+  "isBasedOn": ((rec.sources or [rec.source]) | map(attribute="url") | list)
 } | tojson }}</script>
 {% endblock %}
 {% block main %}
 <article class="post">
-  <div class="meta"><span class="cat">{{ a.category }}</span> · {{ rec.created_at | de_date }}</div>
+  <div class="meta"><span class="cat">{{ a.rubrik or a.category }}</span> · {{ rec.created_at | de_date }}</div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.teaser }}</p>
   <img class="hero" src="{{ base }}/media/{{ rec.id }}/card.jpg" alt="{{ a.image_alt }}">
-  {% for p in a.body %}<p>{{ p }}</p>{% endfor %}
   <h3>Das Wichtigste</h3>
   <ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul>
+  <h2>Das ist passiert</h2>
+  {% for p in a.body %}<p>{{ p }}</p>{% endfor %}
+  {% for s in a.sections %}<h2>{{ s.heading }}</h2><p>{{ s.text }}</p>{% endfor %}
+  {% if a.verdict %}<blockquote class="verdict"><strong>{{ cfg.brand_name }}-Einordnung</strong><br>{{ a.verdict }}</blockquote>{% endif %}
+  {% if a.open_questions %}<h3>Das wissen wir noch nicht</h3>
+  <ul>{% for q in a.open_questions %}<li>{{ q }}</li>{% endfor %}</ul>{% endif %}
   {% if rec.has_video %}
   <video controls playsinline preload="none" poster="{{ base }}/media/{{ rec.id }}/og.jpg" src="{{ base }}/media/{{ rec.id }}/video.mp4"></video>
   {% endif %}
-  <p class="source">Quelle: <a href="{{ rec.source.url }}" rel="nofollow noopener" target="_blank">{{ rec.source.name }}</a> –
-     „{{ rec.source.title }}“</p>
+  <div class="source">{{ 'Quellen' if (rec.sources or [rec.source]) | length > 1 else 'Quelle' }}:
+    <ul>{% for src in (rec.sources or [rec.source]) %}<li><a href="{{ src.url }}" rel="nofollow noopener" target="_blank">{{ src.name }}</a> – „{{ src.title }}“</li>{% endfor %}</ul></div>
   <p class="ai-note">{{ cfg.disclosure }}</p>
 </article>
 {% endblock %}

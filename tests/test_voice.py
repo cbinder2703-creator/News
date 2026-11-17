@@ -22,6 +22,7 @@ TEXT = ("Ein neues Sprachmodell schlägt die Konkurrenz in mehreren Tests. "
 def cfg():
     c = load_config(ROOT / "config.yaml")
     c.site_url = "https://news.example"
+    c.review = False
     return c
 
 

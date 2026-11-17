@@ -2,11 +2,13 @@
 {% block main %}
 <article class="post">
   <h1>Über {{ cfg.brand_name }}</h1>
-  <p>{{ cfg.brand_name }} fasst aktuelle Meldungen aus Tech und KI kurz und verständlich zusammen.</p>
+  <p>{{ cfg.brand_name }} erklärt aktuelle Themen aus Tech und KI verständlich, ordnet sie ein und sagt offen, was daran Fakt, Hoffnung oder Marketing ist.</p>
   <h3>So entstehen unsere Beiträge</h3>
-  <p>Ein KI-System liest die Schlagzeilen und Teaser öffentlicher Nachrichtenquellen und formuliert daraus eigene Kurzmeldungen.
-     Jeder Beitrag nennt und verlinkt seine Quelle. Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.
-     Bei sensiblen Themen (z. B. Straftaten, Gesundheit, Wahlen) veröffentlicht das System nichts automatisch.</p>
+  <p>Ein KI-System liest die Schlagzeilen und Teaser öffentlicher Nachrichtenquellen, bündelt mehrere Quellen zu einem Thema und
+     schreibt daraus einen eigenen Erklärbeitrag mit Einordnung. Jeder Beitrag nennt und verlinkt seine Quellen.
+     {% if cfg.review %}Jeder Beitrag wird vor der Veröffentlichung von der Redaktion gelesen und freigegeben.{% else %}Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.{% endif %}
+     Bei sensiblen Themen (z. B. Straftaten, Gesundheit, Wahlen) veröffentlicht das System nichts automatisch.
+     Unsere Einordnung ist eine Einschätzung und als solche gekennzeichnet.</p>
   <p>Fehler gefunden? Schreib uns an <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a>, wir korrigieren oder entfernen den Beitrag.</p>
 </article>
 {% endblock %}

@@ -1,19 +1,22 @@
-"""Ablauf: generate (Quellen -> Beiträge) -> build (Website) -> publish (Social)."""
+"""Ablauf: generate (Themen -> Entwürfe) -> approve (Freigabe) -> build (Website) -> publish (Social)."""
 from __future__ import annotations
 
 import hashlib
 import logging
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from . import voice as voice_mod
 from .config import RISK_ORDER, Config
+from .editor import Topic
 from .ingest import SourceItem, fetch, select
 from .site import build_site
 from .social import publish_pending
-from . import voice as voice_mod
 from .store import Store, now_iso, slugify
 
 log = logging.getLogger("newsbot.pipeline")
+POOL_SIZE = 40  # so viele frische Meldungen sieht die Chefredaktion pro Lauf
 
 
 def article_id(link: str) -> str:
@@ -36,48 +39,112 @@ def add_voice(cfg: Config, store: Store, rec: dict, synth=None) -> bool:
     return True
 
 
-def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None = None,
-             now: datetime | None = None, synth=None) -> list[dict]:
-    """Holt neue Meldungen, lässt die KI Beiträge schreiben und speichert sie.
+def _voice_wanted(synth) -> bool:
+    return bool(synth or voice_mod.available())
 
-    Status: "live" (wird veröffentlicht), "held" (Risiko zu hoch, bleibt unveröffentlicht),
-    übersprungene Meldungen (nicht nachrichtenwürdig / KI-Fehler) werden nur als gesehen markiert.
+
+def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None = None,
+             now: datetime | None = None, synth=None, editor=None) -> list[dict]:
+    """Holt frische Meldungen, lässt die Chefredaktion Themen bündeln und den Autor Beiträge schreiben.
+
+    Status: "draft" (wartet auf deine Freigabe, Standard), "live" (mode: auto), "held" (Risiko zu hoch,
+    nur per ausdrücklicher Freigabe). Nicht nachrichtenwürdige Themen oder KI-Fehler werden nur als gesehen markiert.
     """
     now = now or datetime.now(timezone.utc)
     if items is None:
         items = fetch(cfg.sources)
-    seen = store.seen()
-    # Doppelt so viele Kandidaten wie gewünscht, weil manche aussortiert werden.
-    candidates = select(items, set(seen), cfg.max_age_hours, cfg.articles_per_run * 2, now)
+    seen = set(store.seen())
+
+    if editor is not None:
+        pool = select(items, seen, cfg.max_age_hours, POOL_SIZE, now, dedupe=False)
+        recent = [r["article"]["headline"] for r in store.all()[:15]]
+        topics = editor.plan(pool, recent, now)
+    else:  # ohne Chefredaktion: jede Meldung ein eigenes Thema (Tests, einfacher Betrieb)
+        pool = select(items, seen, cfg.max_age_hours, cfg.articles_per_run * 2, now)
+        topics = [Topic(title=i.title, item_numbers=[n]) for n, i in enumerate(pool, 1)]
 
     created: list[dict] = []
-    for item in candidates:
+    for topic in topics:
         if len(created) >= cfg.articles_per_run:
             break
-        art = writer.write(item)
-        store.mark_seen([item.link])  # auch Fehlschläge: keine doppelten Kosten
+        topic_items = [pool[n - 1] for n in topic.item_numbers]
+        primary = topic_items[0]
+        art = writer.write(topic_items, topic)
+        store.mark_seen([i.link for i in topic_items])  # auch Fehlschläge: keine doppelten Kosten
         if art is None or not art.newsworthy or not art.body:
-            log.info("Übersprungen: %s (%s)", item.title, getattr(art, "skip_reason", "KI-Fehler"))
+            log.info("Übersprungen: %s (%s)", topic.title, getattr(art, "skip_reason", "KI-Fehler"))
             continue
-        status = "live" if RISK_ORDER[art.risk] <= RISK_ORDER[cfg.max_auto_risk] else "held"
+        if not art.rubrik:
+            art = art.model_copy(update={"rubrik": topic.rubrik})
+        if RISK_ORDER[art.risk] > RISK_ORDER[cfg.max_auto_risk]:
+            status = "held"
+        else:
+            status = "draft" if cfg.review else "live"
+        sources = [{"name": i.source, "url": i.link, "title": i.title,
+                    "published": i.published.isoformat(timespec="seconds")} for i in topic_items]
         rec = {
-            "id": article_id(item.link),
-            "slug": f"{slugify(art.headline)}-{article_id(item.link)[:6]}",
+            "id": article_id(primary.link),
+            "slug": f"{slugify(art.headline)}-{article_id(primary.link)[:6]}",
             "created_at": now_iso(),
             "status": status,
-            "source": {"name": item.source, "url": item.link, "title": item.title,
-                       "published": item.published.isoformat(timespec="seconds")},
+            "source": sources[0],
+            "sources": sources,
+            "topic": {"title": topic.title, "angle": topic.angle},
             "article": art.model_dump(),
             "published": {},
         }
         store.save(rec)
         created.append(rec)
-        if status == "live" and (synth or voice_mod.available()):
-            add_voice(cfg, store, rec, synth)  # nur für Beiträge, die wirklich erscheinen
-        log.info("[%s] %s (Risiko: %s%s)", status, art.headline, art.risk,
+        if status == "live" and _voice_wanted(synth):
+            add_voice(cfg, store, rec, synth)
+        log.info("[%s] %s | %s (Risiko: %s%s)", status, art.rubrik or "-", art.headline, art.risk,
                  f", {art.risk_reason}" if art.risk_reason else "")
     store.prune_audio([r["id"] for r in store.live()[: cfg.videos_for_recent]])
     return created
+
+
+def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
+    """Gibt Entwürfe frei. selector: "alle" (alle Entwürfe) oder IDs, getrennt durch Komma/Leerzeichen.
+    Nur mit ausdrücklicher ID lassen sich auch "held"-Beiträge (hohes Risiko) freigeben."""
+    sel = selector.strip().lower()
+    wanted = None if sel in ("alle", "all") else {s for s in re.split(r"[,\s]+", sel) if s}
+    approved: list[dict] = []
+    for rec in store.all():
+        ok = (rec["status"] == "draft") if wanted is None else (rec["id"] in wanted and rec["status"] in ("draft", "held"))
+        if not ok:
+            continue
+        rec["status"] = "live"
+        rec["drafted_at"] = rec["created_at"]
+        rec["created_at"] = now_iso()  # Veröffentlichungszeit = Freigabe
+        store.save(rec)
+        if _voice_wanted(synth):
+            add_voice(cfg, store, rec, synth)
+        approved.append(rec)
+        log.info("Freigegeben: %s | %s", rec["id"], rec["article"]["headline"])
+    store.prune_audio([r["id"] for r in store.live()[: cfg.videos_for_recent]])
+    return approved
+
+
+def drafts_markdown(store: Store) -> str:
+    """Übersicht der offenen Entwürfe zum schnellen Lesen (z. B. in der GitHub-Actions-Zusammenfassung am Handy)."""
+    pending = [r for r in store.all() if r["status"] in ("draft", "held")]
+    if not pending:
+        return "## Keine offenen Entwürfe\n"
+    out = [f"## {len(pending)} Entwürfe warten auf Freigabe\n",
+           "Zum Freigeben: Actions → newsbot → *Run workflow* → Feld **approve** mit den IDs (oder `alle`).\n"]
+    for r in pending:
+        a = r["article"]
+        flag = " ⚠️ **hohes Risiko, nur mit ausdrücklicher ID freigeben**" if r["status"] == "held" else ""
+        out.append(f"### `{r['id']}` · {a.get('rubrik') or a['category']} · Risiko: {a['risk']}{flag}\n**{a['headline']}**\n")
+        out.append(f"_{a['teaser']}_\n")
+        body = "\n\n".join(a["body"])
+        secs = "\n\n".join(f"**{s['heading']}**\n\n{s['text']}" for s in a.get("sections", []))
+        qs = "\n".join(f"- {q}" for q in a.get("open_questions", []))
+        srcs = "\n".join(f"- [{s['name']}: {s['title']}]({s['url']})" for s in r.get("sources", [r["source"]]))
+        out.append(f"<details><summary>Ganzen Entwurf lesen</summary>\n\n{body}\n\n{secs}\n\n"
+                   f"> {a.get('verdict', '')}\n\n**Noch offen:**\n{qs}\n\n**Quellen:**\n{srcs}\n\n"
+                   f"**Sprechtext:** {a.get('narration', '')}\n\n</details>\n")
+    return "\n".join(out)
 
 
 def build(cfg: Config, store: Store, out: str | Path = "public") -> Path:

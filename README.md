@@ -1,13 +1,23 @@
 # TechPuls – automatische KI-Nachrichtenmarke
 
-Eine Pipeline, die alle paar Stunden aktuelle Meldungen aus Tech-/KI-Quellen liest, mit Claude daraus eigene
-Kurzbeiträge schreibt, Bilder und ein Kurzvideo erzeugt und alles automatisch auf **Website, Instagram,
-Facebook und TikTok** veröffentlicht. Marke, Themen und Quellen stehen in `config.yaml`.
+Ein Erklärformat mit klarer Haltung statt Meldungs-Recycling. Täglich liest die Pipeline Tech-/KI-Quellen, eine
+KI-Chefredaktion bündelt mehrere Quellen zu den wichtigsten Themen, ein KI-Autor schreibt daraus Erklärbeiträge mit
+Einordnung (Rubriken wie *Hype-Check* und *Was steckt dahinter?*), dazu Bilder und ein Video mit Stimme. **Du liest die
+Entwürfe (wenige Minuten) und gibst sie frei**, erst dann gehen Website, Instagram, Facebook und TikTok online.
+Haltung, Rubriken, Schwerpunkte und Marke stehen in `config.yaml` (Abschnitt `editorial`). Das ist dein Hebel.
 
 ```
-RSS-Quellen → Claude schreibt Beitrag + Social-Texte → Bildkarte + 9:16-Video
-            → Website (GitHub Pages) → Facebook / Instagram / TikTok
+RSS-Quellen → Chefredaktion bündelt Themen → Autor schreibt Erklärbeitrag mit Einordnung → Entwurf
+→ DU gibst frei → Stimme + Video → Website (GitHub Pages) → Facebook / Instagram / TikTok
 ```
+
+### Dein täglicher Ablauf (ca. 5 Minuten)
+1. Der Workflow läuft morgens und legt Entwürfe an. Die Zusammenfassung des Laufs (Actions → Lauf öffnen) zeigt sie lesbar mit ID, Rubrik, Risiko und allen Quellen.
+2. Lies sie. Gefällt dir einer, starte Actions → newsbot → **Run workflow** und trage ins Feld `approve` die ID(s) ein (mehrere mit Komma) oder `alle`.
+3. Der Workflow gibt frei, erzeugt Stimme und Video, baut die Website und postet. Nicht freigegebene Entwürfe bleiben liegen und gehen nie online.
+4. Beiträge mit hohem Risiko (`held`) lassen sich nur mit ausdrücklicher ID freigeben, nie mit `alle`.
+
+Ohne Freigabe laufen lassen: `editorial.mode: auto`. Das empfehle ich nicht, denn gerade die Haltung und die Einordnung sind der Teil, den du prüfen solltest.
 
 ## Sofort ausprobieren (ohne Keys)
 
@@ -61,7 +71,7 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
 
 ## Was die Automatik absichert (auch ohne manuelle Freigabe)
 
-- **Nur Fakten aus der Quelle**: Die KI bekommt Titel + Teaser und darf nichts dazuerfinden. Jede Meldung nennt und verlinkt ihre Quelle.
+- **Nur Fakten aus den Quellen**: Die KI bekommt Titel + Teaser und darf nichts dazuerfinden. Wertungen stehen nur im gekennzeichneten Feld „Einordnung“. Jeder Beitrag nennt und verlinkt alle Quellen.
 - **Risiko-Sperre**: Die KI stuft jeden Beitrag ein. Themen wie Straftaten, Vorwürfe gegen Personen, Gesundheit,
   Wahlen oder Gerüchte (`risk: high`) werden **nie automatisch veröffentlicht** (Status `held` in `data/articles/`).
 - **KI-Kennzeichnung** auf jeder Seite, in der Instagram-Caption und per `is_aigc`-Flag bei TikTok.
@@ -86,8 +96,7 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
 ## Ausbauideen
 
 - Eigene KI-Bilder (Bildgenerator-Anbindung in `media.render_card`) und Sprecher-Stimme per TTS im Video
-- Zusammenfassung mehrerer Quellen zu einem Thema, Themen-Rubriken und Newsletter
-- Freigabe per Klick (Entwürfe in `held` prüfen) für sensible Themen
+- Webrecherche der KI zur Faktenprüfung, Newsletter, Wochenrückblick als eigenes Format
 - Eigene Domain statt `github.io`
 
 ## Projektstruktur
@@ -95,9 +104,10 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
 | Datei | Aufgabe |
 |---|---|
 | `newsbot/ingest.py` | RSS lesen, bereinigen, Dubletten filtern |
-| `newsbot/writer.py` | Claude-Redaktion (Beitrag, Risiko, Social-Texte) |
+| `newsbot/editor.py` | KI-Chefredaktion: Themen wählen, Quellen bündeln |
+| `newsbot/writer.py` | KI-Autor: Erklärbeitrag, Einordnung, Risiko, Social-Texte |
 | `newsbot/media.py` | Bildkarten (Pillow) und 9:16-Video (ffmpeg) |
 | `newsbot/site.py` + `templates/` | statische Website, RSS-Feed, Sitemap |
 | `newsbot/social.py` | Facebook-, Instagram-, TikTok-Adapter |
-| `newsbot/pipeline.py`, `cli.py` | Ablauf: `generate`, `build`, `publish`, `run`, `demo` |
+| `newsbot/pipeline.py`, `cli.py` | Ablauf: `generate`, `approve`, `drafts`, `build`, `publish`, `run`, `demo` |
 | `data/` | Beiträge als JSON und Merkliste (wird vom Workflow committet) |

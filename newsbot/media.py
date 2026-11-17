@@ -122,14 +122,19 @@ def render_card(
     return img
 
 
+def source_label(rec: dict) -> str:
+    names = list(dict.fromkeys(x["name"] for x in (rec.get("sources") or [rec["source"]])))[:3]
+    return ("Quelle: " if len(names) == 1 else "Quellen: ") + ", ".join(names)
+
+
 def make_images(rec: dict, brand: str, accent: str, out_dir: Path) -> dict[str, Path]:
     """card.jpg (Feed), og.jpg (Link-Vorschau). JPEG, weil Instagram nur JPEG akzeptiert."""
     art = rec["article"]
     out_dir.mkdir(parents=True, exist_ok=True)
-    footer = f"Quelle: {rec['source']['name']}  ·  KI-generiert"
+    footer = f"{source_label(rec)}  ·  KI-generiert"
     paths = {}
     for name, size in (("card", CARD_SIZE), ("og", OG_SIZE)):
-        img = render_card(size, art["headline"], art["category"], footer, brand, accent, art["category"])
+        img = render_card(size, art["headline"], art.get("rubrik") or art["category"], footer, brand, accent, art["category"])
         paths[name] = out_dir / f"{name}.jpg"
         img.save(paths[name], "JPEG", quality=92)
     return paths
@@ -141,8 +146,8 @@ def make_video(rec: dict, brand: str, accent: str, host: str, out_path: Path, se
         log.warning("ffmpeg fehlt, Video wird übersprungen")
         return None
     art = rec["article"]
-    footer = f"Quelle: {rec['source']['name']}  ·  KI-generiert"
-    texts = [(art["headline"], art["category"])]
+    footer = f"{source_label(rec)}  ·  KI-generiert"
+    texts = [(art["headline"], art.get("rubrik") or art["category"])]
     texts += [(s, "Kurz erklärt") for s in art["video_slides"]]
     texts += [(f"Mehr auf {host}", brand)]
 
@@ -218,7 +223,7 @@ def audio_duration(path: Path) -> float | None:
 
 
 def render_caption_frame(size, headline: str, caption: str, footer: str, brand: str,
-                         accent: str, category: str) -> Image.Image:
+                         accent: str, category: str, kicker: str = "") -> Image.Image:
     """Hintergrund + kleine Schlagzeile oben + großer Untertitel unten (wie bei TikTok/Reels üblich)."""
     w, h = size
     img = _gradient(size, *palette_for(category))
@@ -226,7 +231,7 @@ def render_caption_frame(size, headline: str, caption: str, footer: str, brand: 
     m = int(w * 0.08)
     d.rectangle([m, m, m + 14, m + 64], fill=accent)
     d.text((m + 34, m + 6), brand.upper(), font=_font(int(w * 0.04)), fill="white")
-    d.text((m, m + 110), category.upper(), font=_font(int(w * 0.03)), fill=accent)
+    d.text((m, m + 110), (kicker or category).upper(), font=_font(int(w * 0.03)), fill=accent)
 
     # Schlagzeile klein (max. 4 Zeilen)
     for fs in range(int(w * 0.055), 24, -2):
@@ -275,7 +280,7 @@ def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Pa
     text = art.get("narration") or ""
     if not total or not text.strip():
         return None
-    footer = f"Quelle: {rec['source']['name']}  ·  KI-generiert  ·  KI-Stimme"
+    footer = f"{source_label(rec)}  ·  KI-generiert  ·  KI-Stimme"
     chunks = split_captions(text)
     durs = caption_durations(chunks, total)
 
@@ -286,7 +291,7 @@ def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Pa
         for i, (chunk, dur) in enumerate(zip(chunks, durs)):
             png = tmp_p / f"c{i}.png"
             render_caption_frame(STORY_SIZE, art["headline"], chunk, footer, brand, accent,
-                                 art["category"]).save(png)
+                                 art["category"], art.get("rubrik", "")).save(png)
             lines += [f"file '{png}'", f"duration {dur:.3f}"]
         end = tmp_p / "end.png"
         render_card(STORY_SIZE, f"Mehr auf {host}", brand, footer, brand, accent, art["category"]).save(end)

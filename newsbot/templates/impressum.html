@@ -8,6 +8,6 @@
   <p>[Vor- und Nachname bzw. Firma]<br>[Straße und Hausnummer]<br>[PLZ Ort]</p>
   <p>E-Mail: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
   <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: [Name, Anschrift]</p>
-  <p>Hinweis: Die Inhalte dieser Seite werden automatisiert mit Hilfe künstlicher Intelligenz erstellt.</p>
+  <p>Hinweis: Die Inhalte dieser Seite werden mit Hilfe künstlicher Intelligenz erstellt{% if cfg.review %} und vor der Veröffentlichung redaktionell freigegeben{% endif %}.</p>
 </article>
 {% endblock %}

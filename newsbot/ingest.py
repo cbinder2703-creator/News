@@ -63,6 +63,7 @@ def select(
     max_age_hours: int,
     limit: int,
     now: datetime | None = None,
+    dedupe: bool = True,
 ) -> list[SourceItem]:
     """Neueste, ungesehene, nicht doppelte Meldungen, reihum über die Quellen verteilt."""
     now = now or datetime.now(timezone.utc)
@@ -73,7 +74,7 @@ def select(
     unique: list[SourceItem] = []
     for it in fresh:
         t = it.title.lower()
-        if any(SequenceMatcher(None, t, u.title.lower()).ratio() > 0.75 for u in unique):
+        if dedupe and any(SequenceMatcher(None, t, u.title.lower()).ratio() > 0.75 for u in unique):
             continue
         unique.append(it)
 

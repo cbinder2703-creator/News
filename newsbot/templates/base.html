@@ -17,7 +17,7 @@
 </header>
 <main>{% block main %}{% endblock %}</main>
 <footer>
-  <p>Alle Beiträge werden automatisch mit KI auf Basis der genannten Quellen erstellt und nicht von Menschen vorab geprüft.
+  <p>{% if cfg.review %}Alle Beiträge werden mit KI auf Basis der genannten Quellen entworfen und vor der Veröffentlichung von der Redaktion freigegeben.{% else %}Alle Beiträge werden automatisch mit KI auf Basis der genannten Quellen erstellt und nicht von Menschen vorab geprüft.{% endif %}
      Fehler melden: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
   <p>© {{ year }} {{ cfg.brand_name }} · <a href="{{ base }}/ueber-uns/">Über uns</a> ·
      <a href="{{ base }}/impressum/">Impressum</a> · <a href="{{ base }}/datenschutz/">Datenschutz</a> ·

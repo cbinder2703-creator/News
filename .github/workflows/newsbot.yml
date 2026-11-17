@@ -1,10 +1,16 @@
 name: newsbot
 
-# Alle 2 Stunden neue Beiträge erzeugen, Website veröffentlichen, dann auf Social Media posten.
+# Täglich Entwürfe erzeugen. Du liest sie (Zusammenfassung des Laufs) und gibst sie frei:
+# Actions > newsbot > Run workflow > Feld "approve" (IDs oder "alle"). Erst dann gehen Website und Social Media online.
 on:
   schedule:
-    - cron: "17 */2 * * *"
+    - cron: "17 5 * * *"
   workflow_dispatch:
+    inputs:
+      approve:
+        description: 'Entwürfe freigeben: IDs (mit Komma) oder "alle". Leer lassen = neue Entwürfe erzeugen.'
+        required: false
+        default: ""
 
 concurrency:
   group: newsbot
@@ -24,7 +30,14 @@ jobs:
         with: { python-version: "3.12", cache: pip }
       - run: pip install -r requirements.txt
       - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core
-      - name: Neue Beiträge erzeugen
+      - name: Entwürfe freigeben
+        if: ${{ inputs.approve != '' }}
+        env:
+          APPROVE: ${{ inputs.approve }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: python -m newsbot approve "$APPROVE"
+      - name: Neue Entwürfe erzeugen
+        if: ${{ inputs.approve == '' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos

@@ -10,15 +10,30 @@ brand:
 
 ai:
   model: "claude-opus-5-5"
-  disclosure: "Dieser Beitrag wurde von einer KI auf Basis der genannten Quelle erstellt."
+  disclosure: "Dieser Beitrag wurde mit KI auf Basis der genannten Quellen erstellt."
 
 voice:                       # Sprecherstimme für die Videos (ElevenLabs)
   enabled: true              # braucht das Secret ELEVENLABS_API_KEY, sonst entstehen stumme Videos
   voice_id: "21m00Tcm4TlvDq8ikWAM"   # Standardstimme "Rachel"; eigene Stimme in der ElevenLabs-Bibliothek wählen
   model_id: "eleven_multilingual_v2" # deutsch-fähiges Modell; ggf. durch ein neueres ersetzen
 
+# Redaktionelle Linie: Das ist dein Hebel. Hier legst du Haltung und Themen fest, die KI hält sich daran.
+editorial:
+  mode: review               # review: KI erstellt Entwürfe, du gibst sie frei (wenige Minuten) | auto: ohne Freigabe
+  haltung: |
+    Wir erklären Tech- und KI-Themen nüchtern und verständlich für Menschen ohne Vorwissen.
+    Wir sind kritisch, aber fair: Wir prüfen Ankündigungen auf ihren tatsächlichen Gehalt, trennen
+    Fakten von Marketing und Spekulation, benennen Unsicherheiten offen und erklären, was etwas für
+    Nutzerinnen und Nutzer konkret bedeutet. Keine Panikmache, kein Hype, keine Schadenfreude.
+  rubriken:
+    - { name: "Hype-Check",          frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
+    - { name: "Was steckt dahinter?", frage: "Welcher Hintergrund und welche Zusammenhänge helfen, die Meldung zu verstehen?" }
+    - { name: "Kurz erklärt",         frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
+  focus: ["KI und Sprachmodelle", "Datenschutz und Sicherheit im Alltag", "Folgen für Nutzer"]   # bevorzugte Themen
+  avoid: ["Rabattaktionen und Deals", "Gewinnspiele", "reine Gerüchte"]                           # meiden
+
 pipeline:
-  articles_per_run: 3        # neue Beiträge pro Lauf
+  articles_per_run: 3        # Themen pro Lauf (täglich)
   max_age_hours: 24          # nur Meldungen, die jünger sind
   max_auto_risk: medium      # low | medium  -> "high" wird nie automatisch veröffentlicht
   videos_for_recent: 20      # Videos nur für die letzten N Beiträge erzeugen
