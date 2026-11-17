@@ -29,6 +29,14 @@
   {% if a.verdict %}<blockquote class="verdict"><strong>{{ cfg.brand_name }}-Einordnung</strong><br>{{ a.verdict }}</blockquote>{% endif %}
   {% if a.open_questions %}<h3>Das wissen wir noch nicht</h3>
   <ul>{% for q in a.open_questions %}<li>{{ q }}</li>{% endfor %}</ul>{% endif %}
+  {% if shop %}
+  <aside class="shop" aria-label="Anzeige">
+    <h3>Passende Produkte <span class="ad">Anzeige</span></h3>
+    <p class="ai-note">{{ cfg.affiliate_disclosure }}{% if amazon_on and cfg.affiliate_amazon_notice %} {{ cfg.affiliate_amazon_notice }}{% endif %}</p>
+    <ul>{% for sidea in shop %}<li><strong>{{ sidea.label }}</strong>{% if sidea.reason %}: {{ sidea.reason }}{% endif %}<br>
+      {% for l in sidea.links %}<a href="{{ l.url }}" rel="sponsored nofollow noopener" target="_blank">{{ l.program }}: „{{ sidea.query }}“ ansehen (Anzeige)</a>{% if not loop.last %} · {% endif %}{% endfor %}</li>{% endfor %}</ul>
+  </aside>
+  {% endif %}
   {% if rec.has_video %}
   <video controls playsinline preload="none" poster="{{ base }}/media/{{ rec.id }}/og.jpg" src="{{ base }}/media/{{ rec.id }}/video.mp4"></video>
   {% endif %}

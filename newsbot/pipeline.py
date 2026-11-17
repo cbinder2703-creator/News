@@ -9,6 +9,7 @@ from pathlib import Path
 
 from . import voice as voice_mod
 from .config import RISK_ORDER, Config
+from .affiliate import build_shop_boxes
 from .editor import Topic
 from .ingest import SourceItem, fetch, select
 from .site import build_site
@@ -125,7 +126,7 @@ def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
     return approved
 
 
-def drafts_markdown(store: Store) -> str:
+def drafts_markdown(store: Store, cfg: Config | None = None) -> str:
     """Übersicht der offenen Entwürfe zum schnellen Lesen (z. B. in der GitHub-Actions-Zusammenfassung am Handy)."""
     pending = [r for r in store.all() if r["status"] in ("draft", "held")]
     if not pending:
@@ -141,8 +142,16 @@ def drafts_markdown(store: Store) -> str:
         secs = "\n\n".join(f"**{s['heading']}**\n\n{s['text']}" for s in a.get("sections", []))
         qs = "\n".join(f"- {q}" for q in a.get("open_questions", []))
         srcs = "\n".join(f"- [{s['name']}: {s['title']}]({s['url']})" for s in r.get("sources", [r["source"]]))
+        shop = ""
+        ideas = a.get("shopping", [])
+        if ideas:
+            boxes = build_shop_boxes(cfg, ideas) if cfg else []
+            shop = "\n\n**Produktideen (Anzeige-Kasten):**\n" + (
+                "\n".join(f"- {b['label']} (Suche: {b['query']}): " + ", ".join(f"[{l['program']}]({l['url']})" for l in b["links"])
+                          for b in boxes) if boxes else
+                "\n".join(f"- {i['label']} (Suche: {i['query']})" for i in ideas) + "\n_(Affiliate aus oder nicht eingerichtet: keine Links)_")
         out.append(f"<details><summary>Ganzen Entwurf lesen</summary>\n\n{body}\n\n{secs}\n\n"
-                   f"> {a.get('verdict', '')}\n\n**Noch offen:**\n{qs}\n\n**Quellen:**\n{srcs}\n\n"
+                   f"> {a.get('verdict', '')}\n\n**Noch offen:**\n{qs}\n\n**Quellen:**\n{srcs}{shop}\n\n"
                    f"**Sprechtext:** {a.get('narration', '')}\n\n</details>\n")
     return "\n".join(out)
 

@@ -40,6 +40,26 @@ python -m pytest                     # Tests
 5. **Social-Kanäle anbinden** (je ein Secret-Satz, siehe `.env.example`), siehe unten.
    Das kann parallel zum Website-Betrieb laufen; die Freigaben der Plattformen dauern Tage bis Wochen.
 
+## Affiliate (Amazon, OTTO)
+
+Standardmäßig **aus** (`affiliate.enabled: false`). Wenn aktiv, erscheint unter passenden Beiträgen ein Kasten
+„Passende Produkte · Anzeige“ mit Suchlinks. Die KI liefert dafür nur neutrale Suchbegriffe (z. B. „WLAN Router“), keine Marken, Preise
+oder Empfehlungen. Themenwahl, Text und Einordnung hängen nie davon ab, ob es passende Produkte gibt. Bei reinen Branchenmeldungen bleibt der Kasten leer.
+Die Links entstehen erst beim Bauen der Seite; eine geänderte ID wirkt sofort überall. In den Social-Posts stehen keine Affiliate-Links.
+In der Entwurfs-Zusammenfassung siehst du die Produktideen samt fertigen Links vor der Freigabe.
+
+**Einrichten:**
+1. **Amazon:** Bei PartnerNet (partnernet.amazon.de) mit deiner fertigen Website bewerben. Danach in `config.yaml` bei `programs → Amazon` deine Tracking-ID als `tag` eintragen und `enabled: true` setzen.
+   Nach meinem Wissen (nicht geprüft, bitte in den Teilnahmebedingungen nachlesen): Das Konto kann geschlossen werden, wenn in den ersten 180 Tagen nicht genug qualifizierte Verkäufe zusammenkommen; Preise dürfen nur mit aktuellen Daten angezeigt werden (deshalb zeigen wir keine); der Pflichthinweis muss sichtbar sein.
+2. **OTTO:** Das Partnerprogramm läuft laut OTTO über **Awin**. In Awin bei OTTO bewerben, dann `awinmid` (OTTO-Programm-ID) und `awinaffid` (deine Publisher-ID) in `link_template` eintragen und `enabled: true` setzen. Nach meinem Wissen sind das die richtigen Parameter, prüfe es mit einem Testklick im Awin-Konto. Die Suchadresse `search_url` ist ebenfalls zu prüfen.
+3. Programme mit Platzhaltern (`DEINE_…`) oder fehlender ID bleiben automatisch aus, es gehen keine kaputten Links online.
+4. Zuletzt `affiliate.enabled: true`.
+
+**Rechtliches (Vorlage, keine Rechtsberatung):** Affiliate-Links müssen in Deutschland als Werbung erkennbar sein. Das Projekt setzt „Anzeige“ am Kasten und an jedem Link,
+`rel="sponsored"`, den Amazon-Pflichthinweis und einen Absatz im Datenschutz. Prüfe Wortlaut und Datenschutztext rechtlich, bevor du live gehst.
+Ein Kasten mit gekennzeichneten Links ist nicht dasselbe wie eine Kaufempfehlung. Wir testen keine Produkte, deshalb gibt es keine Rankings und keine „Testsieger“.
+Das schützt auch deine Glaubwürdigkeit als kritisches Erklärformat.
+
 ## Sprecherstimme und Videos
 
 Jedes Video hat eine KI-Sprecherstimme (ElevenLabs) und eingebrannte Untertitel, die zum gesprochenen Text passen.
@@ -106,6 +126,7 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
 | `newsbot/ingest.py` | RSS lesen, bereinigen, Dubletten filtern |
 | `newsbot/editor.py` | KI-Chefredaktion: Themen wählen, Quellen bündeln |
 | `newsbot/writer.py` | KI-Autor: Erklärbeitrag, Einordnung, Risiko, Social-Texte |
+| `newsbot/affiliate.py` | Affiliate-Links (Amazon, OTTO/Awin) als gekennzeichneter Kasten |
 | `newsbot/media.py` | Bildkarten (Pillow) und 9:16-Video (ffmpeg) |
 | `newsbot/site.py` + `templates/` | statische Website, RSS-Feed, Sitemap |
 | `newsbot/social.py` | Facebook-, Instagram-, TikTok-Adapter |

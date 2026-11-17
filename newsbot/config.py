@@ -36,6 +36,11 @@ class Config:
     rubriken: list[dict] = field(default_factory=list)
     focus: list[str] = field(default_factory=list)
     avoid: list[str] = field(default_factory=list)
+    affiliate_enabled: bool = False
+    affiliate_max: int = 3
+    affiliate_disclosure: str = ""
+    affiliate_amazon_notice: str = ""
+    affiliate_programs: list[dict] = field(default_factory=list)
     sources: list[dict] = field(default_factory=list)
 
     @property
@@ -53,6 +58,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
     b, ai, p, s = raw["brand"], raw["ai"], raw["pipeline"], raw["social"]
     v = raw.get("voice") or {}
     ed = raw.get("editorial") or {}
+    af = raw.get("affiliate") or {}
     return Config(
         brand_name=b["name"],
         tagline=b.get("tagline", ""),
@@ -79,5 +85,10 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         rubriken=ed.get("rubriken") or [],
         focus=ed.get("focus") or [],
         avoid=ed.get("avoid") or [],
+        affiliate_enabled=bool(af.get("enabled", False)),
+        affiliate_max=int(af.get("max_links_per_article", 3)),
+        affiliate_disclosure=af.get("disclosure", "Anzeige: Affiliate-Links."),
+        affiliate_amazon_notice=af.get("amazon_notice", ""),
+        affiliate_programs=af.get("programs") or [],
         sources=raw.get("sources", []),
     )

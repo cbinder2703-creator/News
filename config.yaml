@@ -29,8 +29,27 @@ editorial:
     - { name: "Hype-Check",          frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
     - { name: "Was steckt dahinter?", frage: "Welcher Hintergrund und welche Zusammenhänge helfen, die Meldung zu verstehen?" }
     - { name: "Kurz erklärt",         frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
+    - { name: "Ratgeber",             frage: "Worauf sollten Käufer achten? Kriterien und Fragen, keine Produkttests und keine Rankings." }
   focus: ["KI und Sprachmodelle", "Datenschutz und Sicherheit im Alltag", "Folgen für Nutzer"]   # bevorzugte Themen
   avoid: ["Rabattaktionen und Deals", "Gewinnspiele", "reine Gerüchte"]                           # meiden
+
+# Affiliate: Produkt-Links nur als gekennzeichneter Kasten unter dem Beitrag, nie in Einordnung oder Themenwahl.
+affiliate:
+  enabled: false             # erst auf true, wenn mindestens ein Programm unten aktiv ist
+  max_links_per_article: 3
+  disclosure: "Anzeige: Wenn du über diese Links kaufst, erhalten wir eventuell eine Provision. Für dich ändert sich der Preis nicht. Unsere Einordnung im Beitrag ist davon unabhängig."
+  amazon_notice: "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen."   # Wortlaut bitte in PartnerNet prüfen
+  programs:
+    - name: "Amazon"
+      kind: amazon
+      enabled: false         # true setzen, sobald dein PartnerNet-Konto freigeschaltet ist
+      domain: "www.amazon.de"
+      tag: ""                # deine Tracking-ID, z. B. meinname-21
+    - name: "OTTO"
+      kind: template         # läuft über Awin; IDs stehen in deinem Awin-Konto
+      enabled: false
+      search_url: "https://www.otto.de/suche/{query}/"
+      link_template: "https://www.awin1.com/cread.php?awinmid=DEINE_OTTO_MERCHANT_ID&awinaffid=DEINE_AWIN_ID&ued={url}"
 
 pipeline:
   articles_per_run: 3        # Themen pro Lauf (täglich)

@@ -65,14 +65,14 @@ def main(argv: list[str] | None = None) -> int:
             print("ANTHROPIC_API_KEY fehlt (siehe .env.example). Zum Ausprobieren: python -m newsbot demo", file=sys.stderr)
             return 2
         pipeline.generate(cfg, store, Writer(cfg), editor=Editor(cfg))
-        _write_summary(pipeline.drafts_markdown(store))
+        _write_summary(pipeline.drafts_markdown(store, cfg))
     if args.command == "approve":
         done = pipeline.approve(cfg, store, args.arg or "alle")
         print(f"{len(done)} Beiträge freigegeben")
         if not done:
             print("Nichts freigegeben: IDs prüfen (siehe `python -m newsbot drafts`).", file=sys.stderr)
     if args.command == "drafts":
-        print(pipeline.drafts_markdown(store))
+        print(pipeline.drafts_markdown(store, cfg))
     if args.command in ("build", "run"):
         pipeline.build(cfg, store, args.out)
     if args.command == "publish":

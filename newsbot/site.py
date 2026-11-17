@@ -7,6 +7,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from .affiliate import active_programs, build_shop_boxes, has_amazon
 from .config import Config
 from .media import make_images, make_narrated_video, make_video
 
@@ -40,7 +41,8 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
 
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
     env.filters.update(de_date=de_date, rfc822=rfc822)
-    env.globals.update(cfg=cfg, base=cfg.base_path, year=datetime.now().year)
+    env.globals.update(cfg=cfg, base=cfg.base_path, year=datetime.now().year,
+                       affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
 
     videos: dict[str, Path] = {}
     for n, rec in enumerate(records):
@@ -60,8 +62,9 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
                 rec["has_video"] = True
         page = out / "a" / rec["slug"]
         page.mkdir(parents=True)
+        shop = build_shop_boxes(cfg, rec["article"].get("shopping", []))
         (page / "index.html").write_text(
-            env.get_template("article.html").render(rec=rec, a=rec["article"], title=rec["article"]["headline"]),
+            env.get_template("article.html").render(rec=rec, a=rec["article"], title=rec["article"]["headline"], shop=shop),
             encoding="utf-8",
         )
 
