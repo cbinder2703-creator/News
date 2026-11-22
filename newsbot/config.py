@@ -48,6 +48,7 @@ class Config:
     admin_api_url: str = ""
     show_sources: bool = True
     show_video: bool = False
+    contact_form_key: str = ""
     sources: list[dict] = field(default_factory=list)
 
     @property
@@ -104,6 +105,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         guide_topics=[t for t in (gd.get("topics") or []) if t.get("slug") and t.get("title")],
         show_sources=bool(ed.get("show_sources", True)),
         show_video=bool(ed.get("show_video", False)),
+        contact_form_key=str((raw.get("contact_form") or {}).get("access_key") or "").strip(),
         admin_api_url=((raw.get("admin") or {}).get("api_url") or "").rstrip("/"),
         sources=raw.get("sources", []),
     )

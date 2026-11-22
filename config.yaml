@@ -79,6 +79,12 @@ guides:
 admin:
   api_url: "https://dealpuls-admin.c-binder2703.workers.dev"
 
+# Kontaktformular im Impressum (zweiter Kontaktweg neben der E-Mail). Dienst: Web3Forms (web3forms.com).
+# access_key: den kostenlosen Zugangsschlüssel bekommst du per E-Mail (er ist öffentlich gedacht und kein Geheimnis).
+# Leer lassen = kein Formular, nur die E-Mail-Adresse. Siehe README "Kontaktformular".
+contact_form:
+  access_key: ""
+
 pipeline:
   articles_per_run: 3      # Themen pro Lauf (täglich)
   max_age_hours: 24          # nur Meldungen, die jünger sind

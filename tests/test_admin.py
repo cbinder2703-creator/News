@@ -90,3 +90,26 @@ def test_admin_js_never_uses_html_injection():
     js = (ROOT / "newsbot" / "static" / "admin.js").read_text(encoding="utf-8")
     for bad in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
         assert bad not in js, bad
+
+
+def test_contact_form_only_appears_with_an_access_key(cfg, store, tmp_path):
+    cfg.contact_form_key = ""
+    out = pipeline.build(cfg, store, tmp_path / "off")
+    page = (out / "impressum" / "index.html").read_text(encoding="utf-8")
+    assert "contact-form" not in page and "Zweiter Kontaktweg" not in page
+    assert "Web3Forms" not in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+
+    cfg.contact_form_key = "abc-123"
+    out = pipeline.build(cfg, store, tmp_path / "on")
+    page = (out / "impressum" / "index.html").read_text(encoding="utf-8")
+    assert 'action="https://api.web3forms.com/submit"' in page and 'name="access_key" value="abc-123"' in page
+    assert page.count("required") >= 4  # Name, E-Mail, Nachricht, Einwilligung
+    assert 'name="botcheck"' in page and "Zweiter Kontaktweg: Kontaktformular" in page
+    assert (out / "static" / "contact.js").exists()
+    assert "Web3Forms" in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+
+
+def test_contact_js_never_uses_html_injection():
+    js = (ROOT / "newsbot" / "static" / "contact.js").read_text(encoding="utf-8")
+    for bad in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval(", "new Function"):
+        assert bad not in js, bad
