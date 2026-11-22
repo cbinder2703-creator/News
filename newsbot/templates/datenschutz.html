@@ -2,17 +2,46 @@
 {% block main %}
 <article class="post">
   <h1>Datenschutzerklärung</h1>
-  <p class="ai-note"><strong>VORLAGE – vor dem Livegang prüfen und ergänzen.</strong></p>
-  <p>Diese Website ist statisch, setzt selbst keine Cookies und bindet keine Tracking-Dienste ein.</p>
-  <p>Beim Aufruf verarbeitet der Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt) in Server-Logfiles.
-     Bei GitHub Pages ist das GitHub, Inc. bzw. dessen Konzerngesellschaften; Näheres in deren Datenschutzerklärung.</p>
-  {% if affiliate_on %}<p><strong>Affiliate-Links:</strong> Einige Links führen zu Partnershops (z. B. Amazon, OTTO über das Netzwerk Awin).
-     Erst wenn du einen solchen Link anklickst, werden beim Partner bzw. Netzwerk Daten verarbeitet und Cookies gesetzt, damit ein Kauf
-     uns zugeordnet werden kann. Auf diese Verarbeitung haben wir keinen Einfluss; es gelten die Datenschutzerklärungen der Partner.
-     <em>(Vorlage: bitte rechtlich prüfen und um die Angaben der Partner ergänzen.)</em></p>{% endif %}
-  <p>Wenn du uns per E-Mail kontaktierst, verwenden wir deine Angaben nur zur Bearbeitung der Anfrage.</p>
-  <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung und Beschwerde bei einer Aufsichtsbehörde.
-     Verantwortlich: siehe <a href="{{ base }}/impressum/">Impressum</a>.</p>
-  <p>Auf Instagram, Facebook und TikTok gelten zusätzlich die Datenschutzbestimmungen der jeweiligen Plattform.</p>
+  <p class="lead-text">Kurz gesagt: Diese Website setzt keine Cookies, nutzt kein Tracking und bindet keine Inhalte von Dritten ein.
+     Unten steht, welche Daten trotzdem technisch anfallen.</p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>Christopher Binder, c/o Online-Impressum 12598, Europaring 90, 53757 Sankt Augustin, Deutschland.<br>
+     E-Mail: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a>. Weitere Angaben im <a href="{{ base }}/impressum/">Impressum</a>.</p>
+
+  <h2>2. Hosting und Server-Logfiles</h2>
+  <p>Diese Website ist statisch und wird über GitHub Pages ausgeliefert (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA,
+     bzw. Konzerngesellschaften). Beim Aufruf einer Seite verarbeitet der Hosting-Anbieter technisch notwendige Daten, zum Beispiel IP-Adresse,
+     Datum und Uhrzeit, aufgerufene Seite und Browserangaben, um die Seite auszuliefern und missbräuchliche Zugriffe abzuwehren.
+     Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO).
+     Eine Verarbeitung in den USA ist dabei möglich; Näheres und die Rechtsgrundlage für die Übermittlung nennt GitHub in der eigenen Datenschutzerklärung.
+     Wir selbst erstellen keine Nutzerprofile und werten Zugriffe nicht aus.</p>
+  <p>Die Domain wird bei der STRATO GmbH verwaltet. Dort werden Anfragen zur Auflösung des Domainnamens technisch verarbeitet.</p>
+
+  <h2>3. Cookies, Tracking und Drittinhalte</h2>
+  <p>Wir setzen keine Cookies, keine Analyse- oder Werbedienste und keine Social-Media-Plugins ein. Schriften, Bilder und Videos liegen auf unserer eigenen Domain.
+     Links zu externen Seiten (Quellen, Shops, soziale Netzwerke) führen erst beim Anklicken zu dem jeweiligen Anbieter.</p>
+
+  {% if affiliate_on %}<h2>4. Affiliate-Links</h2>
+  <p>Einige Links führen zu Partnershops (zum Beispiel Amazon oder OTTO über das Netzwerk Awin) und sind als „Anzeige“ gekennzeichnet.
+     Erst wenn du einen solchen Link anklickst, verarbeiten der Partner bzw. das Netzwerk Daten und setzen unter Umständen Cookies, damit ein Kauf uns zugeordnet werden kann.
+     Darauf haben wir keinen Einfluss; es gelten die Datenschutzerklärungen der Partner.</p>
+  {% endif %}
+
+  <h2>{{ 5 if affiliate_on else 4 }}. Kontakt per E-Mail</h2>
+  <p>Wenn du uns schreibst, verarbeiten wir deine Angaben (zum Beispiel E-Mail-Adresse und Inhalt der Nachricht) nur zur Bearbeitung deiner Anfrage
+     (Art. 6 Abs. 1 lit. f DSGVO, bei Vertragsbezug lit. b). Wir löschen sie, sobald die Anfrage erledigt ist und keine Aufbewahrungspflichten bestehen.
+     Das E-Mail-Postfach wird bei der STRATO GmbH betrieben.</p>
+
+  <h2>{{ 6 if affiliate_on else 5 }}. Soziale Netzwerke</h2>
+  <p>Wir veröffentlichen Beiträge auch auf Instagram, Facebook und TikTok. Für die Verarbeitung auf diesen Plattformen sind deren Betreiber verantwortlich;
+     es gelten deren Datenschutzbestimmungen.</p>
+
+  <h2>{{ 7 if affiliate_on else 6 }}. Deine Rechte</h2>
+  <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen die Verarbeitung
+     aufgrund berechtigter Interessen. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der
+     Landesbeauftragten für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.</p>
+
+  <p class="admin-note">Stand: November 2026. Diese Erklärung beschreibt den aktuellen Zustand der Website und wird angepasst, wenn sich etwas ändert.</p>
 </article>
 {% endblock %}
