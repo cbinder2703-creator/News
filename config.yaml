@@ -71,7 +71,7 @@ guides:
 # Admin-Seite zum Freigeben unter /admin/ (Login über einen kleinen Cloudflare-Worker, siehe README "Admin-Seite").
 # Leer lassen = es wird keine Admin-Seite gebaut. Danach hier die Adresse des Workers eintragen, z. B. https://dealpuls-admin.DEIN-NAME.workers.dev
 admin:
-  api_url: ""
+  api_url: "https://dealpuls-admin.c-binder2703.workers.dev"
 
 pipeline:
   articles_per_run: 3      # Themen pro Lauf (täglich)
