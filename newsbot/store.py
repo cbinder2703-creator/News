@@ -47,6 +47,10 @@ class Store:
     def audio_path(self, article_id: str) -> Path:
         return self.audio_dir / f"{article_id}.mp3"
 
+    # --- Titelfotos (einmal geholt und committet; so kommt beim Seitenaufruf nichts von Dritten)
+    def photo_path(self, article_id: str) -> Path:
+        return self.dir / "photos" / f"{article_id}.jpg"
+
     def prune_audio(self, keep_ids: list[str]) -> None:
         """Löscht Aufnahmen älterer Beiträge, die kein Video mehr bekommen (hält das Repo klein)."""
         keep = {f"{i}.mp3" for i in keep_ids}

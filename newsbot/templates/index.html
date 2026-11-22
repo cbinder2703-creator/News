@@ -8,7 +8,7 @@
 <div class="grid">
 {% for r in records %}
   <a class="card{% if loop.first %} lead{% endif %}" href="{{ base }}/a/{{ r.slug }}/">
-    <img src="{{ base }}/media/{{ r.id }}/hero.jpg" alt="" width="1200" height="630" loading="{{ 'eager' if loop.first else 'lazy' }}">
+    {{ image_for(r, eager=loop.first) }}
     <div class="meta"><span class="cat">{{ r.article.rubrik or r.article.category }}</span> · {{ r.created_at | de_day }}</div>
     <h2>{{ r.article.headline }}</h2>
     <p>{{ r.article.teaser }}</p>

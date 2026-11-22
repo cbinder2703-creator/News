@@ -27,7 +27,7 @@
   <div class="meta"><a class="cat chip" href="{{ base }}/thema/{{ cat.slug }}/">{{ a.rubrik or a.category }}</a> <time datetime="{{ rec.created_at }}">{{ rec.created_at | de_date }}</time></div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.teaser }}</p>
-  <img class="hero" src="{{ base }}/media/{{ rec.id }}/hero.jpg" alt="" width="1200" height="630" fetchpriority="high">
+  <figure class="photo">{{ image_for(rec, hero=True) }}{% if rec.has_photo and rec.photo.photographer %}<figcaption>Foto: <a href="{{ rec.photo.photographer_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.photographer }}</a> auf <a href="{{ rec.photo.page_url }}" rel="noopener nofollow" target="_blank">Pexels</a></figcaption>{% endif %}</figure>
   <div class="keypoints"><h2>Das Wichtigste in Kürze</h2>
   <ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul></div>
   <h2>Worum es geht</h2>

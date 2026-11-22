@@ -7,7 +7,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import notify, pipeline
+from . import notify, photos, pipeline
 from .config import load_config
 from .store import Store
 from .editor import Editor, StubEditor
@@ -38,10 +38,10 @@ def _write_summary(markdown: str) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
     ap.add_argument("command", choices=["generate", "approve", "reject", "decisions", "notify", "drafts", "build",
-                                        "publish", "run", "guide", "demo"],
+                                        "publish", "run", "guide", "photos", "demo"],
                     help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
                          "reject: Entwürfe ablehnen | decisions: Klicks aus WhatsApp umsetzen (data/decisions) | "
-                         "notify: neue Entwürfe per WhatsApp schicken | "
+                         "notify: neue Entwürfe per WhatsApp schicken | photos: Titelfotos von Pexels holen | "
                          "drafts: offene Entwürfe zeigen | build: Website | publish: Social-Posts | run: generate+build | "
                          "guide: Kaufberater <slug> neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
     ap.add_argument("arg", nargs="?", default="",
@@ -103,6 +103,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"WhatsApp-Entscheidungen: {len(res['approved'])} freigegeben, {len(res['rejected'])} abgelehnt")
     if args.command == "notify":
         print(f"{notify.notify(cfg, store)} WhatsApp-Nachrichten gesendet")
+    if args.command == "photos":
+        print(f"{photos.backfill(store)} Fotos geholt")
     if args.command == "drafts":
         print(pipeline.drafts_markdown(store, cfg))
     if args.command in ("build", "run"):

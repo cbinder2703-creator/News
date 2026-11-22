@@ -254,7 +254,8 @@ def write_drafts_index(store: Store) -> Path:
 
 def build(cfg: Config, store: Store, out: str | Path = "public") -> Path:
     records = store.live()
-    build_site(cfg, records, Path(out), audio_dir=store.audio_dir, guides=store.guides())
+    build_site(cfg, records, Path(out), audio_dir=store.audio_dir, guides=store.guides(),
+               photos_dir=store.dir / "photos")
     log.info("Website mit %d Beiträgen nach %s gebaut", len(records), out)
     return Path(out)
 

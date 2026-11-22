@@ -7,6 +7,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from .config import Config
+from .icons import ICONS
 from .ingest import SourceItem
 
 log = logging.getLogger("newsbot.writer")
@@ -97,7 +98,13 @@ Formate:
 - instagram_caption: 2-4 Sätze<<IG_END>> (ohne Hashtags). tiktok_caption: max. 150 Zeichen, ohne Hashtags.
 - facebook_text: 2-3 Sätze, die zum Klick einladen (ohne Druck). hashtags: 4-6 passende ohne '#'.
 - category: ein Wort (KI, Gaming, Hardware, Software, Sicherheit, Netz, Wirtschaft ...). rubrik: exakter Name der gewählten Rubrik.
-- image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz."""
+- image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz.
+- icon: genau EIN Symbol für das Titelbild, das zum Hauptprodukt oder Thema passt. Erlaubt sind nur: <<ICONS>>.
+  Beispiele: Balkonkraftwerk = solar, WLAN-Router = router, Lautsprecher oder Sprachassistent = speaker, sonst das nächstliegende;
+  nichts Passendes = tag.
+- image_query: englische Suchanfrage (2-4 Wörter) für ein zum Thema passendes Stockfoto. Ein allgemeines, neutrales Motiv
+  (Produktart oder Alltagssituation), nie eine bestimmte Marke, Person oder ein bestimmtes Modell.
+  Beispiele: "balcony solar panels", "wifi router desk", "smart speaker living room", "robot vacuum cleaner"."""
 
 
 def _all_required(schema: dict, model: type) -> None:
@@ -149,6 +156,8 @@ class Article(BaseModel):
     facebook_text: str
     hashtags: list[str] = Field(default_factory=list)
     image_alt: str = ""
+    icon: str = ""
+    image_query: str = ""
     narration: str = ""
     shopping: list[ShopIdea] = Field(default_factory=list)
     focus_keyword: str = ""
@@ -186,6 +195,8 @@ class Article(BaseModel):
             "faq": [FAQ(question=cut(f.question, 120), answer=cut(f.answer, 600)) for f in self.faq[:4]
                     if f.question.strip() and f.answer.strip()],
             "guide": self.guide.strip(),
+            "icon": self.icon.strip().lower() if self.icon.strip().lower() in ICONS else "",
+            "image_query": " ".join(self.image_query.split())[:60],
         })
 
 
@@ -215,6 +226,7 @@ class Writer:
         self.system = (SYSTEM_PROMPT.replace("<<BRAND>>", cfg.brand_name).replace("<<TAGLINE>>", cfg.tagline)
                        .replace("<<HALTUNG>>", cfg.haltung or "Sachlich und verständlich.")
                        .replace("<<RUBRIKEN>>", rubriken)
+                       .replace("<<ICONS>>", ", ".join(ICONS))
                        .replace("<<NARR_END>>", ', am Ende "Quelle: ..." mit den Quellnamen' if cfg.show_sources
                                 else ", ohne eigene Quellenzeile am Ende (wer etwas berichtet, steht im Satz)")
                        .replace("<<IG_END>>", ' + "Quelle: ..."' if cfg.show_sources else ", ohne eigene Quellenzeile").replace("<<GUIDES>>", guides_list(cfg)))

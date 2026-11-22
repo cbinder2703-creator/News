@@ -61,6 +61,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos
         run: python -m newsbot generate
+      - name: Titelfotos holen
+        # Ohne PEXELS_API_KEY passiert nichts (die Seite zeigt dann Symbole). Ein Fehler stoppt den Lauf nicht.
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: python -m newsbot photos || true
       - name: Entwürfe per WhatsApp schicken
         if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.only_decisions != 'ja' }}
         env:

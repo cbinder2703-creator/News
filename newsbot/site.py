@@ -11,9 +11,11 @@ from datetime import datetime
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup, escape
 
 from .affiliate import active_programs, build_shop_boxes, has_amazon
 from .config import Config
+from .icons import thumb
 from .media import make_cards, make_images, make_narrated_video, make_video
 from .store import slugify
 
@@ -49,8 +51,31 @@ def breadcrumb_ld(cfg: Config, crumbs: list[tuple[str, str]]) -> dict:
                                 for n, (name, path) in enumerate(crumbs, 1)]}
 
 
+def article_text(a: dict) -> str:
+    """Text, aus dem sich ein passendes Symbol ableiten lässt (Überschrift, Suchwort, Rubrik, Produktideen)."""
+    ideas = " ".join(f"{i.get('label', '')} {i.get('query', '')}" for i in a.get("shopping", []))
+    return f"{a.get('headline', '')} {a.get('focus_keyword', '')} {a.get('category', '')} {ideas}"
+
+
+def image_html(rec: dict, base: str, hero: bool = False, eager: bool = False) -> Markup:
+    """Titelbild eines Beitrags: das Foto, sonst ein Symbol auf Farbverlauf. Immer im Format 1200:630."""
+    a = rec["article"]
+    if rec.get("has_photo"):
+        cls = ' class="hero"' if hero else ""
+        loading = ' fetchpriority="high"' if hero else f' loading="{"eager" if eager else "lazy"}"'
+        return Markup(f'<img{cls} src="{base}/media/{rec["id"]}/photo.jpg" alt="{escape(a.get("image_alt", ""))}" '
+                      f'width="1200" height="630"{loading}>')
+    return thumb(article_text(a), a.get("rubrik") or a.get("category", ""), a.get("icon", ""),
+                 "thumb hero" if hero else "thumb")
+
+
+def guide_image_html(g: dict) -> Markup:
+    return thumb(f"{g['topic'].get('title', '')} {g['topic'].get('keyword', '')} {g['topic'].get('category', '')}",
+                 "Kaufberater", "", "thumb")
+
+
 def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | None = None,
-               guides: list[dict] | None = None) -> dict[str, Path]:
+               guides: list[dict] | None = None, photos_dir: Path | None = None) -> dict[str, Path]:
     """Schreibt die Seite nach `out`. Gibt {article_id: Video-Pfad} der vorhandenen Videos zurück."""
     out = Path(out)
     if out.exists():
@@ -77,13 +102,18 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
     env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822)
     css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js"))).hexdigest()[:10]
-    env.globals.update(cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
+    env.globals.update(image_for=lambda rec, hero=False, eager=False: image_html(rec, cfg.base_path, hero, eager),
+                       guide_image=guide_image_html, cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
                        affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
 
     videos: dict[str, Path] = {}
     for n, rec in enumerate(records):
         media_dir = out / "media" / rec["id"]
         make_images(rec, cfg.brand_name, cfg.accent, media_dir, cfg.show_sources)
+        photo = photos_dir / f"{rec['id']}.jpg" if photos_dir else None
+        rec["has_photo"] = bool(photo and photo.exists() and rec.get("photo"))
+        if rec["has_photo"]:
+            shutil.copy(photo, media_dir / "photo.jpg")
         rec["has_video"] = False
         if n < cfg.videos_for_recent:
             target = media_dir / "video.mp4"
