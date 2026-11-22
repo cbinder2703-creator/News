@@ -1,4 +1,4 @@
-# TechPuls – automatische KI-Nachrichtenmarke
+# DealPuls – Deals und Kaufberatung mit KI
 
 Ein Erklärformat mit klarer Haltung statt Meldungs-Recycling. Täglich liest die Pipeline Tech-/KI-Quellen, eine
 KI-Chefredaktion bündelt mehrere Quellen zu den wichtigsten Themen, ein KI-Autor schreibt daraus Erklärbeiträge mit

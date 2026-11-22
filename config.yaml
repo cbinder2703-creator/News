@@ -2,11 +2,11 @@
 # Secrets (API-Keys, Tokens) gehören NICHT hierher, sondern in .env bzw. GitHub Secrets.
 
 brand:
-  name: "TechPuls"                      # Arbeitstitel, einfach ändern
-  tagline: "KI- und Tech-News, kurz und verständlich"
-  site_url: "https://DEIN-NAME.github.io/news"   # ohne Slash am Ende
+  name: "DealPuls"
+  tagline: "Deals und Kaufberatung: Lohnt sich das wirklich?"
+  site_url: "https://dealpuls.de"       # ohne Slash am Ende; Domain muss in GitHub Pages als Custom Domain eingetragen sein
   accent: "#ff4d2e"
-  contact_email: "kontakt@example.com"  # für Impressum
+  contact_email: "kontakt@dealpuls.de"  # für Impressum; Postfach bei Strato einrichten
 
 ai:
   model: "claude-opus-5-5"
@@ -32,8 +32,12 @@ editorial:
     - { name: "Hype-Check",      frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
     - { name: "Kurz erklärt",    frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
   kaufbezug: true            # Chefredaktion bevorzugt Themen, die Kaufentscheidungen betreffen (false = reine Nachrichtenauswahl)
-  focus: ["KI und Sprachmodelle", "Datenschutz und Sicherheit im Alltag", "Folgen für Nutzer"]   # bevorzugte Themen
-  avoid: ["Angebote ohne konkrete Preisangabe in der Quelle", "Gewinnspiele", "reine Gerüchte"]   # meiden
+  # Alle Produktbereiche; Schwerpunkt auf dem, wonach viele Menschen bei Google suchen.
+  focus: ["Produkte aus allen Bereichen, nach denen viele Menschen suchen", "Kaufentscheidungen, Preisänderungen und Neuheiten", "Folgen für Käufer"]
+  # Meiden, auch weil Google hier besonders strenge Maßstäbe anlegt (YMYL) und KI-Texte schlechter ranken:
+  avoid: ["Angebote ohne konkrete Preisangabe in der Quelle", "Gewinnspiele", "reine Gerüchte",
+          "Gesundheits- und Medizinprodukte mit Heilversprechen", "Finanzprodukte und Geldanlage",
+          "Erotik, Glücksspiel, Waffen"]
 
 # Affiliate: Produkt-Links nur als gekennzeichneter Kasten unter dem Beitrag, nie im Text oder in der Einordnung.
 affiliate:
