@@ -2,12 +2,36 @@
 {% block main %}
 <article class="post">
   <h1>Impressum</h1>
-  <p class="ai-note"><strong>VORLAGE – vor dem Livegang ausfüllen.</strong> Für eine journalistisch-redaktionelle Website in Deutschland
-     sind nach § 5 DDG und § 18 MStV Name und Anschrift sowie ein inhaltlich Verantwortlicher Pflicht.
-     Bei Unsicherheit bitte rechtlich prüfen lassen.</p>
-  <p>[Vor- und Nachname bzw. Firma]<br>[Straße und Hausnummer]<br>[PLZ Ort]</p>
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>{{ cfg.brand_name }}<br>
+     Inhaber: Christopher Binder<br>
+     Einzelunternehmen, nicht im Handelsregister eingetragen<br>
+     c/o Online-Impressum 12598<br>
+     Europaring 90<br>
+     53757 Sankt Augustin<br>
+     Deutschland</p>
+
+  <h2>Kontakt</h2>
   <p>E-Mail: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
-  <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: [Name, Anschrift]</p>
-  <p>Hinweis: Die Inhalte dieser Seite werden mit Hilfe künstlicher Intelligenz erstellt{% if cfg.review %} und vor der Veröffentlichung redaktionell freigegeben{% endif %}.</p>
+  <p>Wir beantworten Anfragen in der Regel innerhalb von 24 Stunden an Werktagen.</p>
+
+  <h2>Umsatzsteuer-Identifikationsnummer</h2>
+  <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: DE457533620</p>
+
+  <h2>Verantwortlich für den Inhalt gemäß § 18 Abs. 2 MStV</h2>
+  <p>Christopher Binder, Anschrift wie oben.</p>
+
+  <h2>Hinweis zu KI und Werbung</h2>
+  <p>Die Inhalte dieser Seite werden mit Hilfe künstlicher Intelligenz erstellt{% if cfg.review %} und vor der Veröffentlichung redaktionell freigegeben{% endif %}.
+     Links zu Online-Shops können Affiliate-Links sein und sind dann als „Anzeige“ gekennzeichnet.</p>
+
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+  <h2>Haftung für Inhalte und Links</h2>
+  <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+     Für die Inhalte externer Seiten, auf die wir verlinken, sind ausschließlich deren Betreiber verantwortlich.
+     Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Bei Bekanntwerden von Rechtsverletzungen
+     entfernen wir entsprechende Links umgehend.</p>
 </article>
 {% endblock %}
