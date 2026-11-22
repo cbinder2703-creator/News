@@ -104,7 +104,7 @@ class Instagram:
 
     def post(self, kind: str, rec: dict, assets: Assets) -> str:
         art = rec["article"]
-        caption = f"{art['instagram_caption']}\n\nMehr: {assets.article_url}\n\n{_hashtags(art)}\n\n🤖 KI-generiert"
+        caption = f"{art['instagram_caption']}\n\nMehr: {assets.article_url}\n\n{_hashtags(art)}\n\nMit KI erstellt"
         base = f"https://graph.facebook.com/{self.cfg.graph_version}"
         params = {"caption": caption[:2200], "access_token": self.token}
         if kind == "image":

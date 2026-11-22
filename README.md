@@ -86,7 +86,7 @@ Claude schreibt dafür pro Beitrag einen kurzen Sprechtext (`narration`, ca. 15�
 - Pro Beitrag wird die Aufnahme **einmal** erzeugt und in `data/audio/` gespeichert, damit spätere Läufe nicht erneut bezahlen.
   Aufnahmen älterer Beiträge, die kein Video mehr bekommen, werden automatisch gelöscht.
 - Die Untertitel werden nach Zeichenanzahl auf die Sprechdauer verteilt und können deshalb leicht neben dem gesprochenen Wort liegen.
-- Das Video ist als „KI-generiert · KI-Stimme“ gekennzeichnet. Nutze nur Standardstimmen, keine Nachbildung echter Personen.
+- Das Video ist als „Mit KI erstellt · KI-Stimme“ gekennzeichnet. Nutze nur Standardstimmen, keine Nachbildung echter Personen.
 
 ## Bilder
 

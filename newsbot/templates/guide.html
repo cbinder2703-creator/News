@@ -42,6 +42,6 @@
   <div class="faq">{% for f in a.faq %}<details><summary>{{ f.question }}</summary><p>{{ f.answer }}</p></details>{% endfor %}</div>{% endif %}
   {% if news %}<h2>Aktuelle Meldungen dazu</h2>
   <ul class="related">{% for r in news %}<li><a href="{{ base }}/a/{{ r.slug }}/">{{ r.article.headline }}</a> <span class="muted">({{ r.created_at | de_day }})</span></li>{% endfor %}</ul>{% endif %}
-  <p class="ai-note">{{ cfg.disclosure }}</p>
+  <p class="ai-line">{% if cfg.review %}{{ cfg.disclosure }}{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %}</p>
 </article>
 {% endblock %}

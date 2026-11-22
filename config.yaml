@@ -10,7 +10,7 @@ brand:
 
 ai:
   model: "claude-sonnet-5-5"
-  disclosure: "Dieser Beitrag wurde mit KI auf Basis der genannten Quellen erstellt."
+  disclosure: "Mit KI entworfen, vor der Veröffentlichung von uns geprüft."   # nur im Modus review; bei auto erscheint automatisch ein anderer Text
 
 voice:                       # Sprecherstimme für die Videos (ElevenLabs)
   enabled: true              # braucht das Secret ELEVENLABS_API_KEY, sonst entstehen stumme Videos

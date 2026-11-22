@@ -141,7 +141,7 @@ def make_cards(headline: str, kicker: str, footer: str, brand: str, accent: str,
 
 def make_images(rec: dict, brand: str, accent: str, out_dir: Path) -> dict[str, Path]:
     art = rec["article"]
-    return make_cards(art["headline"], art.get("rubrik") or art["category"], f"{source_label(rec)}  ·  KI-generiert",
+    return make_cards(art["headline"], art.get("rubrik") or art["category"], f"{source_label(rec)}  ·  Mit KI erstellt",
                       brand, accent, art["category"], out_dir)
 
 
@@ -151,7 +151,7 @@ def make_video(rec: dict, brand: str, accent: str, host: str, out_path: Path, se
         log.warning("ffmpeg fehlt, Video wird übersprungen")
         return None
     art = rec["article"]
-    footer = f"{source_label(rec)}  ·  KI-generiert"
+    footer = f"{source_label(rec)}  ·  Mit KI erstellt"
     texts = [(art["headline"], art.get("rubrik") or art["category"])]
     texts += [(s, "Kurz erklärt") for s in art["video_slides"]]
     texts += [(f"Mehr auf {host}", brand)]
@@ -285,7 +285,7 @@ def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Pa
     text = art.get("narration") or ""
     if not total or not text.strip():
         return None
-    footer = f"{source_label(rec)}  ·  KI-generiert  ·  KI-Stimme"
+    footer = f"{source_label(rec)}  ·  Mit KI erstellt  ·  KI-Stimme"
     chunks = split_captions(text)
     durs = caption_durations(chunks, total)
 
