@@ -38,8 +38,9 @@ ITEMS = [item("A bei heise", "u1", "heise"), item("A bei Golem", "u2", "Golem", 
 
 
 def test_config_has_editorial_line(cfg):
-    assert cfg.review is True and "kritisch" in cfg.haltung.lower()
-    assert [r["name"] for r in cfg.rubriken][0] == "Hype-Check"
+    assert cfg.review is True and "fehlkäufe" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
+    names = [r["name"] for r in cfg.rubriken]
+    assert names[0] == "Deal-Check" and "Hype-Check" in names and "Ratgeber" in names
 
 
 def test_validate_topics_drops_bad_numbers_and_duplicates():

@@ -44,7 +44,7 @@ python -m pytest                     # Tests
 
 Standardmäßig **aus** (`affiliate.enabled: false`). Wenn aktiv, erscheint unter passenden Beiträgen ein Kasten
 „Passende Produkte · Anzeige“ mit Suchlinks. Die KI liefert dafür nur neutrale Suchbegriffe (z. B. „WLAN Router“), keine Marken, Preise
-oder Empfehlungen. Themenwahl, Text und Einordnung hängen nie davon ab, ob es passende Produkte gibt. Bei reinen Branchenmeldungen bleibt der Kasten leer.
+oder Empfehlungen. Die Chefredaktion bevorzugt Themen mit Kaufbezug (`editorial.kaufbezug`), aber Text und Einordnung hängen nie davon ab, ob es passende Produkte gibt. Bei reinen Branchenmeldungen bleibt der Kasten leer.
 Die Links entstehen erst beim Bauen der Seite; eine geänderte ID wirkt sofort überall. In den Social-Posts stehen keine Affiliate-Links.
 In der Entwurfs-Zusammenfassung siehst du die Produktideen samt fertigen Links vor der Freigabe.
 

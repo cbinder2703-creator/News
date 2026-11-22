@@ -2,13 +2,14 @@
 {% block main %}
 <article class="post">
   <h1>Über {{ cfg.brand_name }}</h1>
-  <p>{{ cfg.brand_name }} erklärt aktuelle Themen aus Tech und KI verständlich, ordnet sie ein und sagt offen, was daran Fakt, Hoffnung oder Marketing ist.</p>
+  <p>{{ cfg.brand_name }} hilft dir, beim Technikkauf Geld zu sparen und Fehlkäufe zu vermeiden. Wir sagen ehrlich, ob sich ein
+     Angebot oder ein neues Gerät wirklich lohnt, nennen Haken und Alternativen und erklären verständlich, was ein Produkt im Alltag bringt.</p>
   <h3>So entstehen unsere Beiträge</h3>
-  <p>Ein KI-System liest die Schlagzeilen und Teaser öffentlicher Nachrichtenquellen, bündelt mehrere Quellen zu einem Thema und
-     schreibt daraus einen eigenen Erklärbeitrag mit Einordnung. Jeder Beitrag nennt und verlinkt seine Quellen.
+  <p>Ein KI-System liest Schlagzeilen und Kurztexte öffentlicher Nachrichtenquellen, bündelt mehrere Quellen zu einem Thema und
+     schreibt daraus einen eigenen Beitrag mit Einordnung. Jeder Beitrag nennt und verlinkt seine Quellen. Preise nennen wir nur mit Quelle und Datum.
      {% if cfg.review %}Jeder Beitrag wird vor der Veröffentlichung von der Redaktion gelesen und freigegeben.{% else %}Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.{% endif %}
-     Bei sensiblen Themen (z. B. Straftaten, Gesundheit, Wahlen) veröffentlicht das System nichts automatisch.
-     Unsere Einordnung ist eine Einschätzung und als solche gekennzeichnet.</p>
+     Wir testen keine Produkte selbst und vergeben deshalb keine Testsiege. Unsere Einordnung ist eine Einschätzung und als solche gekennzeichnet.
+     Mehr dazu: <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a>.</p>
   <p>Fehler gefunden? Schreib uns an <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a>, wir korrigieren oder entfernen den Beitrag.</p>
 </article>
 {% endblock %}

@@ -21,20 +21,21 @@ voice:                       # Sprecherstimme für die Videos (ElevenLabs)
 editorial:
   mode: review               # review: KI erstellt Entwürfe, du gibst sie frei (wenige Minuten) | auto: ohne Freigabe
   haltung: |
-    Wir erklären Tech- und KI-Themen nüchtern und verständlich für Menschen ohne Vorwissen.
-    Wir sind kritisch, aber fair: Wir prüfen Ankündigungen auf ihren tatsächlichen Gehalt, trennen
-    Fakten von Marketing und Spekulation, benennen Unsicherheiten offen und erklären, was etwas für
-    Nutzerinnen und Nutzer konkret bedeutet. Keine Panikmache, kein Hype, keine Schadenfreude.
+    Wir helfen Menschen, beim Technikkauf Geld zu sparen und Fehlkäufe zu vermeiden. Wir sagen ehrlich,
+    ob sich ein Angebot oder ein neues Gerät wirklich lohnt: Wir trennen echte Preisvorteile von Marketing,
+    nennen Haken und Alternativen und erklären verständlich, was ein Produkt im Alltag bringt.
+    Wir testen nicht selbst und behaupten das auch nicht. Keine künstliche Eile, kein Hype, keine Schleichwerbung.
   rubriken:
-    - { name: "Hype-Check",          frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
-    - { name: "Was steckt dahinter?", frage: "Welcher Hintergrund und welche Zusammenhänge helfen, die Meldung zu verstehen?" }
-    - { name: "Kurz erklärt",         frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
-    - { name: "Ratgeber",             frage: "Worauf sollten Käufer achten? Kriterien und Fragen, keine Produkttests und keine Rankings." }
+    - { name: "Deal-Check",      frage: "Ist das Angebot laut Quellen wirklich günstig, für wen lohnt es sich, wo ist der Haken?" }
+    - { name: "Lohnt sich das?", frage: "Neues Gerät oder Update: Was ist neu, für wen lohnt sich Kaufen oder Warten?" }
+    - { name: "Ratgeber",        frage: "Worauf sollten Käufer achten? Kriterien und Fragen, keine Produkttests und keine Rankings." }
+    - { name: "Hype-Check",      frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
+    - { name: "Kurz erklärt",    frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
   kaufbezug: true            # Chefredaktion bevorzugt Themen, die Kaufentscheidungen betreffen (false = reine Nachrichtenauswahl)
   focus: ["KI und Sprachmodelle", "Datenschutz und Sicherheit im Alltag", "Folgen für Nutzer"]   # bevorzugte Themen
-  avoid: ["Rabattaktionen und Deals", "Gewinnspiele", "reine Gerüchte"]                           # meiden
+  avoid: ["Angebote ohne konkrete Preisangabe in der Quelle", "Gewinnspiele", "reine Gerüchte"]   # meiden
 
-# Affiliate: Produkt-Links nur als gekennzeichneter Kasten unter dem Beitrag, nie in Einordnung oder Themenwahl.
+# Affiliate: Produkt-Links nur als gekennzeichneter Kasten unter dem Beitrag, nie im Text oder in der Einordnung.
 affiliate:
   enabled: false             # erst auf true, wenn mindestens ein Programm unten aktiv ist
   max_links_per_article: 3
