@@ -1,0 +1,8 @@
+name = "dealpuls-whatsapp"
+main = "whatsapp_webhook.js"
+compatibility_date = "2026-01-01"
+
+# Nicht-geheime Werte; Geheimnisse (VERIFY_TOKEN, APP_SECRET, ALLOWED_NUMBER, GITHUB_TOKEN, ...) trägst du in Cloudflare ein.
+[vars]
+GITHUB_REPO = "cbinder2703-creator/News"
+GITHUB_BRANCH = "claude/affectionate-ramanujan-d0vjl6"

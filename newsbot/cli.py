@@ -3,10 +3,11 @@ from __future__ import annotations
 import argparse
 import logging
 import os
+import re
 import sys
 from pathlib import Path
 
-from . import pipeline
+from . import notify, pipeline
 from .config import load_config
 from .store import Store
 from .editor import Editor, StubEditor
@@ -36,11 +37,15 @@ def _write_summary(markdown: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
-    ap.add_argument("command", choices=["generate", "approve", "drafts", "build", "publish", "run", "guide", "demo"],
+    ap.add_argument("command", choices=["generate", "approve", "reject", "decisions", "notify", "drafts", "build",
+                                        "publish", "run", "guide", "demo"],
                     help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
+                         "reject: Entwürfe ablehnen | decisions: Klicks aus WhatsApp umsetzen (data/decisions) | "
+                         "notify: neue Entwürfe per WhatsApp schicken | "
                          "drafts: offene Entwürfe zeigen | build: Website | publish: Social-Posts | run: generate+build | "
                          "guide: Kaufberater <slug> neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
-    ap.add_argument("arg", nargs="?", default="", help="bei approve: IDs (Komma-getrennt) oder 'alle'; bei guide: slug")
+    ap.add_argument("arg", nargs="?", default="",
+                    help="bei approve/reject: IDs (Komma-getrennt), bei approve auch 'alle'; bei guide: slug")
     ap.add_argument("--config", default="config.yaml")
     ap.add_argument("--data", default="data", help="Ordner für Beiträge/Zustand")
     ap.add_argument("--out", default="public", help="Ausgabeordner der Website")
@@ -89,6 +94,15 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{len(done)} Beiträge freigegeben")
         if not done:
             print("Nichts freigegeben: IDs prüfen (siehe `python -m newsbot drafts`).", file=sys.stderr)
+    if args.command == "reject":
+        ids = [i for i in re.split(r"[,\s]+", args.arg.strip().lower()) if i]
+        done = notify.reject(store, ids)
+        print(f"{len(done)} Entwürfe abgelehnt")
+    if args.command == "decisions":
+        res = notify.apply_decisions(cfg, store, pipeline.approve)
+        print(f"WhatsApp-Entscheidungen: {len(res['approved'])} freigegeben, {len(res['rejected'])} abgelehnt")
+    if args.command == "notify":
+        print(f"{notify.notify(cfg, store)} WhatsApp-Nachrichten gesendet")
     if args.command == "drafts":
         print(pipeline.drafts_markdown(store, cfg))
     if args.command in ("build", "run"):

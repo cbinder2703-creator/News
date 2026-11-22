@@ -17,6 +17,28 @@ RSS-Quellen → Chefredaktion bündelt Themen → Autor schreibt Erklärbeitrag 
 3. Der Workflow gibt frei, erzeugt Stimme und Video, baut die Website und postet. Nicht freigegebene Entwürfe bleiben liegen und gehen nie online.
 4. Beiträge mit hohem Risiko (`held`) lassen sich nur mit ausdrücklicher ID freigeben, nie mit `alle`.
 
+**Freigabe per WhatsApp (optional):** Nach jedem Lauf bekommst du pro Entwurf eine WhatsApp-Nachricht mit Titel, Teaser, Einordnung,
+Quellen und Risiko und den Buttons **Freigeben** / **Ablehnen**. Ein Klick legt eine Entscheidung ab und startet den Workflow
+(Website, Video und Posts, nach ca. 4 Minuten). Ohne die Einrichtung unten bleibt alles beim Freigeben über Actions.
+Das ist **nicht gegen ein echtes WhatsApp-Konto getestet**; die Plattform-Angaben unten sind nach meinem Wissen (bitte gegen die aktuelle Meta-Doku prüfen).
+
+Einrichten (einmalig, ca. 1 Stunde, plus Wartezeit auf die Genehmigung der Vorlage):
+1. **Meta-App:** developers.facebook.com → App erstellen (Typ „Business“) → Produkt **WhatsApp** hinzufügen. Meta stellt eine Test-Telefonnummer bereit.
+   Trage dort deine eigene Handynummer als Empfänger ein und bestätige sie per Code. Notiere die **Telefonnummer-ID** und den **App-Geheimcode** (App-Einstellungen → Allgemein).
+2. **Dauerhafter Token:** Der Test-Token läuft nach 24 Stunden ab. Lege im Business-Manager (Einstellungen → Systemnutzer) einen Systemnutzer an und erzeuge einen Token
+   mit `whatsapp_business_messaging` und `whatsapp_business_management`.
+3. **Nachrichtenvorlage** im WhatsApp-Manager anlegen und genehmigen lassen: Name `entwurf_freigabe`, Sprache Deutsch, Kategorie Dienstprogramm, Text wie `TEMPLATE_BODY` in
+   `newsbot/notify.py` (mit Beispielwerten für {{1}} bis {{5}}), dazu zwei Schaltflächen vom Typ **Schnellantwort**: „Freigeben“ und „Ablehnen“.
+4. **Webhook-Empfänger:** Kostenloses Cloudflare-Konto → Workers → neuen Worker mit dem Code aus `worker/whatsapp_webhook.js` anlegen (oder `npx wrangler deploy` im Ordner `worker/`).
+   Die Variablen stehen als Kommentar am Dateianfang. Sie gehören in Cloudflare als **Secret**, nicht ins Repo. Der GitHub-Token dafür ist ein *fine-grained Token nur für dieses Repo*
+   mit „Contents“ und „Actions“ jeweils auf Read and write.
+5. **Webhook bei Meta eintragen:** App → WhatsApp → Konfiguration → Webhook: Callback-URL = Adresse des Workers, Verifizierungs-Token = dein `VERIFY_TOKEN`, Feld **messages** abonnieren.
+6. **GitHub-Secrets** setzen: `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_TO` (deine Nummer mit Ländervorwahl, z. B. `49151…`).
+
+Sicherheit: Der Worker prüft die Meta-Signatur und nimmt nur Klicks von deiner Nummer an. Entscheidungen liegen als Dateien in `data/decisions/`, so geht bei mehreren schnellen Klicks nichts verloren.
+Beiträge mit hohem Risiko (`held`) sind in der Nachricht markiert; ein Klick auf „Freigeben“ gibt sie mit ausdrücklicher ID frei. Bitte lies sie vorher.
+Nachrichten außerhalb des 24-Stunden-Fensters laufen über die Vorlage und können bei Meta Gebühren pro Nachricht kosten; prüfe die aktuelle Preisliste.
+
 Ohne Freigabe laufen lassen: `editorial.mode: auto`. Das empfehle ich nicht, denn gerade die Haltung und die Einordnung sind der Teil, den du prüfen solltest.
 
 ## Sofort ausprobieren (ohne Keys)
