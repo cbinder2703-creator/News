@@ -10,7 +10,7 @@
 <meta property="article:published_time" content="{{ rec.created_at }}">
 <meta property="article:section" content="{{ a.category }}">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{{ {
+{% set ld = {
   "@context": "https://schema.org", "@type": "NewsArticle",
   "mainEntityOfPage": cfg.site_url ~ "/a/" ~ rec.slug ~ "/",
   "headline": a.headline, "description": a.meta_description or a.teaser,
@@ -18,9 +18,9 @@
   "image": [cfg.site_url ~ "/media/" ~ rec.id ~ "/og.jpg", cfg.site_url ~ "/media/" ~ rec.id ~ "/card.jpg"],
   "articleSection": a.category, "keywords": a.focus_keyword or a.category, "inLanguage": "de-DE",
   "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/so-arbeiten-wir/"},
-  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/"},
-  "isBasedOn": ((rec.sources or [rec.source]) | map(attribute="url") | list)
-} | tojson }}</script>
+  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/"}
+} %}{% if cfg.show_sources %}{% set _ = ld.update({"isBasedOn": ((rec.sources or [rec.source]) | map(attribute="url") | list)}) %}{% endif %}
+<script type="application/ld+json">{{ ld | tojson }}</script>
 {% endblock %}
 {% block main %}
 <article class="post">
@@ -47,8 +47,8 @@
   {% if rec.has_video %}
   <video controls playsinline preload="none" poster="{{ base }}/media/{{ rec.id }}/og.jpg" src="{{ base }}/media/{{ rec.id }}/video.mp4"></video>
   {% endif %}
-  <div class="source">{{ 'Quellen' if (rec.sources or [rec.source]) | length > 1 else 'Quelle' }}:
-    <ul>{% for src in (rec.sources or [rec.source]) %}<li><a href="{{ src.url }}" rel="nofollow noopener" target="_blank">{{ src.name }}</a> – „{{ src.title }}“</li>{% endfor %}</ul></div>
+  {% if cfg.show_sources %}<div class="source">{{ 'Quellen' if (rec.sources or [rec.source]) | length > 1 else 'Quelle' }}:
+    <ul>{% for src in (rec.sources or [rec.source]) %}<li><a href="{{ src.url }}" rel="nofollow noopener" target="_blank">{{ src.name }}</a> – „{{ src.title }}“</li>{% endfor %}</ul></div>{% endif %}
   <p class="ai-line">{% if cfg.review %}{{ cfg.disclosure }}{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %} · <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>
   {% if related %}<h2>Mehr zum Thema {{ cat.name }}</h2>
   <ul class="related">{% for r in related %}<li><a href="{{ base }}/a/{{ r.slug }}/">{{ r.article.headline }}</a></li>{% endfor %}</ul>{% endif %}

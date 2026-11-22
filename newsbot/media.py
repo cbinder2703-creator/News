@@ -127,6 +127,12 @@ def source_label(rec: dict) -> str:
     return ("Quelle: " if len(names) == 1 else "Quellen: ") + ", ".join(names)
 
 
+def footer_line(rec: dict, show_sources: bool, extra: str = "") -> str:
+    """Fußzeile der Bildkarten und Videos; die Quellenangabe nur, wenn die Seite Quellen öffentlich zeigt."""
+    parts = ([source_label(rec)] if show_sources else []) + ["Mit KI erstellt"] + ([extra] if extra else [])
+    return "  ·  ".join(parts)
+
+
 def make_cards(headline: str, kicker: str, footer: str, brand: str, accent: str, category: str,
                out_dir: Path) -> dict[str, Path]:
     """card.jpg (Feed), og.jpg (Link-Vorschau). JPEG, weil Instagram nur JPEG akzeptiert."""
@@ -139,19 +145,20 @@ def make_cards(headline: str, kicker: str, footer: str, brand: str, accent: str,
     return paths
 
 
-def make_images(rec: dict, brand: str, accent: str, out_dir: Path) -> dict[str, Path]:
+def make_images(rec: dict, brand: str, accent: str, out_dir: Path, show_sources: bool = True) -> dict[str, Path]:
     art = rec["article"]
-    return make_cards(art["headline"], art.get("rubrik") or art["category"], f"{source_label(rec)}  ·  Mit KI erstellt",
+    return make_cards(art["headline"], art.get("rubrik") or art["category"], footer_line(rec, show_sources),
                       brand, accent, art["category"], out_dir)
 
 
-def make_video(rec: dict, brand: str, accent: str, host: str, out_path: Path, seconds: float = 3.5) -> Path | None:
+def make_video(rec: dict, brand: str, accent: str, host: str, out_path: Path, seconds: float = 3.5,
+               show_sources: bool = True) -> Path | None:
     """Hochkant-Video 1080x1920 (H.264/AAC): Schlagzeile, Kernaussagen, Abbinder."""
     if not shutil.which("ffmpeg"):
         log.warning("ffmpeg fehlt, Video wird übersprungen")
         return None
     art = rec["article"]
-    footer = f"{source_label(rec)}  ·  Mit KI erstellt"
+    footer = footer_line(rec, show_sources)
     texts = [(art["headline"], art.get("rubrik") or art["category"])]
     texts += [(s, "Kurz erklärt") for s in art["video_slides"]]
     texts += [(f"Mehr auf {host}", brand)]
@@ -275,7 +282,7 @@ def render_caption_frame(size, headline: str, caption: str, footer: str, brand: 
 
 
 def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Path,
-                        out_path: Path, end_card: float = 1.8) -> Path | None:
+                        out_path: Path, end_card: float = 1.8, show_sources: bool = True) -> Path | None:
     """9:16-Video: Sprecherstimme + eingebrannte Untertitel, Länge richtet sich nach der Aufnahme."""
     if not shutil.which("ffmpeg"):
         log.warning("ffmpeg fehlt, Video wird übersprungen")
@@ -285,7 +292,7 @@ def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Pa
     text = art.get("narration") or ""
     if not total or not text.strip():
         return None
-    footer = f"{source_label(rec)}  ·  Mit KI erstellt  ·  KI-Stimme"
+    footer = footer_line(rec, show_sources, "KI-Stimme")
     chunks = split_captions(text)
     durs = caption_durations(chunks, total)
 

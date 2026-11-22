@@ -115,6 +115,7 @@ def test_drafts_markdown_lists_ids_and_hides_nothing_risky(cfg, tmp_path):
 
 def test_explainer_page_renders_sections_verdict_and_all_sources(cfg, tmp_path):
     cfg.review = False
+    cfg.show_sources = True
     store = Store(tmp_path / "d")
     (rec, _) = pipeline.generate(cfg, store, StubWriter(), items=ITEMS, now=NOW, editor=BundlingEditor())
     out = pipeline.build(cfg, store, tmp_path / "public")
@@ -131,3 +132,40 @@ def test_stub_editor_limits_topics_to_config(cfg):
 def test_verdict_and_sections_are_length_limited():
     art = StubWriter().write(ITEMS[:1]).model_copy(update={"verdict": "x" * 900})
     assert len(art.normalized().verdict) <= 400
+
+
+def test_sources_can_be_hidden_from_the_public_page_but_stay_in_the_data(cfg, tmp_path):
+    cfg.review = False
+    cfg.show_sources = False
+    store = Store(tmp_path / "d")
+    (rec, _) = pipeline.generate(cfg, store, StubWriter(), items=ITEMS, now=NOW, editor=BundlingEditor())
+    out = pipeline.build(cfg, store, tmp_path / "public")
+    html = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
+    assert 'class="source"' not in html and "isBasedOn" not in html
+    assert "Worum geht es genau?" in html  # Inhalt bleibt
+    for url in (s["url"] for s in rec["sources"]):
+        assert url not in html  # keine Quell-Links im Seitencode
+    assert rec["sources"] and all(s["url"] for s in rec["sources"])  # für die Admin-Seite gespeichert
+    about = (out / "so-arbeiten-wir" / "index.html").read_text(encoding="utf-8")
+    assert "nennt und verlinkt" not in about  # die Seite behauptet nichts, was nicht mehr stimmt
+
+
+def test_footer_and_prompts_follow_show_sources(cfg):
+    from newsbot import media
+    from newsbot.writer import Writer
+
+    rec = {"source": {"name": "heise"}, "sources": [{"name": "heise"}, {"name": "Golem"}]}
+    assert "heise" in media.footer_line(rec, True) and "heise" not in media.footer_line(rec, False)
+    assert media.footer_line(rec, False, "KI-Stimme").endswith("KI-Stimme")
+
+    import anthropic
+    anthropic_client = anthropic.Anthropic
+    anthropic.Anthropic = lambda *a, **k: None  # kein Schlüssel nötig, es wird nichts gesendet
+    try:
+        cfg.show_sources = True
+        assert 'am Ende "Quelle: ..."' in Writer(cfg).system
+        cfg.show_sources = False
+        prompt = Writer(cfg).system
+        assert 'am Ende "Quelle: ..."' not in prompt and "ohne eigene Quellenzeile" in prompt and "<<" not in prompt
+    finally:
+        anthropic.Anthropic = anthropic_client

@@ -5,7 +5,7 @@
   <p class="lead-text">Transparenz ist uns wichtig: Hier steht, wie unsere Beiträge und Kaufberater entstehen und wie wir Geld verdienen.</p>
   <h2>Wie Beiträge entstehen</h2>
   <p>Ein KI-System liest Schlagzeilen und Kurztexte öffentlicher Nachrichtenquellen, bündelt mehrere Quellen zu einem Thema und
-     schreibt daraus einen eigenen Beitrag. Fakten stammen nur aus diesen Quellen, jeder Beitrag nennt und verlinkt sie.
+     schreibt daraus einen eigenen Beitrag. Fakten stammen nur aus diesen Quellen. {% if cfg.show_sources %}Jeder Beitrag nennt und verlinkt sie.{% else %}Im Text steht, wer etwas berichtet („Laut …“).{% endif %}
      Unsere Einordnung ist als Einschätzung gekennzeichnet.
      {% if cfg.review %}Jeder Beitrag wird vor der Veröffentlichung von einem Menschen gelesen und freigegeben.{% else %}Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.{% endif %}</p>
   <h2>Wie Kaufberater entstehen</h2>

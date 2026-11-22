@@ -78,16 +78,16 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
     videos: dict[str, Path] = {}
     for n, rec in enumerate(records):
         media_dir = out / "media" / rec["id"]
-        make_images(rec, cfg.brand_name, cfg.accent, media_dir)
+        make_images(rec, cfg.brand_name, cfg.accent, media_dir, cfg.show_sources)
         rec["has_video"] = False
         if n < cfg.videos_for_recent:
             target = media_dir / "video.mp4"
             audio = audio_dir / f"{rec['id']}.mp3" if audio_dir else None
             vid = None
             if audio and audio.exists():  # mit Sprecherstimme und Untertiteln
-                vid = make_narrated_video(rec, cfg.brand_name, cfg.accent, cfg.host, audio, target)
+                vid = make_narrated_video(rec, cfg.brand_name, cfg.accent, cfg.host, audio, target, show_sources=cfg.show_sources)
             if vid is None:  # ohne Stimme: stummes Folienvideo
-                vid = make_video(rec, cfg.brand_name, cfg.accent, cfg.host, target)
+                vid = make_video(rec, cfg.brand_name, cfg.accent, cfg.host, target, show_sources=cfg.show_sources)
             if vid:
                 videos[rec["id"]] = vid
                 rec["has_video"] = True

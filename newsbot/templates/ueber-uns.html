@@ -6,7 +6,7 @@
      Angebot oder ein neues Gerät wirklich lohnt, nennen Haken und Alternativen und erklären verständlich, was ein Produkt im Alltag bringt.</p>
   <h3>So entstehen unsere Beiträge</h3>
   <p>Ein KI-System liest Schlagzeilen und Kurztexte öffentlicher Nachrichtenquellen, bündelt mehrere Quellen zu einem Thema und
-     schreibt daraus einen eigenen Beitrag mit Einordnung. Jeder Beitrag nennt und verlinkt seine Quellen. Preise nennen wir nur mit Quelle und Datum.
+     schreibt daraus einen eigenen Beitrag mit Einordnung. {% if cfg.show_sources %}Jeder Beitrag nennt und verlinkt seine Quellen.{% else %}Im Text steht, wer etwas berichtet („Laut …“).{% endif %} Preise nennen wir nur mit Quelle und Datum.
      {% if cfg.review %}Jeder Beitrag wird vor der Veröffentlichung von der Redaktion gelesen und freigegeben.{% else %}Die Beiträge werden vor der Veröffentlichung nicht von Menschen geprüft.{% endif %}
      Wir testen keine Produkte selbst und vergeben deshalb keine Testsiege. Unsere Einordnung ist eine Einschätzung und als solche gekennzeichnet.
      Mehr dazu: <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a>.</p>

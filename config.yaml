@@ -31,6 +31,9 @@ editorial:
     - { name: "Ratgeber",        frage: "Worauf sollten Käufer achten? Kriterien und Fragen, keine Produkttests und keine Rankings." }
     - { name: "Hype-Check",      frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
     - { name: "Kurz erklärt",    frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
+  # Quellen (Liste unter Beiträgen, Verweise im Seitencode, Quellenzeile in Videokarten, Sprechtext und Instagram-Text) öffentlich zeigen?
+  # false: nur du siehst sie (Admin-Seite). Im Fließtext steht weiterhin, wer etwas berichtet ("Laut heise ..."). Siehe README.
+  show_sources: false
   kaufbezug: true            # Chefredaktion bevorzugt Themen, die Kaufentscheidungen betreffen (false = reine Nachrichtenauswahl)
   # Alle Produktbereiche; Schwerpunkt auf dem, wonach viele Menschen bei Google suchen.
   focus: ["Produkte aus allen Bereichen, nach denen viele Menschen suchen", "Kaufentscheidungen, Preisänderungen und Neuheiten", "Folgen für Käufer"]

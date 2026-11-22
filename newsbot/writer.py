@@ -75,9 +75,9 @@ Formate:
 - key_points: genau 3 kurze Stichpunkte (je max. 70 Zeichen).
 - video_slides: 3 kurze Sätze (je max. 90 Zeichen) als Rückfall für ein stummes Video.
 - narration: gesprochener Text fürs Video, 60-80 Wörter (ca. 25 Sekunden), kurze Sätze: ein sachlicher Aufhänger,
-  was passiert ist, die Einordnung, am Ende "Quelle: ..." mit den Quellnamen. Keine Hashtags, Links, Klammern oder Abkürzungen,
+  was passiert ist, die Einordnung<<NARR_END>>. Keine Hashtags, Links, Klammern oder Abkürzungen,
   die man schlecht spricht.
-- instagram_caption: 2-4 Sätze + "Quelle: ..." (ohne Hashtags). tiktok_caption: max. 150 Zeichen, ohne Hashtags.
+- instagram_caption: 2-4 Sätze<<IG_END>> (ohne Hashtags). tiktok_caption: max. 150 Zeichen, ohne Hashtags.
 - facebook_text: 2-3 Sätze, die zum Klick einladen. hashtags: 4-6 passende ohne '#'.
 - category: ein Wort (KI, Gaming, Hardware, Software, Sicherheit, Netz, Wirtschaft ...). rubrik: exakter Name der gewählten Rubrik.
 - image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz."""
@@ -197,7 +197,10 @@ class Writer:
         rubriken = "\n".join(f'- {r["name"]}: {r["frage"]}' for r in cfg.rubriken) or "- Kurz erklärt"
         self.system = (SYSTEM_PROMPT.replace("<<BRAND>>", cfg.brand_name).replace("<<TAGLINE>>", cfg.tagline)
                        .replace("<<HALTUNG>>", cfg.haltung or "Sachlich und verständlich.")
-                       .replace("<<RUBRIKEN>>", rubriken).replace("<<GUIDES>>", guides_list(cfg)))
+                       .replace("<<RUBRIKEN>>", rubriken)
+                       .replace("<<NARR_END>>", ', am Ende "Quelle: ..." mit den Quellnamen' if cfg.show_sources
+                                else ", ohne eigene Quellenzeile am Ende (wer etwas berichtet, steht im Satz)")
+                       .replace("<<IG_END>>", ' + "Quelle: ..."' if cfg.show_sources else ", ohne eigene Quellenzeile").replace("<<GUIDES>>", guides_list(cfg)))
 
     def write(self, items: list[SourceItem], topic=None) -> Article | None:
         import anthropic
