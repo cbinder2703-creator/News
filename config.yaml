@@ -21,19 +21,22 @@ voice:                       # Sprecherstimme für die Videos (ElevenLabs)
 editorial:
   mode: review               # review: KI erstellt Entwürfe, du gibst sie frei (wenige Minuten) | auto: ohne Freigabe
   haltung: |
-    Wir helfen Menschen, beim Technikkauf Geld zu sparen und Fehlkäufe zu vermeiden. Wir sagen ehrlich,
-    ob sich ein Angebot oder ein neues Gerät wirklich lohnt: Wir trennen echte Preisvorteile von Marketing,
-    nennen Haken und Alternativen und erklären verständlich, was ein Produkt im Alltag bringt.
-    Wir testen nicht selbst und behaupten das auch nicht. Keine künstliche Eile, kein Hype, keine Schleichwerbung.
+    Wir helfen Menschen, beim Technikkauf Geld zu sparen, Fehlkäufe zu vermeiden und die passende Wahl zu treffen.
+    Wir zeigen zuerst, was ein Angebot oder Gerät gut macht und für wen es sich lohnt, und geben dann einfache,
+    konkrete Tipps, worauf man achten sollte und wie man vorgeht. Ton: freundlich, zuversichtlich, hilfreich wie ein
+    kluger Freund, der sich auskennt. Keine Skepsis-Floskeln, keine Panikmache, keine künstliche Eile, kein Hype,
+    keine erfundenen Fakten. Wir testen nicht selbst und behaupten das auch nicht (das steht auf "So arbeiten wir")
   rubriken:
-    - { name: "Deal-Check",      frage: "Ist das Angebot laut Quellen wirklich günstig, für wen lohnt es sich, wo ist der Haken?" }
-    - { name: "Lohnt sich das?", frage: "Neues Gerät oder Update: Was ist neu, für wen lohnt sich Kaufen oder Warten?" }
-    - { name: "Ratgeber",        frage: "Worauf sollten Käufer achten? Kriterien und Fragen, keine Produkttests und keine Rankings." }
-    - { name: "Hype-Check",      frage: "Was ist an der großen Ankündigung dran, was fehlt, was ist reines Marketing?" }
-    - { name: "Kurz erklärt",    frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten?" }
+    - { name: "Deal-Check",       frage: "Was bekommt man für den Preis, für wen lohnt sich das Angebot, worauf sollte man vor dem Kauf achten?" }
+    - { name: "Lohnt sich das?",  frage: "Neues Gerät oder Update: Was bringt das Neue im Alltag, für wen lohnt sich Kaufen, für wen eher Warten?" }
+    - { name: "Ratgeber",         frage: "Worauf sollten Käufer achten? Kriterien und Tipps für die richtige Wahl, keine Produkttests und keine Rankings." }
+    - { name: "Neuheiten-Check",  frage: "Was steckt in der Ankündigung, was bringt es dem Käufer, für wen ist es interessant?" }
+    - { name: "Kurz erklärt",     frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten und mit einem klaren Tipp?" }
   # Quellen (Liste unter Beiträgen, Verweise im Seitencode, Quellenzeile in Videokarten, Sprechtext und Instagram-Text) öffentlich zeigen?
   # false: nur du siehst sie (Admin-Seite). Im Fließtext steht weiterhin, wer etwas berichtet ("Laut heise ..."). Siehe README.
   show_sources: false
+  # Video auf der Beitragsseite einbetten? Die Videos entstehen weiter für TikTok/Instagram, hier stören sie eher.
+  show_video: false
   kaufbezug: true            # Chefredaktion bevorzugt Themen, die Kaufentscheidungen betreffen (false = reine Nachrichtenauswahl)
   # Alle Produktbereiche; Schwerpunkt auf dem, wonach viele Menschen bei Google suchen.
   focus: ["Produkte aus allen Bereichen, nach denen viele Menschen suchen", "Kaufentscheidungen, Preisänderungen und Neuheiten", "Folgen für Käufer"]
@@ -80,7 +83,7 @@ pipeline:
   articles_per_run: 3      # Themen pro Lauf (täglich)
   max_age_hours: 24          # nur Meldungen, die jünger sind
   max_auto_risk: medium      # low | medium  -> "high" wird nie automatisch veröffentlicht
-  videos_for_recent: 20      # Videos nur für die letzten N Beiträge erzeugen
+  videos_for_recent: 0       # Videos nur für die letzten N Beiträge erzeugen. 0 = aus: ohne ElevenLabs-Stimme wären sie stumm. Zum Einschalten z. B. 20 und ELEVENLABS_API_KEY setzen
   publish_per_run: 2         # max. Social-Posts (Beiträge) pro Lauf und Plattform
 
 social:

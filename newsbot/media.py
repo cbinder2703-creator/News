@@ -7,6 +7,7 @@ reines Typografie-Design in Markenfarben. Eigene KI-Bilder lassen sich später a
 from __future__ import annotations
 
 import logging
+import random
 import re
 import shutil
 import subprocess
@@ -14,7 +15,7 @@ import tempfile
 import zlib
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 log = logging.getLogger("newsbot.media")
 
@@ -36,6 +37,7 @@ PALETTES = [  # (oben, unten)
 CARD_SIZE = (1080, 1350)   # Instagram 4:5
 STORY_SIZE = (1080, 1920)  # Reels / TikTok 9:16
 OG_SIZE = (1200, 630)
+HERO_SIZE = (1200, 630)    # Titelbild auf der Website: ohne Text, damit die Überschrift nicht doppelt steht
 
 
 def _font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
@@ -122,6 +124,29 @@ def render_card(
     return img
 
 
+def render_hero(category: str, accent: str, seed: str = "") -> Image.Image:
+    """Textfreies Titelbild: Farbverlauf der Rubrik mit weichen Formen. Jeder Beitrag sieht etwas anders aus."""
+    w, h = HERO_SIZE
+    base = _gradient(HERO_SIZE, *palette_for(category)).convert("RGBA")
+    rnd = random.Random(zlib.crc32((seed or category).encode()))
+    ar = _hex(accent)
+    soft = Image.new("RGBA", HERO_SIZE, (0, 0, 0, 0))
+    d = ImageDraw.Draw(soft)
+    for i in range(4):  # große, weiche Lichtflecken (unscharf)
+        r = rnd.randint(int(h * 0.35), int(h * 0.75))
+        cx, cy = rnd.randint(int(w * 0.05), int(w * 0.95)), rnd.randint(0, h)
+        col = (255, 255, 255, rnd.randint(45, 80)) if i % 2 == 0 else (*ar, rnd.randint(90, 150))
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=col)
+    soft = soft.filter(ImageFilter.GaussianBlur(70))
+    sharp = Image.new("RGBA", HERO_SIZE, (0, 0, 0, 0))
+    d = ImageDraw.Draw(sharp)
+    for k in range(3):  # feine Ringe als ruhiger Akzent
+        r = rnd.randint(int(h * 0.3), int(h * 0.5))
+        cx, cy = rnd.randint(int(w * 0.55), int(w * 0.95)), rnd.randint(int(h * 0.2), int(h * 0.8))
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=(255, 255, 255, 55 - 12 * k), width=3)
+    return Image.alpha_composite(Image.alpha_composite(base, soft), sharp).convert("RGB")
+
+
 def source_label(rec: dict) -> str:
     names = list(dict.fromkeys(x["name"] for x in (rec.get("sources") or [rec["source"]])))[:3]
     return ("Quelle: " if len(names) == 1 else "Quellen: ") + ", ".join(names)
@@ -142,6 +167,9 @@ def make_cards(headline: str, kicker: str, footer: str, brand: str, accent: str,
         img = render_card(size, headline, kicker, footer, brand, accent, category)
         paths[name] = out_dir / f"{name}.jpg"
         img.save(paths[name], "JPEG", quality=92)
+    hero = render_hero(category, accent, headline)
+    paths["hero"] = out_dir / "hero.jpg"
+    hero.save(paths["hero"], "JPEG", quality=88)
     return paths
 
 

@@ -56,7 +56,10 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         shutil.rmtree(out)
     out.mkdir(parents=True)
     (out / "static").mkdir()
-    shutil.copy(PKG / "static" / "style.css", out / "static" / "style.css")
+    for name in ("style.css", "logo.svg", "favicon.svg", "favicon-32.png"):
+        shutil.copy(PKG / "static" / name, out / "static" / name)
+    for name in ("favicon.ico", "apple-touch-icon.png"):  # Browser suchen diese Dateien an der Wurzel
+        shutil.copy(PKG / "static" / name, out / name)
     if cfg.admin_api_url:  # Admin-Seite nur, wenn ein Freigabe-Dienst eingetragen ist
         shutil.copy(PKG / "static" / "admin.js", out / "static" / "admin.js")
     (out / ".nojekyll").write_text("")

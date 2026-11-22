@@ -10,6 +10,10 @@
 <meta property="og:site_name" content="{{ cfg.brand_name }}">
 <meta property="og:locale" content="de_DE">
 <link rel="alternate" type="application/rss+xml" title="{{ cfg.brand_name }}" href="{{ base }}/feed.xml">
+<link rel="icon" href="{{ base }}/static/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{{ base }}/static/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{ base }}/apple-touch-icon.png">
+<meta name="theme-color" content="{{ cfg.accent }}">
 <link rel="stylesheet" href="{{ base }}/static/style.css">
 <style>:root{--accent:{{ cfg.accent }}}</style>
 {% if crumbs_ld is defined %}<script type="application/ld+json">{{ crumbs_ld | tojson }}</script>{% endif %}
@@ -17,7 +21,7 @@
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="{{ base }}/"><span class="bar"></span>{{ cfg.brand_name }}</a>
+  <a class="brand" href="{{ base }}/"><img class="logo" src="{{ base }}/static/logo.svg" width="36" height="36" alt="">{{ cfg.brand_name }}</a>
   <span class="tag">{{ cfg.tagline }}</span>
   <nav class="nav" aria-label="Hauptnavigation">
     {% if has_guides %}<a href="{{ base }}/kaufberater/">Kaufberater</a>{% endif %}

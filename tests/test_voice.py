@@ -23,6 +23,7 @@ def cfg():
     c = load_config(ROOT / "config.yaml")
     c.site_url = "https://news.example"
     c.review = False
+    c.videos_for_recent = 20  # Videos sind in config.yaml abgeschaltet, hier werden sie ja getestet
     return c
 
 

@@ -2,7 +2,7 @@
 
 Ein Erklärformat mit klarer Haltung statt Meldungs-Recycling. Täglich liest die Pipeline Tech-/KI-Quellen, eine
 KI-Chefredaktion bündelt mehrere Quellen zu den wichtigsten Themen, ein KI-Autor schreibt daraus Erklärbeiträge mit
-Einordnung (Rubriken wie *Hype-Check* und *Was steckt dahinter?*), dazu Bilder und ein Video mit Stimme. **Du liest die
+Einordnung (Rubriken wie *Deal-Check* und *Neuheiten-Check*), dazu Bilder und ein Video mit Stimme. **Du liest die
 Entwürfe (wenige Minuten) und gibst sie frei**, erst dann gehen Website, Instagram, Facebook und TikTok online.
 Haltung, Rubriken, Schwerpunkte und Marke stehen in `config.yaml` (Abschnitt `editorial`). Das ist dein Hebel.
 
@@ -113,6 +113,8 @@ Das schützt auch deine Glaubwürdigkeit als kritisches Erklärformat.
   ist nie garantiert, und Google stuft massenhaft erzeugte Texte ohne eigenen Mehrwert ab. Deshalb die Freigabe durch dich.
 
 ## Sprecherstimme und Videos
+
+**Derzeit aus** (`pipeline.videos_for_recent: 0`): Ohne ElevenLabs-Schlüssel wären die Videos stumm und ohne Nutzen. Zum Einschalten `videos_for_recent` z. B. auf 20 setzen und `ELEVENLABS_API_KEY` eintragen. Auf der Beitragsseite werden Videos nicht eingebettet (`editorial.show_video`).
 
 Jedes Video hat eine KI-Sprecherstimme (ElevenLabs) und eingebrannte Untertitel, die zum gesprochenen Text passen.
 Claude schreibt dafür pro Beitrag einen kurzen Sprechtext (`narration`, ca. 15–20 Sekunden).

@@ -19,6 +19,7 @@ NOW = datetime(2026, 11, 16, 12, 0, tzinfo=timezone.utc)
 def cfg():
     c = load_config(ROOT / "config.yaml")
     c.site_url = "https://news.example"
+    c.videos_for_recent = 20  # die Tests prüfen auch die Videofunktion, die in der echten Konfiguration aus ist
     return c
 
 
@@ -40,7 +41,7 @@ ITEMS = [item("A bei heise", "u1", "heise"), item("A bei Golem", "u2", "Golem", 
 def test_config_has_editorial_line(cfg):
     assert cfg.review is True and "fehlkäufe" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
     names = [r["name"] for r in cfg.rubriken]
-    assert names[0] == "Deal-Check" and "Hype-Check" in names and "Ratgeber" in names
+    assert names[0] == "Deal-Check" and "Neuheiten-Check" in names and "Ratgeber" in names
 
 
 def test_validate_topics_drops_bad_numbers_and_duplicates():
@@ -120,7 +121,7 @@ def test_explainer_page_renders_sections_verdict_and_all_sources(cfg, tmp_path):
     (rec, _) = pipeline.generate(cfg, store, StubWriter(), items=ITEMS, now=NOW, editor=BundlingEditor())
     out = pipeline.build(cfg, store, tmp_path / "public")
     html = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
-    for needle in ("Worum geht es genau?", "Einordnung", "Das wissen wir noch nicht", "heise", "Golem", "Quellen"):
+    for needle in ("Worum geht es genau?", "Einordnung", "Gut zu wissen", "heise", "Golem", "Quellen"):
         assert needle in html
 
 
