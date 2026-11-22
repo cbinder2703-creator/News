@@ -303,7 +303,9 @@ def make_narrated_video(rec: dict, brand: str, accent: str, host: str, audio: Pa
                "-f", "concat", "-safe", "0", "-i", str(listing), "-i", str(audio),
                "-vf", "fps=30,format=yuv420p", "-af", "apad",
                "-c:v", "libx264", "-preset", "veryfast", "-c:a", "aac", "-b:a", "128k",
-               "-shortest", "-movflags", "+faststart", str(out_path)]
+               # -t: feste Länge, weil neuere ffmpeg-Versionen (ab ca. 8) dem letzten concat-Eintrag
+               # erneut die Abbinder-Dauer geben und das Video sonst um end_card zu lang wird.
+               "-shortest", "-t", f"{total + end_card:.3f}", "-movflags", "+faststart", str(out_path)]
         try:
             subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=240)
         except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
