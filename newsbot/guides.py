@@ -9,10 +9,10 @@ from __future__ import annotations
 
 import logging
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .config import Config
-from .writer import FAQ, Section, ShopIdea
+from .writer import FAQ, Section, ShopIdea, _all_required
 
 log = logging.getLogger("newsbot.guides")
 
@@ -51,6 +51,8 @@ class Criterion(BaseModel):
 
 
 class Guide(BaseModel):
+    model_config = ConfigDict(json_schema_extra=_all_required)
+
     headline: str
     seo_title: str
     meta_description: str

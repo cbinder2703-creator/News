@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .config import Config
 from .ingest import SourceItem
@@ -83,6 +83,15 @@ Formate:
 - image_alt: Bildbeschreibung für Barrierefreiheit, 1 Satz."""
 
 
+def _all_required(schema: dict, model: type) -> None:
+    """Alle Felder im JSON-Schema als Pflicht melden.
+
+    Die API lehnt Schemas mit vielen optionalen Feldern als "too complex" ab. Im Code behalten die Felder ihre
+    Standardwerte (Stub, Tests); dem Modell sagen wir nur, dass es jedes Feld ausfüllen soll (leer ist erlaubt).
+    """
+    schema["required"] = list(schema.get("properties", {}))
+
+
 class Section(BaseModel):
     heading: str
     text: str
@@ -94,12 +103,16 @@ class FAQ(BaseModel):
 
 
 class ShopIdea(BaseModel):
+    model_config = ConfigDict(json_schema_extra=_all_required)
+
     label: str
     query: str
     reason: str = ""
 
 
 class Article(BaseModel):
+    model_config = ConfigDict(json_schema_extra=_all_required)
+
     newsworthy: bool
     skip_reason: str = ""
     risk: Literal["low", "medium", "high"]
