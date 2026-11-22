@@ -17,7 +17,22 @@ RSS-Quellen → Chefredaktion bündelt Themen → Autor schreibt Erklärbeitrag 
 3. Der Workflow gibt frei, erzeugt Stimme und Video, baut die Website und postet. Nicht freigegebene Entwürfe bleiben liegen und gehen nie online.
 4. Beiträge mit hohem Risiko (`held`) lassen sich nur mit ausdrücklicher ID freigeben, nie mit `alle`.
 
-**Freigabe per WhatsApp (optional):** Nach jedem Lauf bekommst du pro Entwurf eine WhatsApp-Nachricht mit Titel, Teaser, Einordnung,
+**Admin-Seite zum Freigeben (empfohlen):** Unter `https://dealpuls.de/admin/` meldest du dich mit einem Passwort an, liest die Entwürfe
+und klickst auf **Freigeben** oder **Ablehnen**. Die Seite ist nicht verlinkt, nicht in der Sitemap und für Suchmaschinen gesperrt (`noindex`).
+Ein kleiner Cloudflare-Worker (kostenlos) prüft das Passwort und hält den GitHub-Zugang geheim; die Admin-Seite im Browser bekommt nur eine
+Sitzung, die nach 12 Stunden abläuft. Ein Klick legt eine Entscheidung in `data/decisions/` ab und startet den Workflow (Website, Video, Posts, ca. 4 Minuten).
+Einrichten (einmalig, ca. 20 Minuten):
+1. **GitHub-Token nur für dieses Repo:** github.com → Settings → Developer settings → Personal access tokens → *Fine-grained tokens* → Repository access: nur `News`;
+   Berechtigungen **Contents: Read and write** und **Actions: Read and write**. Den Token kopierst du direkt in Schritt 2 und teilst ihn mit niemandem.
+2. **Cloudflare-Worker:** Kostenloses Konto auf cloudflare.com → Workers & Pages → *Create* → neuen Worker `dealpuls-admin` anlegen, den Code aus `worker/admin.js` einfügen und deployen.
+   Unter *Settings → Variables and Secrets* eintragen: als **Secret** `ADMIN_PASSWORD` (lang und zufällig, mindestens 20 Zeichen), `SESSION_SECRET` (anderer langer Zufallstext) und `GITHUB_TOKEN`;
+   als normalen Text `GITHUB_REPO` (`cbinder2703-creator/News`), `GITHUB_BRANCH` (Standard-Branch des Repos) und `ALLOWED_ORIGIN` (`https://dealpuls.de`).
+3. In `config.yaml` bei `admin.api_url` die Adresse des Workers eintragen (z. B. `https://dealpuls-admin.DEIN-NAME.workers.dev`), committen und pushen.
+4. Einmal Actions → newsbot → *Run workflow* mit `only_decisions` = `ja` starten (erzeugt die Entwurfsliste, ohne neue Entwürfe zu schreiben). Danach erscheint `/admin/`.
+Sicherheit: Alle KI-Texte werden auf der Admin-Seite nur als Text angezeigt, nie als HTML; eine Inhaltssicherheits-Regel erlaubt Verbindungen nur zum eigenen Worker.
+Falsche Passwörter werden um 1,5 Sekunden verzögert; ein langes Zufallspasswort ist der eigentliche Schutz. Beiträge mit hohem Risiko (`held`) sind rot markiert und fragen vor der Freigabe nach.
+
+**Freigabe per WhatsApp (optional, derzeit nicht nutzbar, solange Meta das Konto sperrt):** Nach jedem Lauf bekommst du pro Entwurf eine WhatsApp-Nachricht mit Titel, Teaser, Einordnung,
 Quellen und Risiko und den Buttons **Freigeben** / **Ablehnen**. Ein Klick legt eine Entscheidung ab und startet den Workflow
 (Website, Video und Posts, nach ca. 4 Minuten). Ohne die Einrichtung unten bleibt alles beim Freigeben über Actions.
 Das ist **nicht gegen ein echtes WhatsApp-Konto getestet**; die Plattform-Angaben unten sind nach meinem Wissen (bitte gegen die aktuelle Meta-Doku prüfen).

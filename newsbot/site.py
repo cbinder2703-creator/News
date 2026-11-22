@@ -57,6 +57,8 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
     out.mkdir(parents=True)
     (out / "static").mkdir()
     shutil.copy(PKG / "static" / "style.css", out / "static" / "style.css")
+    if cfg.admin_api_url:  # Admin-Seite nur, wenn ein Freigabe-Dienst eingetragen ist
+        shutil.copy(PKG / "static" / "admin.js", out / "static" / "admin.js")
     (out / ".nojekyll").write_text("")
 
     guides = [g for g in (guides or []) if g.get("article")]  # nur freigegebene Fassungen
@@ -131,6 +133,8 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
     render("sitemap.xml", "sitemap.xml", records=records, guides=guides, cats=cats, pages=STATIC_PAGES)
     for slug, title in STATIC_PAGES:
         render(f"{slug}.html", f"{slug}/index.html", title=title, canonical=f"/{slug}/")
+    if cfg.admin_api_url:
+        render("admin.html", "admin/index.html", api_url=cfg.admin_api_url)  # nicht verlinkt, nicht in der Sitemap, noindex
     _write(out / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {cfg.site_url}/sitemap.xml\n")
     return videos
 

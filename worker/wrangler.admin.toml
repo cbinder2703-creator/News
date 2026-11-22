@@ -1,0 +1,10 @@
+name = "dealpuls-admin"
+main = "admin.js"
+compatibility_date = "2026-01-01"
+
+# Nicht-geheime Werte; Geheimnisse (ADMIN_PASSWORD, SESSION_SECRET, GITHUB_TOKEN) trägst du in Cloudflare als "Secret" ein.
+# Deploy:  npx wrangler deploy -c wrangler.admin.toml
+[vars]
+GITHUB_REPO = "cbinder2703-creator/News"
+GITHUB_BRANCH = "claude/affectionate-ramanujan-d0vjl6"
+ALLOWED_ORIGIN = "https://dealpuls.de"

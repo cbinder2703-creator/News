@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import logging
 import re
 from datetime import datetime, timezone
@@ -206,6 +207,49 @@ def drafts_markdown(store: Store, cfg: Config | None = None) -> str:
                    f"> {a.get('verdict', '')}\n\n**Noch offen:**\n{qs}\n\n**Quellen:**\n{srcs}{shop}\n\n"
                    f"**Sprechtext:** {a.get('narration', '')}\n\n</details>\n")
     return "\n".join(out)
+
+
+def drafts_index(store: Store) -> list[dict]:
+    """Alle offenen Entwürfe (News und Kaufberater) in einer einheitlichen, schlanken Form für die Admin-Seite."""
+    items: list[dict] = []
+    for r in store.all():
+        if r["status"] not in ("draft", "held"):
+            continue
+        a = r["article"]
+        items.append({
+            "id": r["id"], "kind": "news", "status": r["status"], "created_at": r["created_at"],
+            "rubrik": a.get("rubrik") or a["category"], "risk": a["risk"], "risk_reason": a.get("risk_reason", ""),
+            "headline": a["headline"], "teaser": a["teaser"], "body": a["body"],
+            "sections": [{"heading": s["heading"], "text": s["text"]} for s in a.get("sections", [])],
+            "verdict": a.get("verdict", ""), "open_questions": a.get("open_questions", []),
+            "sources": [{"name": s["name"], "url": s["url"], "title": s["title"]}
+                        for s in r.get("sources", [r["source"]])],
+            "shopping": [{"label": i["label"], "query": i["query"]} for i in a.get("shopping", [])],
+        })
+    for g in store.guides():
+        d = g.get("draft")
+        if not d:
+            continue
+        sections = [{"heading": s["heading"], "text": s["text"]} for s in d["sections"]]
+        sections += [{"heading": c["name"], "text": c["text"]} for c in d["criteria"]]
+        if d.get("mistakes"):
+            sections.append({"heading": "Typische Fehlkäufe", "text": "\n".join(f"- {m}" for m in d["mistakes"])})
+        items.append({
+            "id": g["id"], "kind": "guide", "status": "draft", "created_at": g.get("drafted_at") or g["created_at"],
+            "rubrik": "Kaufberater" + (" (neue Fassung)" if g.get("article") else ""), "risk": "low", "risk_reason": "",
+            "headline": d["headline"], "teaser": d["meta_description"], "body": [d["intro"]], "sections": sections,
+            "verdict": d.get("summary", ""), "open_questions": [], "sources": [],
+            "shopping": [{"label": i["label"], "query": i["query"]} for i in d.get("shopping", [])],
+        })
+    return sorted(items, key=lambda i: i["created_at"], reverse=True)
+
+
+def write_drafts_index(store: Store) -> Path:
+    """Schreibt data/drafts.json. Die Admin-Seite (über den Worker) liest diese Datei."""
+    path = store.dir / "drafts.json"
+    path.write_text(json.dumps({"updated_at": now_iso(), "drafts": drafts_index(store)}, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    return path
 
 
 def build(cfg: Config, store: Store, out: str | Path = "public") -> Path:

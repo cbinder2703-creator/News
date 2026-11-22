@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freigabe · {{ cfg.brand_name }}</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src {{ api_url }}; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="{{ base }}/static/style.css">
+</head>
+<body data-api="{{ api_url }}">
+<header><span class="brand"><span class="bar"></span>{{ cfg.brand_name }} · Freigabe</span></header>
+<main>
+  <section id="login" class="admin-box" hidden>
+    <h1>Anmelden</h1>
+    <form id="login-form" autocomplete="on">
+      <label for="pw">Passwort</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <button type="submit" class="admin-btn ok">Anmelden</button>
+      <p id="login-msg" class="admin-msg" role="status"></p>
+    </form>
+  </section>
+  <section id="app" hidden>
+    <div class="admin-bar">
+      <h1>Entwürfe</h1>
+      <span><button id="reload" class="admin-btn" type="button">Aktualisieren</button>
+      <button id="logout" class="admin-btn" type="button">Abmelden</button></span>
+    </div>
+    <p id="app-msg" class="admin-msg" role="status"></p>
+    <div id="list"></div>
+  </section>
+  <noscript><p>Für die Freigabe wird JavaScript gebraucht.</p></noscript>
+</main>
+<script src="{{ base }}/static/admin.js"></script>
+</body>
+</html>

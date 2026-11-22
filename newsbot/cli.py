@@ -110,4 +110,6 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "publish":
         done = pipeline.publish(cfg, store, args.out)
         print(f"{len(done)} Posts veröffentlicht")
+    if args.command in ("generate", "run", "approve", "reject", "decisions", "guide"):
+        pipeline.write_drafts_index(store)  # Grundlage der Admin-Seite
     return 0

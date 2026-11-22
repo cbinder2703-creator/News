@@ -68,8 +68,13 @@ guides:
     - { slug: "powerbank", title: "Powerbank", keyword: "Powerbank kaufen", category: "Zubehör" }
     - { slug: "wlan-router", title: "WLAN-Router", keyword: "WLAN Router kaufen", category: "Netz" }
 
+# Admin-Seite zum Freigeben unter /admin/ (Login über einen kleinen Cloudflare-Worker, siehe README "Admin-Seite").
+# Leer lassen = es wird keine Admin-Seite gebaut. Danach hier die Adresse des Workers eintragen, z. B. https://dealpuls-admin.DEIN-NAME.workers.dev
+admin:
+  api_url: ""
+
 pipeline:
-  articles_per_run: 3       # Themen pro Lauf (täglich)
+  articles_per_run: 3      # Themen pro Lauf (täglich)
   max_age_hours: 24          # nur Meldungen, die jünger sind
   max_auto_risk: medium      # low | medium  -> "high" wird nie automatisch veröffentlicht
   videos_for_recent: 20      # Videos nur für die letzten N Beiträge erzeugen
