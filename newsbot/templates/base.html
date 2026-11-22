@@ -14,7 +14,7 @@
 <link rel="icon" href="{{ base }}/static/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{{ base }}/apple-touch-icon.png">
 <meta name="theme-color" content="{{ cfg.accent }}">
-<link rel="stylesheet" href="{{ base }}/static/style.css">
+<link rel="stylesheet" href="{{ base }}/static/style.css?v={{ asset_v }}">
 <style>:root{--accent:{{ cfg.accent }}}</style>
 {% if crumbs_ld is defined %}<script type="application/ld+json">{{ crumbs_ld | tojson }}</script>{% endif %}
 {% block head %}{% endblock %}

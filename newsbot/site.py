@@ -5,6 +5,7 @@ Themen- und Kaufberater-Übersichten, interne Verlinkung (News ↔ Kaufberater, 
 """
 from __future__ import annotations
 
+import hashlib
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -75,7 +76,8 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
 
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
     env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822)
-    env.globals.update(cfg=cfg, base=cfg.base_path, year=datetime.now().year, has_guides=bool(guides),
+    css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js"))).hexdigest()[:10]
+    env.globals.update(cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
                        affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
 
     videos: dict[str, Path] = {}
