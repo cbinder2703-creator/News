@@ -126,7 +126,7 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
   eine kommerzielle Weiterverwendung. Im Zweifel um Erlaubnis fragen oder Quellen mit freier Lizenz wählen.
 - **Plattform-Regeln**: Meta und TikTok drosseln oder sperren Konten, die reinen automatisierten, unoriginellen Content
   posten. Kennzeichne KI-Inhalte, poste nicht übermäßig oft und beobachte die Reichweite in den ersten Wochen.
-- **Kosten**: Pro Beitrag ca. 1–3 Cent API-Kosten (bei `claude-opus-5-5`; Modell in `config.yaml` änderbar). GitHub Actions/Pages sind für kleine Projekte kostenlos.
+- **Kosten**: Pro Beitrag ca. 1–3 Cent API-Kosten (Schätzwert, vor dem ersten Lauf nicht gemessen; voreingestellt ist `claude-sonnet-5-5`, ein größeres Modell wie `claude-opus-5-5` kostet mehr; Modell in `config.yaml` änderbar). GitHub Actions/Pages sind für kleine Projekte kostenlos.
 
 ## Ausbauideen
 

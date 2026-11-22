@@ -9,7 +9,7 @@ brand:
   contact_email: "kontakt@dealpuls.de"  # für Impressum; Postfach bei Strato einrichten
 
 ai:
-  model: "claude-opus-5-5"
+  model: "claude-sonnet-5-5"
   disclosure: "Dieser Beitrag wurde mit KI auf Basis der genannten Quellen erstellt."
 
 voice:                       # Sprecherstimme für die Videos (ElevenLabs)
