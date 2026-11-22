@@ -60,6 +60,21 @@ In der Entwurfs-Zusammenfassung siehst du die Produktideen samt fertigen Links v
 Ein Kasten mit gekennzeichneten Links ist nicht dasselbe wie eine Kaufempfehlung. Wir testen keine Produkte, deshalb gibt es keine Rankings und keine „Testsieger“.
 Das schützt auch deine Glaubwürdigkeit als kritisches Erklärformat.
 
+## Kaufberater und Suchmaschinen (SEO)
+
+- **Kaufberater** (`/kaufberater/<slug>/`): zeitlose Ratgeberseiten mit Kaufkriterien, typischen Fehlkäufen und häufigen Fragen.
+  Themen und Suchbegriffe stehen in `config.yaml` unter `guides.topics`. Mit `guides.enabled: true` schreibt jeder Lauf
+  höchstens `per_run` fehlende Kaufberater, immer als Entwurf (ID `kb-<slug>`), Freigabe wie bei News.
+  Neue Fassung: `python -m newsbot guide <slug>`; die alte bleibt bis zur Freigabe online.
+  Ohne Testsieger und Rankings, denn wir testen nichts selbst.
+- **News** bekommen SEO-Titel, Meta-Beschreibung, Suchbegriff (auch in der Adresse), häufige Fragen und, wenn passend,
+  einen Verweis auf den Kaufberater. Der Kaufberater listet umgekehrt die aktuellen Meldungen dazu.
+- `editorial.kaufbezug: true`: Die Chefredaktion bevorzugt Themen, die Kaufentscheidungen betreffen.
+- Website: Themen-Seiten (`/thema/…`), Brotkrumen-Navigation, strukturierte Daten (NewsArticle, Article, BreadcrumbList,
+  WebSite), Sitemap mit Änderungsdatum, Seite „So arbeiten wir“.
+- Was das nicht ersetzt: eine eigene Domain, die Google Search Console (Sitemap einreichen) und Zeit. Ein Platz ganz oben
+  ist nie garantiert, und Google stuft massenhaft erzeugte Texte ohne eigenen Mehrwert ab. Deshalb die Freigabe durch dich.
+
 ## Sprecherstimme und Videos
 
 Jedes Video hat eine KI-Sprecherstimme (ElevenLabs) und eingebrannte Untertitel, die zum gesprochenen Text passen.
@@ -126,6 +141,7 @@ Plattform-Doku (Versionsnummer der Graph API: `social.graph_version`).
 | `newsbot/ingest.py` | RSS lesen, bereinigen, Dubletten filtern |
 | `newsbot/editor.py` | KI-Chefredaktion: Themen wählen, Quellen bündeln |
 | `newsbot/writer.py` | KI-Autor: Erklärbeitrag, Einordnung, Risiko, Social-Texte |
+| `newsbot/guides.py` | Kaufberater: Ratgeberseiten mit SEO, als Entwurf zur Freigabe |
 | `newsbot/affiliate.py` | Affiliate-Links (Amazon, OTTO/Awin) als gekennzeichneter Kasten |
 | `newsbot/media.py` | Bildkarten (Pillow) und 9:16-Video (ffmpeg) |
 | `newsbot/site.py` + `templates/` | statische Website, RSS-Feed, Sitemap |

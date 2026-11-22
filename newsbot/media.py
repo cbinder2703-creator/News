@@ -127,17 +127,22 @@ def source_label(rec: dict) -> str:
     return ("Quelle: " if len(names) == 1 else "Quellen: ") + ", ".join(names)
 
 
-def make_images(rec: dict, brand: str, accent: str, out_dir: Path) -> dict[str, Path]:
+def make_cards(headline: str, kicker: str, footer: str, brand: str, accent: str, category: str,
+               out_dir: Path) -> dict[str, Path]:
     """card.jpg (Feed), og.jpg (Link-Vorschau). JPEG, weil Instagram nur JPEG akzeptiert."""
-    art = rec["article"]
     out_dir.mkdir(parents=True, exist_ok=True)
-    footer = f"{source_label(rec)}  ·  KI-generiert"
     paths = {}
     for name, size in (("card", CARD_SIZE), ("og", OG_SIZE)):
-        img = render_card(size, art["headline"], art.get("rubrik") or art["category"], footer, brand, accent, art["category"])
+        img = render_card(size, headline, kicker, footer, brand, accent, category)
         paths[name] = out_dir / f"{name}.jpg"
         img.save(paths[name], "JPEG", quality=92)
     return paths
+
+
+def make_images(rec: dict, brand: str, accent: str, out_dir: Path) -> dict[str, Path]:
+    art = rec["article"]
+    return make_cards(art["headline"], art.get("rubrik") or art["category"], f"{source_label(rec)}  ·  KI-generiert",
+                      brand, accent, art["category"], out_dir)
 
 
 def make_video(rec: dict, brand: str, accent: str, host: str, out_path: Path, seconds: float = 3.5) -> Path | None:

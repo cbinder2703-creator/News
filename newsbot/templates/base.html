@@ -4,23 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% if title and title != cfg.brand_name %}{{ title }} – {% endif %}{{ cfg.brand_name }}</title>
-<meta name="description" content="{% block desc %}{{ cfg.tagline }}{% endblock %}">
+<meta name="description" content="{% block desc %}{{ desc or cfg.tagline }}{% endblock %}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+{% if canonical is defined %}<link rel="canonical" href="{{ cfg.site_url }}{{ canonical }}">{% endif %}
+<meta property="og:site_name" content="{{ cfg.brand_name }}">
+<meta property="og:locale" content="de_DE">
 <link rel="alternate" type="application/rss+xml" title="{{ cfg.brand_name }}" href="{{ base }}/feed.xml">
 <link rel="stylesheet" href="{{ base }}/static/style.css">
 <style>:root{--accent:{{ cfg.accent }}}</style>
+{% if crumbs_ld is defined %}<script type="application/ld+json">{{ crumbs_ld | tojson }}</script>{% endif %}
 {% block head %}{% endblock %}
 </head>
 <body>
 <header class="top">
   <a class="brand" href="{{ base }}/"><span class="bar"></span>{{ cfg.brand_name }}</a>
   <span class="tag">{{ cfg.tagline }}</span>
+  <nav class="nav" aria-label="Hauptnavigation">
+    {% if has_guides %}<a href="{{ base }}/kaufberater/">Kaufberater</a>{% endif %}
+    <a href="{{ base }}/thema/">Themen</a>
+    <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a>
+  </nav>
 </header>
-<main>{% block main %}{% endblock %}</main>
+<main>
+{% if crumbs is defined %}<nav class="crumbs" aria-label="Brotkrumen">{% for name, path in crumbs %}{% if not loop.last %}<a href="{{ base }}{{ path }}">{{ name }}</a> › {% else %}<span>{{ name }}</span>{% endif %}{% endfor %}</nav>{% endif %}
+{% block main %}{% endblock %}
+</main>
 <footer>
   <p>{% if cfg.review %}Alle Beiträge werden mit KI auf Basis der genannten Quellen entworfen und vor der Veröffentlichung von der Redaktion freigegeben.{% else %}Alle Beiträge werden automatisch mit KI auf Basis der genannten Quellen erstellt und nicht von Menschen vorab geprüft.{% endif %}
      Fehler melden: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
   {% if affiliate_on %}<p>Einige Links sind Affiliate-Links und als „Anzeige“ gekennzeichnet. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
   <p>© {{ year }} {{ cfg.brand_name }} · <a href="{{ base }}/ueber-uns/">Über uns</a> ·
+     <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a> ·
      <a href="{{ base }}/impressum/">Impressum</a> · <a href="{{ base }}/datenschutz/">Datenschutz</a> ·
      <a href="{{ base }}/feed.xml">RSS</a></p>
 </footer>

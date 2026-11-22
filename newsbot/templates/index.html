@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% block head %}<link rel="canonical" href="{{ cfg.site_url }}/">
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.brand_name,
+  "url": cfg.site_url ~ "/", "inLanguage": "de-DE", "description": cfg.tagline} | tojson }}</script>{% endblock %}
 {% block main %}
+<h1 class="visually-hidden">{{ cfg.brand_name }}: {{ cfg.tagline }}</h1>
 {% if not records %}<p class="empty">Noch keine Beiträge. Die erste Ausgabe erscheint mit dem nächsten Lauf.</p>{% endif %}
 <div class="grid">
 {% for r in records %}
@@ -9,6 +13,13 @@
     <h2>{{ r.article.headline }}</h2>
     <p>{{ r.article.teaser }}</p>
   </a>
+  {% if loop.first and guides %}
+  <section class="guide-strip" aria-label="Kaufberater">
+    <h2>Kaufberater</h2>
+    <ul>{% for g in guides %}<li><a href="{{ base }}/kaufberater/{{ g.slug }}/">{{ g.topic.title }}</a></li>{% endfor %}</ul>
+    <a class="more" href="{{ base }}/kaufberater/">Alle Kaufberater →</a>
+  </section>
+  {% endif %}
 {% endfor %}
 </div>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>Kaufberater</h1>
+<p class="lead-text">Worauf du beim Kauf achten solltest: Kriterien, typische Fehler und Antworten auf häufige Fragen. Ohne Testsieger, denn wir testen nicht selbst.</p>
+<div class="grid">
+{% for g in guides %}
+  <a class="card" href="{{ base }}/kaufberater/{{ g.slug }}/">
+    <img src="{{ base }}/media/{{ g.id }}/card.jpg" alt="{{ g.article.image_alt }}" loading="lazy">
+    <div class="meta"><span class="cat">Kaufberater</span> · {{ (g.updated_at or g.created_at) | de_day }}</div>
+    <h2>{{ g.article.headline }}</h2>
+    <p>{{ g.article.meta_description }}</p>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

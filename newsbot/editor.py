@@ -23,7 +23,7 @@ Verfügbare Rubriken:
 Regeln:
 - Fasse Meldungen, die dasselbe Ereignis oder Thema betreffen, zu EINEM Thema zusammen (item_numbers). Mehr Quellen zum selben Thema sind besser.
 - Bevorzuge Themen, bei denen Einordnung hilft (Hintergrund, Hype-Prüfung, Folgen für Nutzer) vor reinen Produktmeldungen.
-- Schwerpunkte der Redaktion: <<FOCUS>>.
+- Schwerpunkte der Redaktion: <<FOCUS>>.<<COMMERCE>>
 - Meiden: <<AVOID>>. Dazu Werbung, Gewinnspiele, Meinungsstücke, Podcast- und Newsletter-Hinweise.
 - Bereits behandelt, nicht wiederholen (außer bei wesentlich neuer Entwicklung): <<RECENT>>.
 - Wähle je Thema die passendste Rubrik (exakter Name) und beschreibe in "angle" den konkreten Blickwinkel in einem Satz.
@@ -50,6 +50,19 @@ def render_items(items: list[SourceItem], now: datetime | None = None) -> str:
         age_h = max(int((now - it.published).total_seconds() // 3600), 0)
         lines.append(f"{n}. [{it.source}, vor {age_h} h] {it.title} - {it.summary[:220]}")
     return "\n".join(lines)
+
+
+def commerce_rule(cfg: Config) -> str:
+    """Zusatzregel bei editorial.kaufbezug: Themen mit Bezug zu Kaufentscheidungen haben Vorrang."""
+    if not cfg.commerce:
+        return ""
+    rule = ("\n- Kaufbezug hat Vorrang: Bevorzuge Themen, die Leser bei einer Kaufentscheidung betreffen (neue oder günstigere"
+            " Geräte, Preisänderungen und Angebote laut Quelle, Rückrufe, Sicherheitsupdates oder Supportende bei Geräten)."
+            " Reine Branchen-, Personal- oder Börsenmeldungen nur, wenn nichts Passenderes da ist.")
+    if cfg.guide_topics:
+        rule += " Themen, die zu unseren Kaufberatern passen, sind besonders willkommen: " + ", ".join(
+            t["title"] for t in cfg.guide_topics) + "."
+    return rule
 
 
 def validate_topics(topics: list[Topic], n_items: int, limit: int) -> list[Topic]:
@@ -79,7 +92,8 @@ class Editor:
                        .replace("<<HALTUNG>>", cfg.haltung or "Sachlich und verständlich.")
                        .replace("<<RUBRIKEN>>", rubriken)
                        .replace("<<FOCUS>>", ", ".join(cfg.focus) or "keine besonderen")
-                       .replace("<<AVOID>>", ", ".join(cfg.avoid) or "nichts Besonderes"))
+                       .replace("<<AVOID>>", ", ".join(cfg.avoid) or "nichts Besonderes")
+                       .replace("<<COMMERCE>>", commerce_rule(cfg)))
 
     def plan(self, items: list[SourceItem], recent: list[str], now: datetime | None = None) -> list[Topic]:
         import anthropic

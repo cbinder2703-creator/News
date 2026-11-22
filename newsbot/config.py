@@ -41,6 +41,10 @@ class Config:
     affiliate_disclosure: str = ""
     affiliate_amazon_notice: str = ""
     affiliate_programs: list[dict] = field(default_factory=list)
+    commerce: bool = False
+    guides_enabled: bool = False
+    guides_per_run: int = 1
+    guide_topics: list[dict] = field(default_factory=list)
     sources: list[dict] = field(default_factory=list)
 
     @property
@@ -59,6 +63,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
     v = raw.get("voice") or {}
     ed = raw.get("editorial") or {}
     af = raw.get("affiliate") or {}
+    gd = raw.get("guides") or {}
     return Config(
         brand_name=b["name"],
         tagline=b.get("tagline", ""),
@@ -90,5 +95,9 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         affiliate_disclosure=af.get("disclosure", "Anzeige: Affiliate-Links."),
         affiliate_amazon_notice=af.get("amazon_notice", ""),
         affiliate_programs=af.get("programs") or [],
+        commerce=bool(ed.get("kaufbezug", False)),
+        guides_enabled=bool(gd.get("enabled", False)),
+        guides_per_run=int(gd.get("per_run", 1)),
+        guide_topics=[t for t in (gd.get("topics") or []) if t.get("slug") and t.get("title")],
         sources=raw.get("sources", []),
     )

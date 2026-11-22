@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>{{ cfg.site_url }}/</loc></url>
-{% for r in records %}<url><loc>{{ cfg.site_url }}/a/{{ r.slug }}/</loc><lastmod>{{ r.created_at[:10] }}</lastmod></url>
+<url><loc>{{ cfg.site_url }}/</loc>{% if records %}<lastmod>{{ records[0].created_at[:10] }}</lastmod>{% endif %}</url>
+{% if guides %}<url><loc>{{ cfg.site_url }}/kaufberater/</loc></url>
+{% endif %}{% for g in guides %}<url><loc>{{ cfg.site_url }}/kaufberater/{{ g.slug }}/</loc><lastmod>{{ (g.updated_at or g.created_at)[:10] }}</lastmod></url>
+{% endfor %}<url><loc>{{ cfg.site_url }}/thema/</loc></url>
+{% for c in cats %}<url><loc>{{ cfg.site_url }}/thema/{{ c.slug }}/</loc><lastmod>{{ c.records[0].created_at[:10] }}</lastmod></url>
+{% endfor %}{% for r in records %}<url><loc>{{ cfg.site_url }}/a/{{ r.slug }}/</loc><lastmod>{{ (r.updated_at or r.created_at)[:10] }}</lastmod></url>
+{% endfor %}{% for slug, _ in pages %}<url><loc>{{ cfg.site_url }}/{{ slug }}/</loc></url>
 {% endfor %}</urlset>

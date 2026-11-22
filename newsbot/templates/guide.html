@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block desc %}{{ a.meta_description }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ cfg.site_url }}/kaufberater/{{ g.slug }}/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ cfg.site_url }}/kaufberater/{{ g.slug }}/">
+<meta property="og:title" content="{{ a.headline }}">
+<meta property="og:description" content="{{ a.meta_description }}">
+<meta property="og:image" content="{{ cfg.site_url }}/media/{{ g.id }}/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "Article",
+  "mainEntityOfPage": cfg.site_url ~ "/kaufberater/" ~ g.slug ~ "/",
+  "headline": a.headline, "description": a.meta_description,
+  "datePublished": g.created_at, "dateModified": g.updated_at or g.created_at,
+  "image": cfg.site_url ~ "/media/" ~ g.id ~ "/og.jpg", "inLanguage": "de-DE",
+  "keywords": g.topic.keyword or g.topic.title,
+  "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/so-arbeiten-wir/"},
+  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/"}
+} | tojson }}</script>
+{% endblock %}
+{% block main %}
+<article class="post">
+  <div class="meta"><span class="cat">Kaufberater</span> · Zuletzt aktualisiert: <time datetime="{{ g.updated_at or g.created_at }}">{{ (g.updated_at or g.created_at) | de_day }}</time></div>
+  <h1>{{ a.headline }}</h1>
+  <p class="lead-text">{{ a.intro }}</p>
+  <p class="ai-note">Wir testen keine Produkte selbst. Dieser Ratgeber erklärt Kriterien, damit du selbst entscheiden kannst. <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>
+  <nav class="toc" aria-label="Inhalt"><strong>Inhalt</strong><ol>
+    {% for s in a.sections %}<li><a href="#s{{ loop.index }}">{{ s.heading }}</a></li>{% endfor %}
+    <li><a href="#kriterien">Darauf solltest du achten</a></li>
+    {% if a.mistakes %}<li><a href="#fehler">Typische Fehlkäufe</a></li>{% endif %}
+    {% if a.faq %}<li><a href="#faq">Häufige Fragen</a></li>{% endif %}
+  </ol></nav>
+  {% for s in a.sections %}<h2 id="s{{ loop.index }}">{{ s.heading }}</h2><p>{{ s.text }}</p>{% endfor %}
+  <h2 id="kriterien">Darauf solltest du achten</h2>
+  {% for c in a.criteria %}<h3>{{ loop.index }}. {{ c.name }}</h3><p>{{ c.text }}</p>{% endfor %}
+  {% if a.mistakes %}<h2 id="fehler">Typische Fehlkäufe</h2>
+  <ul>{% for m in a.mistakes %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+  {% if a.summary %}<blockquote class="verdict">{{ a.summary }}</blockquote>{% endif %}
+  {% include "_shop.html" %}
+  {% if a.faq %}<h2 id="faq">Häufige Fragen</h2>
+  <div class="faq">{% for f in a.faq %}<details><summary>{{ f.question }}</summary><p>{{ f.answer }}</p></details>{% endfor %}</div>{% endif %}
+  {% if news %}<h2>Aktuelle Meldungen dazu</h2>
+  <ul class="related">{% for r in news %}<li><a href="{{ base }}/a/{{ r.slug }}/">{{ r.article.headline }}</a> <span class="muted">({{ r.created_at | de_day }})</span></li>{% endfor %}</ul>{% endif %}
+  <p class="ai-note">{{ cfg.disclosure }}</p>
+</article>
+{% endblock %}

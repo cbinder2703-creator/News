@@ -66,3 +66,23 @@ class Store:
 
     def live(self) -> list[dict]:
         return [r for r in self.all() if r.get("status") == "live"]
+
+    # --- Kaufberater: {"id", "slug", "topic", "article" (online-Fassung oder None), "draft" (wartet auf Freigabe)}
+    @property
+    def guides_dir(self) -> Path:
+        return self.dir / "guides"
+
+    def save_guide(self, rec: dict) -> None:
+        self.guides_dir.mkdir(parents=True, exist_ok=True)
+        (self.guides_dir / f"{rec['slug']}.json").write_text(
+            json.dumps(rec, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    def guides(self) -> list[dict]:
+        if not self.guides_dir.exists():
+            return []
+        recs = [json.loads(p.read_text(encoding="utf-8")) for p in self.guides_dir.glob("*.json")]
+        return sorted(recs, key=lambda r: r["slug"])
+
+    def guide(self, slug: str) -> dict | None:
+        p = self.guides_dir / f"{slug}.json"
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None

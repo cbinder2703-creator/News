@@ -35,3 +35,18 @@ footer{max-width:1100px;margin:40px auto 0;padding:20px 16px 40px;border-top:1px
 .shop{margin:28px 0;padding:14px 18px;border:1px dashed var(--line);border-radius:12px}
 .shop h3{margin:0 0 6px}.shop .ad{font-size:12px;font-weight:700;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 .shop ul{padding-left:20px}
+.nav{display:flex;gap:16px;margin-left:auto;font-size:15px}.nav a{text-decoration:none;font-weight:600}.nav a:hover{color:var(--accent)}
+.crumbs{font-size:14px;color:var(--muted);max-width:700px;margin:0 auto 8px}.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}
+a.cat{text-decoration:none}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.guide-box{margin:28px 0;padding:14px 18px;border-left:5px solid var(--accent);background:var(--card);border-radius:0 10px 10px 0}
+.guide-box .kicker{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent)}
+.guide-box p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.faq details{border-bottom:1px solid var(--line);padding:10px 0}.faq summary{font-weight:600;cursor:pointer}.faq p{margin:8px 0 0}
+.toc{background:var(--card);border-radius:10px;padding:12px 18px;margin:20px 0;font-size:15px}.toc ol{margin:6px 0 0;padding-left:20px}
+.related{padding-left:20px}.muted{color:var(--muted);font-size:14px}
+.guide-strip{grid-column:1/-1;background:var(--card);border-radius:14px;padding:14px 18px}
+.guide-strip h2{margin:0 0 6px;font-size:19px}.guide-strip ul{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:0 0 8px}
+.guide-strip .more{font-size:14px;color:var(--muted)}
+.topics{columns:2;font-size:18px}
+@media (max-width:700px){.nav{margin-left:0;width:100%}.topics{columns:1}}

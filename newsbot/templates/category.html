@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>{{ cat.name }}</h1>
+<div class="grid">
+{% for r in cat.records %}
+  <a class="card" href="{{ base }}/a/{{ r.slug }}/">
+    <img src="{{ base }}/media/{{ r.id }}/card.jpg" alt="{{ r.article.image_alt }}" loading="lazy">
+    <div class="meta"><span class="cat">{{ r.article.rubrik or r.article.category }}</span> · {{ r.created_at | de_date }}</div>
+    <h2>{{ r.article.headline }}</h2>
+    <p>{{ r.article.teaser }}</p>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

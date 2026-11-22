@@ -10,6 +10,7 @@ from . import pipeline
 from .config import load_config
 from .store import Store
 from .editor import Editor, StubEditor
+from .guides import GuideWriter, StubGuideWriter
 from .writer import StubWriter, Writer
 
 
@@ -35,10 +36,11 @@ def _write_summary(markdown: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
-    ap.add_argument("command", choices=["generate", "approve", "drafts", "build", "publish", "run", "demo"],
-                    help="generate: Entwürfe erzeugen | approve: Entwürfe freigeben | drafts: offene Entwürfe zeigen | "
-                         "build: Website | publish: Social-Posts | run: generate+build | demo: Offline-Demo ohne API-Keys")
-    ap.add_argument("arg", nargs="?", default="", help="bei approve: IDs (Komma-getrennt) oder 'alle'")
+    ap.add_argument("command", choices=["generate", "approve", "drafts", "build", "publish", "run", "guide", "demo"],
+                    help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
+                         "drafts: offene Entwürfe zeigen | build: Website | publish: Social-Posts | run: generate+build | "
+                         "guide: Kaufberater <slug> neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
+    ap.add_argument("arg", nargs="?", default="", help="bei approve: IDs (Komma-getrennt) oder 'alle'; bei guide: slug")
     ap.add_argument("--config", default="config.yaml")
     ap.add_argument("--data", default="data", help="Ordner für Beiträge/Zustand")
     ap.add_argument("--out", default="public", help="Ausgabeordner der Website")
@@ -53,7 +55,11 @@ def main(argv: list[str] | None = None) -> int:
 
         cfg.site_url = "http://localhost:8000"
         store = Store(".demo/data")
-        pipeline.generate(cfg, store, StubWriter(), items=demo_items(), synth=fake_synth, editor=StubEditor(cfg))
+        guide = cfg.guide_topics[0]["slug"] if cfg.guide_topics else ""
+        pipeline.generate(cfg, store, StubWriter(guide), items=demo_items(), synth=fake_synth, editor=StubEditor(cfg))
+        if cfg.guide_topics:  # Demo zeigt Kaufberater auch, wenn sie in config.yaml noch aus sind
+            cfg.guides_per_run = len(cfg.guide_topics)
+            pipeline.generate_guides(cfg, store, StubGuideWriter())
         pipeline.approve(cfg, store, "alle", synth=fake_synth)  # Demo: alles freigeben
         out = pipeline.build(cfg, store, ".demo/public")
         print(f"\nDemo gebaut: {out}\nAnsehen:  python -m http.server 8000 --directory {out}")
@@ -65,7 +71,19 @@ def main(argv: list[str] | None = None) -> int:
             print("ANTHROPIC_API_KEY fehlt (siehe .env.example). Zum Ausprobieren: python -m newsbot demo", file=sys.stderr)
             return 2
         pipeline.generate(cfg, store, Writer(cfg), editor=Editor(cfg))
+        if cfg.guides_enabled:
+            pipeline.generate_guides(cfg, store, GuideWriter(cfg))
         _write_summary(pipeline.drafts_markdown(store, cfg))
+    if args.command == "guide":
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            print("ANTHROPIC_API_KEY fehlt (siehe .env.example).", file=sys.stderr)
+            return 2
+        try:
+            done = pipeline.generate_guides(cfg, store, GuideWriter(cfg), only=args.arg)
+        except ValueError as exc:
+            print(exc, file=sys.stderr)
+            return 2
+        print(f"{len(done)} Kaufberater-Entwurf erzeugt. Lesen: python -m newsbot drafts")
     if args.command == "approve":
         done = pipeline.approve(cfg, store, args.arg or "alle")
         print(f"{len(done)} Beiträge freigegeben")

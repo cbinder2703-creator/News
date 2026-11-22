@@ -11,6 +11,7 @@ from . import voice as voice_mod
 from .config import RISK_ORDER, Config
 from .affiliate import build_shop_boxes
 from .editor import Topic
+from .guides import guide_id
 from .ingest import SourceItem, fetch, select
 from .site import build_site
 from .social import publish_pending
@@ -77,6 +78,8 @@ def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None =
             continue
         if not art.rubrik:
             art = art.model_copy(update={"rubrik": topic.rubrik})
+        if art.guide not in {t["slug"] for t in cfg.guide_topics}:
+            art = art.model_copy(update={"guide": ""})
         if RISK_ORDER[art.risk] > RISK_ORDER[cfg.max_auto_risk]:
             status = "held"
         else:
@@ -85,7 +88,7 @@ def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None =
                     "published": i.published.isoformat(timespec="seconds")} for i in topic_items]
         rec = {
             "id": article_id(primary.link),
-            "slug": f"{slugify(art.headline)}-{article_id(primary.link)[:6]}",
+            "slug": f"{slugify(art.focus_keyword or art.headline, 50)}-{article_id(primary.link)[:6]}",
             "created_at": now_iso(),
             "status": status,
             "source": sources[0],
@@ -104,12 +107,44 @@ def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None =
     return created
 
 
+def generate_guides(cfg: Config, store: Store, guide_writer, only: str | None = None) -> list[dict]:
+    """Schreibt Kaufberater als Entwurf: fehlende Themen (höchstens guides_per_run pro Lauf) oder,
+    mit `only`, eine neue Fassung genau dieses Kaufberaters. Die Online-Fassung bleibt bis zur Freigabe stehen."""
+    topics = {t["slug"]: t for t in cfg.guide_topics}
+    if only is not None:
+        if only not in topics:
+            raise ValueError(f"Kaufberater {only!r} steht nicht in config.yaml (guides.topics)")
+        todo = [topics[only]]
+    else:
+        todo = [t for t in cfg.guide_topics if store.guide(t["slug"]) is None][: cfg.guides_per_run]
+    created = []
+    for topic in todo:
+        guide = guide_writer.write(topic)
+        if guide is None:
+            continue
+        rec = store.guide(topic["slug"]) or {"id": guide_id(topic["slug"]), "slug": topic["slug"],
+                                             "created_at": now_iso(), "article": None}
+        rec.update(topic=topic, draft=guide.model_dump(), drafted_at=now_iso())
+        store.save_guide(rec)
+        created.append(rec)
+        log.info("[Kaufberater-Entwurf] %s | %s", rec["id"], guide.headline)
+    return created
+
+
 def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
     """Gibt Entwürfe frei. selector: "alle" (alle Entwürfe) oder IDs, getrennt durch Komma/Leerzeichen.
-    Nur mit ausdrücklicher ID lassen sich auch "held"-Beiträge (hohes Risiko) freigeben."""
+    Nur mit ausdrücklicher ID lassen sich auch "held"-Beiträge (hohes Risiko) freigeben.
+    Kaufberater (IDs "kb-...") werden ebenso freigegeben."""
     sel = selector.strip().lower()
     wanted = None if sel in ("alle", "all") else {s for s in re.split(r"[,\s]+", sel) if s}
     approved: list[dict] = []
+    for g in store.guides():
+        if g.get("draft") and (wanted is None or g["id"] in wanted):
+            g["article"], g["draft"] = g["draft"], None
+            g["updated_at"] = now_iso()
+            store.save_guide(g)
+            approved.append(g)
+            log.info("Kaufberater freigegeben: %s | %s", g["id"], g["article"]["headline"])
     for rec in store.all():
         ok = (rec["status"] == "draft") if wanted is None else (rec["id"] in wanted and rec["status"] in ("draft", "held"))
         if not ok:
@@ -129,18 +164,35 @@ def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
 def drafts_markdown(store: Store, cfg: Config | None = None) -> str:
     """Übersicht der offenen Entwürfe zum schnellen Lesen (z. B. in der GitHub-Actions-Zusammenfassung am Handy)."""
     pending = [r for r in store.all() if r["status"] in ("draft", "held")]
-    if not pending:
+    guide_drafts = [g for g in store.guides() if g.get("draft")]
+    if not pending and not guide_drafts:
         return "## Keine offenen Entwürfe\n"
-    out = [f"## {len(pending)} Entwürfe warten auf Freigabe\n",
+    out = [f"## {len(pending) + len(guide_drafts)} Entwürfe warten auf Freigabe\n",
            "Zum Freigeben: Actions → newsbot → *Run workflow* → Feld **approve** mit den IDs (oder `alle`).\n"]
+    for g in guide_drafts:
+        d = g["draft"]
+        state = "neue Fassung, die alte bleibt bis zur Freigabe online" if g.get("article") else "neu"
+        out.append(f"### `{g['id']}` · Kaufberater ({state})\n**{d['headline']}**\n")
+        out.append(f"SEO-Titel: {d['seo_title']} · Suchwort: {g['topic'].get('keyword') or g['topic']['title']}\n")
+        secs = "\n\n".join(f"**{s['heading']}**\n\n{s['text']}" for s in d["sections"])
+        crit = "\n".join(f"- **{c['name']}**: {c['text']}" for c in d["criteria"])
+        faq = "\n\n".join(f"**{f['question']}** {f['answer']}" for f in d["faq"])
+        out.append(f"<details><summary>Ganzen Kaufberater lesen</summary>\n\n{d['intro']}\n\n{secs}\n\n"
+                   f"**Kaufkriterien:**\n{crit}\n\n**Typische Fehlkäufe:**\n" + "\n".join(f"- {m}" for m in d["mistakes"])
+                   + f"\n\n**Häufige Fragen:**\n\n{faq}\n\n> {d['summary']}\n\n</details>\n")
     for r in pending:
         a = r["article"]
         flag = " ⚠️ **hohes Risiko, nur mit ausdrücklicher ID freigeben**" if r["status"] == "held" else ""
         out.append(f"### `{r['id']}` · {a.get('rubrik') or a['category']} · Risiko: {a['risk']}{flag}\n**{a['headline']}**\n")
         out.append(f"_{a['teaser']}_\n")
+        if a.get("seo_title"):
+            out.append(f"SEO-Titel: {a['seo_title']} · Suchwort: {a.get('focus_keyword', '')}"
+                       + (f" · verlinkt Kaufberater `{a['guide']}`" if a.get("guide") else "") + "\n")
         body = "\n\n".join(a["body"])
         secs = "\n\n".join(f"**{s['heading']}**\n\n{s['text']}" for s in a.get("sections", []))
-        qs = "\n".join(f"- {q}" for q in a.get("open_questions", []))
+        if a.get("faq"):
+            secs += "\n\n**Häufige Fragen:**\n\n" + "\n\n".join(f"**{f['question']}** {f['answer']}" for f in a["faq"])
+        qs ="\n".join(f"- {q}" for q in a.get("open_questions", []))
         srcs = "\n".join(f"- [{s['name']}: {s['title']}]({s['url']})" for s in r.get("sources", [r["source"]]))
         shop = ""
         ideas = a.get("shopping", [])
@@ -158,7 +210,7 @@ def drafts_markdown(store: Store, cfg: Config | None = None) -> str:
 
 def build(cfg: Config, store: Store, out: str | Path = "public") -> Path:
     records = store.live()
-    build_site(cfg, records, Path(out), audio_dir=store.audio_dir)
+    build_site(cfg, records, Path(out), audio_dir=store.audio_dir, guides=store.guides())
     log.info("Website mit %d Beiträgen nach %s gebaut", len(records), out)
     return Path(out)
 
