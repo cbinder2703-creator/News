@@ -1,8 +1,8 @@
 {
   "id": "5a7824f21a",
   "slug": "balkonkraftwerk-200-euro-5a7824",
-  "created_at": "2026-11-22T18:47:53+00:00",
-  "status": "draft",
+  "created_at": "2026-11-22T20:07:19+00:00",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-balkonkraftwerk-mit-zwei-bifazialen-modulen-kostet-bei-amazon-nur-200-euro-2611-215505.html",
@@ -107,5 +107,6 @@
     ],
     "guide": ""
   },
-  "published": {}
+  "published": {},
+  "drafted_at": "2026-11-22T18:47:53+00:00"
 }

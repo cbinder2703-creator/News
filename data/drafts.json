@@ -1,58 +1,6 @@
 {
- "updated_at": "2026-11-22T20:02:51+00:00",
+ "updated_at": "2026-11-22T20:07:19+00:00",
  "drafts": [
-  {
-   "id": "5a7824f21a",
-   "kind": "news",
-   "status": "draft",
-   "created_at": "2026-11-22T18:47:53+00:00",
-   "rubrik": "Deal-Check",
-   "risk": "low",
-   "risk_reason": "",
-   "headline": "Balkonkraftwerk 200 Euro bei Amazon: Was die Anzeige verrät",
-   "teaser": "Golem.de meldet ein befristetes Amazon-Angebot für zwei bifaziale Module zu 200 Euro – doch die Quelle ist dünn und als Anzeige markiert.",
-   "body": [
-    "Laut Golem.de (veröffentlicht am 22.11.2026) gibt es bei Amazon ein Balkonkraftwerk mit zwei bifazialen Modulen befristet für 200 Euro. Der Beitrag ist ausdrücklich als Anzeige gekennzeichnet.",
-    "In der vorliegenden Meldung stehen nur Preis, Händler und der Hinweis auf die Befristung. Angaben zur Leistung der Module, zum Wechselrichter, zum Lieferumfang, zum bisherigen Preis oder zum Ende der Aktion nennt die Quelle nicht. Ob der Preis noch gilt, lässt sich daraus nicht ableiten."
-   ],
-   "sections": [
-    {
-     "heading": "Ist das Balkonkraftwerk für 200 Euro günstig?",
-     "text": "Das lässt sich aus der Quelle nicht belegen. Golem.de nennt weder einen Vergleichspreis noch die Leistung der Module. Ohne diese Zahlen kann man nicht ausrechnen, was ein Watt kostet. Sinnvoll ist, den Preis pro Watt Modulleistung mit anderen Angeboten zu vergleichen und zu prüfen, ob Wechselrichter, Kabel und Halterung enthalten sind. Erst dann zeigt sich, ob 200 Euro wirklich ein guter Preis sind."
-    },
-    {
-     "heading": "Was bringen bifaziale Module im Alltag?",
-     "text": "Bifazial heißt: Die Module können Licht nicht nur auf der Vorderseite, sondern auch auf der Rückseite aufnehmen, etwa von hellem Boden oder einer hellen Wand reflektiertes Licht. Wie viel Mehrertrag das bringt, hängt stark von Untergrund, Montage und Abstand ab. An einer Balkonbrüstung kann der Effekt geringer ausfallen, weil die Rückseite teils im Schatten liegt. Konkrete Werte nennt die Quelle nicht."
-    },
-    {
-     "heading": "Wo liegen mögliche Haken?",
-     "text": "Der größte Haken ist die dünne Informationslage: Die Meldung ist eine Anzeige und nennt keine technischen Daten. Dazu kommt die Befristung, über deren Ende nichts steht. Prüfen sollte man außerdem mögliche Zusatzkosten, etwa für eine passende Halterung, und ob am eigenen Balkon Montage und Anmeldung geklärt sind, zum Beispiel mit Vermieter oder Eigentümergemeinschaft."
-    }
-   ],
-   "verdict": "Unsere Einschätzung: 200 Euro für zwei Module klingen auf den ersten Blick attraktiv, aber die Quelle liefert keine Daten, um das Angebot fair zu bewerten. Erst nach einem Blick auf Leistung, Lieferumfang und Vergleichspreise lohnt eine Entscheidung, Eile ist nicht nötig.",
-   "open_questions": [
-    "Welche Leistung haben die beiden Module?",
-    "Sind Wechselrichter und Halterung im Preis enthalten?",
-    "Wann endet die Aktion und wie war der bisherige Preis?"
-   ],
-   "sources": [
-    {
-     "name": "Golem.de",
-     "url": "https://www.golem.de/news/anzeige-balkonkraftwerk-mit-zwei-bifazialen-modulen-kostet-bei-amazon-nur-200-euro-2611-215505.html",
-     "title": "Anzeige: Balkonkraftwerk mit zwei bifazialen Modulen kostet bei Amazon nur 200 Euro"
-    }
-   ],
-   "shopping": [
-    {
-     "label": "Balkonkraftwerk",
-     "query": "Balkonkraftwerk"
-    },
-    {
-     "label": "Halterung für Solarmodule",
-     "query": "Halterung Balkonkraftwerk"
-    }
-   ]
-  },
   {
    "id": "a87cccd177",
    "kind": "news",
