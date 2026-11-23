@@ -1,4 +1,145 @@
 {
- "updated_at": "2026-11-22T20:32:04+00:00",
- "drafts": []
+ "updated_at": "2026-11-23T16:13:02+00:00",
+ "drafts": [
+  {
+   "id": "681887a749",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-23T16:13:02+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Odyssey G6 mit 1100 Hertz: Für wen lohnt sich so ein Monitor?",
+   "teaser": "Samsung kündigt den Odyssey G6 mit bis zu 1100 fps in Full HD an. Wir zeigen, was 600 und 1100 Bilder pro Sekunde im Alltag bringen.",
+   "body": [
+    "Laut heise online hat Samsung den Gaming-Monitor Odyssey G6 mit extrem hohen Bildraten angekündigt. Bei WQHD-Auflösung sollen 600 Bilder pro Sekunde möglich sein, bei Full HD sogar 1100. Heise berichtet das am 23.11.",
+    "Das verbaute IPS-Panel könnte laut heise allerdings Probleme aufwerfen. Preis und Verfügbarkeit prüfst du am besten kurz direkt beim Hersteller oder Händler, sobald der Monitor gelistet ist."
+   ],
+   "sections": [
+    {
+     "heading": "Odyssey G6 1100 Hertz: Das bekommst du",
+     "text": "Der Monitor soll Bewegungen besonders flüssig darstellen. Je höher die Bildrate, desto kürzer der Abstand zwischen zwei Bildern, was vor allem bei schnellen Kamerabewegungen auffällt. In WQHD sind 600 fps angekündigt, in Full HD 1100. Du wählst also zwischen mehr Schärfe und maximaler Geschwindigkeit, je nachdem, was dir im Spiel wichtiger ist."
+    },
+    {
+     "heading": "Für wen lohnt sich das?",
+     "text": "Interessant ist so ein Monitor vor allem für ambitionierte Spieler schneller Titel, etwa Shooter im Wettbewerb, die jede Millisekunde Flüssigkeit schätzen. Voraussetzung ist ein sehr leistungsstarker PC, der solche Bildraten überhaupt liefert. Wer vor allem optisch aufwendige Spiele genießt oder gelegentlich zockt, hat mit einem günstigeren Monitor meist mehr vom Geld."
+    },
+    {
+     "heading": "Darauf solltest du achten",
+     "text": "Heise weist darauf hin, dass das IPS-Panel Probleme aufwerfen könnte. Achte deshalb auf unabhängige Messungen zu Reaktionszeit und Bewegungsschärfe. Prüfe außerdem, ob dein Rechner die Bildraten schafft, welche Anschlüsse der Monitor mitbringt und wie Preis und Lieferzeit aussehen. So vermeidest du, für Leistung zu zahlen, die du nicht nutzt."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du schnelle Wettbewerbsspiele auf einem sehr starken PC spielst, lohnt sich ein Blick auf den Odyssey G6, am besten nach ersten unabhängigen Messungen. Für alle anderen sind Bildqualität und Preis meist die wichtigeren Kriterien.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/Superflinker-Gaming-Monitor-Samsung-verspricht-1100-Hertz-11534912.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Superflinker Gaming-Monitor: Samsung verspricht 1100 Hertz"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Gaming-Monitor mit hoher Bildrate",
+     "query": "Gaming-Monitor WQHD"
+    },
+    {
+     "label": "DisplayPort-Kabel",
+     "query": "DisplayPort-Kabel"
+    }
+   ]
+  },
+  {
+   "id": "362151cf76",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-23T16:12:26+00:00",
+   "rubrik": "Kurz erklärt",
+   "risk": "low",
+   "risk_reason": "Technisches Treiberthema ohne Vorwürfe gegen Personen oder Angriffsdetails.",
+   "headline": "Nvidia-Treiber und SSD: Was die Schreibzugriffe bedeuten",
+   "teaser": "Laut heise belastet auch der Nvidia-Grafiktreiber die SSD stärker als nötig. So prüfst du Treiberstand und SSD-Zustand in wenigen Minuten.",
+   "body": [
+    "Laut heise online hat auch Nvidias GeForce-Grafiktreiber für Windows mit übermäßigen Schreibzugriffen auf SSDs zu tun. Zuvor war nach heise-Angaben bereits AMD mit einem ähnlichen Problem aufgefallen. Ein erster Hotfix-Treiber von Nvidia soll Abhilfe schaffen, hilft aber anscheinend nicht in jedem Fall. Die Meldung stammt vom 23.11.2026.",
+    "Für dich heißt das: Ein kurzer Blick auf Treiberversion und SSD-Zustand lohnt sich. Welche Modelle oder Treiberversionen genau betroffen sind, schaust du am besten direkt auf der Nvidia-Seite nach."
+   ],
+   "sections": [
+    {
+     "heading": "Das bedeutet es für deine SSD",
+     "text": "Eine SSD kann nur eine begrenzte Datenmenge schreiben, bevor ihre Speicherzellen verschleißen. Hersteller geben dafür meist einen Wert an, oft als TBW bezeichnet. Unnötige Schreibzugriffe verbrauchen diesen Vorrat schneller als nötig. Moderne SSDs haben meist reichlich Reserve, ob der Treiber bei dir ins Gewicht fällt, zeigt aber erst ein Blick auf die tatsächlich geschriebene Datenmenge."
+    },
+    {
+     "heading": "Für wen ist das relevant?",
+     "text": "Gemeint ist der Nvidia-GeForce-Treiber unter Windows. Wenn du so einen PC nutzt, lohnt sich der Check. Besonders sinnvoll ist er bei Rechnern, die viel laufen, etwa Gaming-PCs oder Arbeitsrechner, und bei kleineren SSDs, deren Schreibvorrat naturgemäß geringer ist. Nutzt du eine Grafikkarte eines anderen Herstellers, ist das Nvidia-Thema für dich nicht direkt relevant."
+    },
+    {
+     "heading": "Nvidia Treiber SSD: So gehst du vor",
+     "text": "Erstens: Prüfe in der Nvidia-App oder im Windows-Geräte-Manager, welche Treiberversion läuft. Zweitens: Sieh auf der Nvidia-Seite nach, ob ein neuerer Treiber oder Hotfix bereitsteht. Drittens: Lies mit dem Tool deines SSD-Herstellers oder einem Diagnoseprogramm wie CrystalDiskInfo Gesundheitswert und geschriebene Datenmenge aus. Viertens: Sichere wichtige Daten regelmäßig, das gilt für jede SSD."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du eine GeForce-Karte unter Windows nutzt, lohnt sich ein kurzer Check von Treiberstand und SSD-Zustand. Mit aktuellem Treiber und einem Backup bist du gut aufgestellt.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/Nach-AMD-Auch-Nvidias-GeForce-Grafiktreiber-belastet-SSD-Lebensdauer-uebermaessig-11534844.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Nach AMD: Auch Nvidias GeForce-Grafiktreiber belastet SSD-Lebensdauer übermäßig"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Externe Festplatte fürs Backup",
+     "query": "externe Festplatte Backup"
+    }
+   ]
+  },
+  {
+   "id": "325186d4b9",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-23T16:11:51+00:00",
+   "rubrik": "Deal-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "AirPods Pro 3 Black Friday: Lohnt sich der Preis unter 190 Euro?",
+   "teaser": "Laut Golem.de gibt es Apples AirPods Pro 3 bei Amazon für unter 190 Euro. Wir zeigen, für wen sich das lohnt und wie du den Preis prüfst.",
+   "body": [
+    "Laut Golem.de gibt es Apples AirPods Pro 3 zum Black Friday bei Amazon für unter 190 Euro (Stand 23.11.2026). Der Beitrag ist von Golem.de als Anzeige gekennzeichnet. Außerdem schreibt Golem.de, dass kein anderer Anbieter die In-Ears derzeit günstiger verkaufe.",
+    "Für dich heißt das: Wenn du die Kopfhörer ohnehin kaufen möchtest, ist Amazon ein guter erster Anlaufpunkt. Den aktuellen Preis und die Verfügbarkeit prüfst du am besten kurz direkt beim Händler."
+   ],
+   "sections": [
+    {
+     "heading": "AirPods Pro 3 Black Friday: Das bekommst du",
+     "text": "Du bekommst Apples In-Ear-Kopfhörer AirPods Pro 3 zu einem Preis unter 190 Euro. Laut Golem.de ist Amazon dabei der günstigste Anbieter, du sparst dir also einen Teil der Sucharbeit. Der Preis gehört zur Black-Friday-Aktion. Das ist ein guter Anlass, in Ruhe zu prüfen, ob die Kopfhörer zu dir passen und ob der Preis für dich stimmig ist."
+    },
+    {
+     "heading": "Für wen lohnt sich das?",
+     "text": "Am besten passt das Angebot, wenn du ein iPhone oder andere Apple-Geräte nutzt und neue In-Ears suchst, denn Zubehör vom gleichen Hersteller lässt sich meist besonders unkompliziert einrichten. Auch wer alte Kopfhörer ersetzen will und ohnehin zu Apple tendiert, findet hier einen interessanten Preis. Wer ein Android-Handy nutzt oder nur selten Musik hört, vergleicht besser auch Modelle anderer Hersteller."
+    },
+    {
+     "heading": "So gehst du vor: Preisverlauf und Händlerpreise",
+     "text": "Schau zuerst in einem Preisvergleichsportal nach, wie sich der Preis der AirPods Pro 3 entwickelt hat. So siehst du, ob die Summe unter 190 Euro wirklich ein guter Wert ist. Vergleiche dann die Preise anderer Händler. Achte beim Kauf auf den Verkäufer (Amazon selbst oder Drittanbieter), den Lieferumfang, die Garantie und die Rückgabefrist."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du Apple-Geräte nutzt und ohnehin neue In-Ears suchst, lohnt sich ein Blick auf das Amazon-Angebot unter 190 Euro. Prüfe vorher kurz Preisverlauf und Händlerpreise, dann kannst du in Ruhe entscheiden.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/anzeige-apple-airpods-pro-3-zum-bestpreis-bei-amazon-2611-215540.html",
+     "title": "Anzeige: Apple Airpods Pro 3 zum Bestpreis bei Amazon"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Apple AirPods Pro 3",
+     "query": "AirPods Pro 3"
+    },
+    {
+     "label": "Bluetooth-In-Ear-Kopfhörer",
+     "query": "Bluetooth In-Ear Kopfhörer"
+    }
+   ]
+  }
+ ]
 }
