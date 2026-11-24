@@ -27,7 +27,7 @@
   {% set rub = a.rubrik or a.category %}<div class="meta"><a class="pricetag" data-r="{{ rub | tagslug }}" href="{{ base }}/thema/{{ cat.slug }}/">{{ rub }}</a><time datetime="{{ rec.created_at }}">{{ rec.created_at | de_date }}</time></div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.teaser }}</p>
-  <figure class="photo">{{ image_for(rec, hero=True) }}{% if rec.has_photo and rec.photo.photographer %}<figcaption>Foto: <a href="{{ rec.photo.photographer_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.photographer }}</a> auf <a href="{{ rec.photo.page_url }}" rel="noopener nofollow" target="_blank">Pexels</a></figcaption>{% endif %}</figure>
+  <figure class="photo">{{ image_for(rec, hero=True) }}{% if rec.has_photo and rec.photo.photographer %}<figcaption>Foto: {% if rec.photo.photographer_url %}<a href="{{ rec.photo.photographer_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.photographer }}</a>{% else %}{{ rec.photo.photographer }}{% endif %} auf <a href="{{ rec.photo.page_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.source or 'Pexels' }}</a>{% if rec.photo.license and rec.photo.license != 'Pexels-Lizenz' %} ({{ rec.photo.license }}){% endif %}</figcaption>{% endif %}</figure>
   <div class="keypoints"><h2>Das Wichtigste in Kürze</h2>
   <ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul></div>
   {% if shop %}{% set first = shop[0] %}{% set fl = first.links[0] %}<p class="quick-buy"><a class="buy" href="{{ fl.url }}" rel="sponsored nofollow noopener" target="_blank">{{ first.label }} bei {{ fl.program }} ansehen</a><span class="ad">Anzeige</span></p>{% endif %}

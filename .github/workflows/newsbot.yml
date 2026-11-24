@@ -72,9 +72,10 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos
         run: python -m newsbot generate
       - name: Titelfotos holen
-        # Ohne PEXELS_API_KEY passiert nichts (die Seite zeigt dann Symbole). Ein Fehler stoppt den Lauf nicht.
+        # Pexels (mit PEXELS_API_KEY) und freie Wikimedia-Bilder; Claude wählt das passende. Ein Fehler stoppt den Lauf nicht.
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m newsbot photos || true
       - name: Entwürfe per WhatsApp schicken
         if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.rewrite == '' && inputs.only_decisions != 'ja' }}

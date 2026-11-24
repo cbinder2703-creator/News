@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from .config import Config
 from .writer import FAQ, Section, ShopIdea, _all_required
@@ -107,9 +107,9 @@ class GuideWriter:
             prompt += f"\nHinweis der Redaktion: {topic['hinweis']}"
         try:
             resp = self.client.messages.parse(
-                model=self.cfg.model, max_tokens=8000, system=system,
+                model=self.cfg.model, max_tokens=16000, system=system,
                 messages=[{"role": "user", "content": prompt}], output_format=Guide)
-        except anthropic.APIError as exc:
+        except (anthropic.APIError, ValidationError) as exc:  # ValidationError: Antwort abgeschnitten oder kaputt
             log.warning("Kaufberater %s fehlgeschlagen: %s", topic["slug"], exc)
             return None
         if resp.stop_reason == "refusal" or resp.parsed_output is None:

@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from .config import Config
 from .ingest import SourceItem
@@ -107,13 +107,13 @@ class Editor:
         try:
             resp = self.client.messages.parse(
                 model=self.cfg.model,
-                max_tokens=4000,
+                max_tokens=8000,
                 system=system,
                 messages=[{"role": "user",
                            "content": f"<meldungen>\n{render_items(items, now)}\n</meldungen>"}],
                 output_format=TopicPlan,
             )
-        except anthropic.APIError as exc:
+        except (anthropic.APIError, ValidationError) as exc:  # ValidationError: Antwort abgeschnitten oder kaputt
             log.warning("Themenplanung fehlgeschlagen: %s", exc)
             return []
         if resp.stop_reason == "refusal" or resp.parsed_output is None:

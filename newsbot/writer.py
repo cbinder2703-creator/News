@@ -6,7 +6,7 @@ import logging
 import re
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from .config import Config
 from .icons import ICONS
@@ -317,12 +317,12 @@ class Writer:
         try:
             resp = self.client.messages.parse(
                 model=self.model,
-                max_tokens=6000,
+                max_tokens=16000,
                 system=self.system,
                 messages=[{"role": "user", "content": content}],
                 output_format=Article,
             )
-        except anthropic.APIError as exc:
+        except (anthropic.APIError, ValidationError) as exc:  # ValidationError: Antwort abgeschnitten oder kaputt
             log.warning("Claude-Fehler bei %r: %s", label, exc)
             return None
         if resp.stop_reason == "refusal" or resp.parsed_output is None:
