@@ -12,7 +12,7 @@ from .ingest import SourceItem
 log = logging.getLogger("newsbot.editor")
 
 PLAN_SYSTEM = """Du bist Chefredakteur der Nachrichtenmarke "<<BRAND>>". Aus einer nummerierten Liste aktueller Meldungen
-wählst du die <<N>> Themen für heute, bei denen unsere Erklärbeiträge den größten Mehrwert für Leser haben.
+wählst du die <<N>> Themen für heute, die Leser am meisten begeistern und bei denen sie am ehesten etwas kaufen möchten.
 
 Unsere Haltung:
 <<HALTUNG>>
@@ -22,7 +22,10 @@ Verfügbare Rubriken:
 
 Regeln:
 - Fasse Meldungen, die dasselbe Ereignis oder Thema betreffen, zu EINEM Thema zusammen (item_numbers). Mehr Quellen zum selben Thema sind besser.
-- Bevorzuge Themen, bei denen Einordnung hilft (Hintergrund, Hype-Prüfung, Folgen für Nutzer) vor bloßen Pressemitteilungen.
+- Reihenfolge der Vorliebe: 1. konkrete Angebote mit Preis (Deals, Black Friday, Preissenkungen), 2. spannende neue Geräte
+  und Produkte zum Kaufen, 3. Neuheiten und Funktionen, die Lust auf ein Gerät machen, 4. nützliche Tipps rund um Geräte.
+- Problem-Meldungen (Fehler, Sicherheitslücken, Ausfälle, Klagen, Treiberprobleme, Preiserhöhungen) nur, wenn sonst
+  nichts Kaufbares da ist, und dann mit Blick auf die Lösung.
 - Schwerpunkte der Redaktion: <<FOCUS>>.<<COMMERCE>>
 - Meiden: <<AVOID>>. Dazu reine Werbetexte ohne Nachrichtenwert, Gewinnspiele, Meinungsstücke, Podcast- und Newsletter-Hinweise.
 - Bereits behandelt, nicht wiederholen (außer bei wesentlich neuer Entwicklung): <<RECENT>>.
@@ -56,8 +59,8 @@ def commerce_rule(cfg: Config) -> str:
     """Zusatzregel bei editorial.kaufbezug: Themen mit Bezug zu Kaufentscheidungen haben Vorrang."""
     if not cfg.commerce:
         return ""
-    rule = ("\n- Kaufbezug hat Vorrang: Bevorzuge Themen, die Leser bei einer Kaufentscheidung betreffen (neue oder günstigere"
-            " Geräte, Preisänderungen und Angebote laut Quelle, Rückrufe, Sicherheitsupdates oder Supportende bei Geräten)."
+    rule = ("\n- Kaufbezug hat Vorrang: Bevorzuge Themen, bei denen Leser etwas kaufen können (Angebote mit Preis laut Quelle,"
+            " neue oder günstigere Geräte, attraktives Zubehör)."
             " Reine Branchen-, Personal- oder Börsenmeldungen nur, wenn nichts Passenderes da ist.")
     if cfg.guide_topics:
         rule += " Themen, die zu unseren Kaufberatern passen, sind besonders willkommen: " + ", ".join(

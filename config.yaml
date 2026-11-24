@@ -21,17 +21,16 @@ voice:                       # Sprecherstimme für die Videos (ElevenLabs)
 editorial:
   mode: review               # review: KI erstellt Entwürfe, du gibst sie frei (wenige Minuten) | auto: ohne Freigabe
   haltung: |
-    Wir helfen Menschen, beim Technikkauf Geld zu sparen, Fehlkäufe zu vermeiden und die passende Wahl zu treffen.
-    Wir zeigen zuerst, was ein Angebot oder Gerät gut macht und für wen es sich lohnt, und geben dann einfache,
-    konkrete Tipps, worauf man achten sollte und wie man vorgeht. Ton: freundlich, zuversichtlich, hilfreich wie ein
-    kluger Freund, der sich auskennt. Keine Skepsis-Floskeln, keine Panikmache, keine künstliche Eile, kein Hype,
-    keine erfundenen Fakten. Wir testen nicht selbst und behaupten das auch nicht (das steht auf "So arbeiten wir")
+    Wir lieben gute Technik und gute Deals und zeigen sie mit Begeisterung. Jeder Beitrag macht Lust auf das Produkt:
+    Was kann es richtig gut, wie fühlt sich der Alltag damit an, für wen ist es ein Volltreffer. Ton: lebendig, warm,
+    zuversichtlich, wie ein Freund, der dir einen echten Tipp gibt. Keine Bedenkenträgerei, keine Panikmache,
+    keine erfundenen Fakten, keine künstliche Eile. Wir testen nicht selbst und behaupten das auch nicht.
   rubriken:
-    - { name: "Deal-Check",       frage: "Was bekommt man für den Preis, für wen lohnt sich das Angebot, worauf sollte man vor dem Kauf achten?" }
-    - { name: "Lohnt sich das?",  frage: "Neues Gerät oder Update: Was bringt das Neue im Alltag, für wen lohnt sich Kaufen, für wen eher Warten?" }
-    - { name: "Ratgeber",         frage: "Worauf sollten Käufer achten? Kriterien und Tipps für die richtige Wahl, keine Produkttests und keine Rankings." }
-    - { name: "Neuheiten-Check",  frage: "Was steckt in der Ankündigung, was bringt es dem Käufer, für wen ist es interessant?" }
-    - { name: "Kurz erklärt",     frage: "Was ist passiert und was bedeutet das für Nutzer, in einfachen Worten und mit einem klaren Tipp?" }
+    - { name: "Deal-Check",       frage: "Was bekommst du für den Preis, was ist daran richtig gut, und für wen ist das Angebot ein Volltreffer?" }
+    - { name: "Lohnt sich das?",  frage: "Was macht das neue Gerät oder Update im Alltag besser, und für wen lohnt sich der Umstieg?" }
+    - { name: "Ratgeber",         frage: "Wie findest du das Gerät, das perfekt zu dir passt? Kriterien und Tipps, keine Produkttests und keine Rankings." }
+    - { name: "Neuheiten-Check",  frage: "Was ist neu, was ist daran spannend, und für wen wird das Gerät interessant?" }
+    - { name: "Kurz erklärt",     frage: "Was ist neu, was hast du davon, und was ist der eine Tipp, der dir sofort hilft?" }
   # Quellen (Liste unter Beiträgen, Verweise im Seitencode, Quellenzeile in Videokarten, Sprechtext und Instagram-Text) öffentlich zeigen?
   # false: nur du siehst sie (Admin-Seite). Im Fließtext steht weiterhin, wer etwas berichtet ("Laut heise ..."). Siehe README.
   show_sources: false

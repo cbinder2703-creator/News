@@ -39,7 +39,7 @@ ITEMS = [item("A bei heise", "u1", "heise"), item("A bei Golem", "u2", "Golem", 
 
 
 def test_config_has_editorial_line(cfg):
-    assert cfg.review is True and "fehlkäufe" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
+    assert cfg.review is True and "begeisterung" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
     names = [r["name"] for r in cfg.rubriken]
     assert names[0] == "Deal-Check" and "Neuheiten-Check" in names and "Ratgeber" in names
 

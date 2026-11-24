@@ -82,7 +82,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         shutil.rmtree(out)
     out.mkdir(parents=True)
     (out / "static").mkdir()
-    for name in ("style.css", "logo.svg", "favicon.svg", "favicon-32.png", "contact.js"):
+    for name in ("style.css", "logo.svg", "favicon.svg", "favicon-32.png", "contact.js", "theme.js"):
         shutil.copy(PKG / "static" / name, out / "static" / name)
     for name in ("favicon.ico", "apple-touch-icon.png"):  # Browser suchen diese Dateien an der Wurzel
         shutil.copy(PKG / "static" / name, out / name)
@@ -102,7 +102,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
 
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
     env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822, tagslug=lambda t: slugify(t or "", 30))
-    css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js", "contact.js"))).hexdigest()[:10]
+    css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js", "contact.js", "theme.js"))).hexdigest()[:10]
     env.globals.update(image_for=lambda rec, hero=False, eager=False: image_html(rec, cfg.base_path, hero, eager),
                        guide_image=guide_image_html, cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
                        affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
@@ -155,7 +155,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
 
     render = lambda tpl, path, **kw: _write(out / path, env.get_template(tpl).render(**kw))  # noqa: E731
     cats = sorted(categories.values(), key=lambda c: -len(c["records"]))
-    render("index.html", "index.html", records=records, guides=guides[:6], title=cfg.brand_name)
+    render("index.html", "index.html", records=records, guides=guides[:6], cats=cats[:8], title=cfg.brand_name)
     if guides:
         render("guides.html", "kaufberater/index.html", guides=guides, title="Kaufberater",
                canonical="/kaufberater/", desc=f"Alle Kaufberater von {cfg.brand_name}: worauf du beim Kauf achten solltest.")
