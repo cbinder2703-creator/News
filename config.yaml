@@ -46,16 +46,16 @@ editorial:
 
 # Affiliate: Produkt-Links nur als gekennzeichneter Kasten unter dem Beitrag, nie im Text oder in der Einordnung.
 affiliate:
-  enabled: false             # erst auf true, wenn mindestens ein Programm unten aktiv ist
+  enabled: true              # erst auf true, wenn mindestens ein Programm unten aktiv ist
   max_links_per_article: 3
   disclosure: "Anzeige: Wenn du über diese Links kaufst, erhalten wir eventuell eine Provision. Für dich ändert sich der Preis nicht. Unsere Einordnung im Beitrag ist davon unabhängig."
   amazon_notice: "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen."   # Wortlaut bitte in PartnerNet prüfen
   programs:
     - name: "Amazon"
       kind: amazon
-      enabled: false         # true setzen, sobald dein PartnerNet-Konto freigeschaltet ist
+      enabled: true
       domain: "www.amazon.de"
-      tag: ""                # deine Tracking-ID, z. B. meinname-21
+      tag: "dealpuls-21"     # Tracking-ID aus PartnerNet
     - name: "OTTO"
       kind: template         # läuft über Awin; IDs stehen in deinem Awin-Konto
       enabled: false

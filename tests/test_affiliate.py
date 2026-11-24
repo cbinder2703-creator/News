@@ -31,9 +31,11 @@ def items():
     return [SourceItem("Neuer Router vorgestellt", "Teaser", "https://x.example/1", "heise", NOW - timedelta(hours=1))]
 
 
-def test_default_config_has_no_active_affiliate(cfg):
-    assert cfg.affiliate_enabled is False and active_programs(cfg) == []
-    assert build_shop_boxes(cfg, [{"label": "Router", "query": "WLAN Router"}]) == []
+def test_live_config_uses_the_dealpuls_amazon_tag(cfg):
+    progs = active_programs(cfg)
+    assert cfg.affiliate_enabled is True and [p["tag"] for p in progs] == ["dealpuls-21"]
+    (box,) = build_shop_boxes(cfg, [{"label": "Router", "query": "WLAN Router"}])
+    assert box["links"][0]["url"] == "https://www.amazon.de/s?k=WLAN+Router&tag=dealpuls-21"
 
 
 def test_unfinished_programs_stay_off(cfg):
@@ -77,16 +79,17 @@ def test_article_page_has_labelled_box_only_when_active(cfg, tmp_path):
     (rec,) = pipeline.generate(cfg, store, StubWriter(), items=items(), now=NOW)
     out = pipeline.build(cfg, store, tmp_path / "pub")
     html = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
-    assert "Passende Produkte" in html and ">Anzeige<" in html
+    assert "Hier bekommst du es" in html and ">Anzeige<" in html
     assert 'rel="sponsored nofollow noopener"' in html and "tag=meinblog-21" in html
     assert "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." in html      # Pflichthinweis
     assert "Affiliate-Links" in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
-    assert "Einordnung" in html and html.index("Einordnung") < html.index("Passende Produkte")  # Kasten nach der Einordnung
+    assert html.index("Unsere Einschätzung") < html.index("Hier bekommst du es")  # Kasten nach der Einschätzung
+    assert html.count('class="buy"') >= 2  # Schnell-Button unter den Kernpunkten + Kasten
 
     cfg.affiliate_enabled = False
     out2 = pipeline.build(cfg, store, tmp_path / "pub2")
     off = (out2 / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
-    assert "Passende Produkte" not in off and "sponsored" not in off and "amazon" not in off.lower()
+    assert "Hier bekommst du es" not in off and "sponsored" not in off and "amazon" not in off.lower()
 
 
 def test_no_amazon_notice_without_amazon(cfg, tmp_path):
