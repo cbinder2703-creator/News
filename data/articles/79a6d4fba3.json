@@ -118,6 +118,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-24T16:05:30+00:00",
-  "rewritten_at": "2026-11-24T16:40:17+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:4063572",
+    "query": "cordless screwdriver workbench",
+    "photographer": "romyrwood",
+    "photographer_url": "https://pixabay.com/users/romyrwood-11915005/",
+    "page_url": "https://pixabay.com/photos/screwdriver-table-saw-saw-tools-4063572/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

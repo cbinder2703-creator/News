@@ -118,6 +118,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-24T16:06:05+00:00",
-  "rewritten_at": "2026-11-24T16:39:19+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:2416269",
+    "query": "3d printer filament",
+    "photographer": "LPArt",
+    "photographer_url": "https://pixabay.com/users/LPArt-5664606/",
+    "page_url": "https://pixabay.com/photos/printer-3d-print-3d-printing-white-2416269/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

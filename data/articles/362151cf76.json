@@ -118,6 +118,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-23T16:12:26+00:00",
-  "rewritten_at": "2026-11-24T16:42:13+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:6995934",
+    "query": "computer graphics card",
+    "photographer": "analogicus",
+    "photographer_url": "https://pixabay.com/users/analogicus-8164369/",
+    "page_url": "https://pixabay.com/photos/graphics-card-computer-parts-6995934/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

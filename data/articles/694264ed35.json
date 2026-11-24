@@ -117,6 +117,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-22T18:46:53+00:00",
-  "rewritten_at": "2026-11-24T16:44:19+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:5615055",
+    "query": "smart speaker",
+    "photographer": "20twenty",
+    "photographer_url": "https://pixabay.com/users/20twenty-16047685/",
+    "page_url": "https://pixabay.com/photos/google-assistant-google-voice-mini-5615055/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

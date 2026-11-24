@@ -112,6 +112,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-23T16:11:51+00:00",
-  "rewritten_at": "2026-11-24T16:42:52+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:6849119",
+    "query": "wireless earbuds table",
+    "photographer": "subarasikiai",
+    "photographer_url": "https://pixabay.com/users/subarasikiai-21956773/",
+    "page_url": "https://pixabay.com/photos/earphone-wireless-airpods-audio-6849119/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

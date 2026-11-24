@@ -118,6 +118,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-22T18:47:21+00:00",
-  "rewritten_at": "2026-11-24T16:43:37+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:1591018",
+    "query": "cyber security",
+    "photographer": "TheDigitalWay",
+    "photographer_url": "https://pixabay.com/users/TheDigitalWay-3008341/",
+    "page_url": "https://pixabay.com/photos/computer-security-padlock-hacker-1591018/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

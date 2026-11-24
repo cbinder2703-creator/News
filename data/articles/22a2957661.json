@@ -113,6 +113,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-24T15:59:56+00:00",
-  "rewritten_at": "2026-11-24T16:40:51+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:5277065",
+    "query": "outdoor smartwatch hiking",
+    "photographer": "andreasvolz",
+    "photographer_url": "https://pixabay.com/users/andreasvolz-11813577/",
+    "page_url": "https://pixabay.com/photos/clock-casio-g-shock-pro-trek-5277065/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

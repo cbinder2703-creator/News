@@ -112,6 +112,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-22T18:47:53+00:00",
-  "rewritten_at": "2026-11-24T16:44:58+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:2138992",
+    "query": "solar panels",
+    "photographer": "andreas160578",
+    "photographer_url": "https://pixabay.com/users/andreas160578-2383079/",
+    "page_url": "https://pixabay.com/photos/photovoltaic-photovoltaic-system-2138992/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

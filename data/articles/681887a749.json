@@ -118,6 +118,13 @@
   },
   "published": {},
   "drafted_at": "2026-11-23T16:13:02+00:00",
-  "rewritten_at": "2026-11-24T16:41:32+00:00",
-  "keep_date": true
+  "photo": {
+    "id": "pixabay:2564367",
+    "query": "gaming monitor desk",
+    "photographer": "StockSnap",
+    "photographer_url": "https://pixabay.com/users/StockSnap-894430/",
+    "page_url": "https://pixabay.com/photos/computer-keyboard-apple-electronics-2564367/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }
