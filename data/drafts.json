@@ -1,4 +1,549 @@
 {
- "updated_at": "2026-11-24T16:17:10+00:00",
- "drafts": []
+ "updated_at": "2026-11-24T16:44:58+00:00",
+ "drafts": [
+  {
+   "id": "968194d85b",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T16:17:10+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Bambu Lab P3C: Sieben Werkzeugköpfe für bunte Drucke in einem Rutsch",
+   "teaser": "Der Bambu Lab P3C wechselt zwischen sieben PrintTools und druckt Farben und Materialien in einem Rutsch, mit Fokus auf flexibles TPU.",
+   "body": [
+    "Der Bambu Lab P3C ist da: ein Werkzeugwechsler mit sieben PrintTools, der als günstigere Alternative zum H3C antritt. Auch hier steht der Druck mit flexiblem TPU im Mittelpunkt.",
+    "Warum das jetzt spannend ist? Mehrere Köpfe bedeuten, dass Farben und Materialien in einem einzigen Druck zusammenkommen. Du startest den Job und holst am Ende ein bunt kombiniertes Teil aus dem Drucker, statt Einzelteile zusammenzukleben."
+   ],
+   "sections": [
+    {
+     "heading": "Bambu Lab P3C: Sieben PrintTools im Einsatz",
+     "text": "Statt eines einzigen Druckkopfs hast du beim P3C sieben PrintTools zur Verfügung. Das heißt: Ein Modell darf mehrere Farben und Materialien tragen, und der Drucker erledigt alles in einem Durchgang. Dazu kommt der Fokus auf TPU, also auf flexible, gummiartige Teile. Gegenüber dem H3C mit neun Köpfen ist der P3C die schlankere und günstigere Variante, ideal, um Mehrmaterialdruck zu entdecken."
+    },
+    {
+     "heading": "So fühlt sich Mehrmaterialdruck an",
+     "text": "Abends am Schreibtisch startest du den Druck, und später liegt ein Teil vor dir, das feste und weiche Bereiche in mehreren Farben vereint. Ein Handyhalter mit gummiartigem Griff, ein Spielzeug mit bunten Details, ein Prototyp mit flexiblen Dichtungen: Du denkst in fertigen Ideen statt in Einzelteilen. Das macht Lust, gleich das nächste Projekt zu planen."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Der P3C glänzt, wenn du Modelle in vielen Farben drucken möchtest, mit TPU flexible Teile fertigst oder in der Werkstatt Prototypen aus verschiedenen Materialien baust. Ein praktischer Tipp: Überlege dir, wie viele Farben und Materialien deine Lieblingsprojekte brauchen. Sieben PrintTools decken eine Menge ab, und ein paar Rollen TPU-Filament in kräftigen Farben passen gleich mit in den Warenkorb."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die mehrere Farben und Materialien in einem Druck kombinieren wollen, ist der P3C eine richtig spannende, schlankere Alternative zum H3C.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/Bambu-Lab-P3C-Guenstigerer-Werkzeugwechsler-mit-sieben-Koepfen-11536198.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Bambu Lab P3C: Günstigerer Werkzeugwechsler mit sieben Köpfen"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Bambu Lab P3C",
+     "query": "Bambu Lab P3C"
+    },
+    {
+     "label": "Bambu Lab H3C",
+     "query": "Bambu Lab H3C"
+    },
+    {
+     "label": "TPU-Filament",
+     "query": "TPU Filament"
+    },
+    {
+     "label": "Filament in verschiedenen Farben",
+     "query": "3D-Drucker Filament Set"
+    }
+   ]
+  },
+  {
+   "id": "5474c67c06",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T16:17:10+00:00",
+   "rubrik": "Deal-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Topdon JS2000 Pro: Starthilfe und Powerbank für rund 85 Euro",
+   "teaser": "Die Topdon JS2000 Pro startet Diesel bis 6 Liter und lädt nebenbei dein Handy – Stand 24.11. zum Black-Friday-Preis von rund 85 Euro.",
+   "body": [
+    "Rund 85 Euro zum Black Friday (Stand 24.11.): Dafür bekommst du mit der Topdon JS2000 Pro eine Starthilfe mit 2500 A, die sogar Diesel bis 6 Liter zum Laufen bringt. Damit werden kalte Morgen deutlich entspannter.",
+    "Und weil sie zugleich eine Powerbank ist, lädt sie unterwegs auch dein Smartphone. Im Kofferraum oder Handschuhfach sorgt sie im Winter für ein gutes Gefühl: Du startest los, statt auf Hilfe zu warten."
+   ],
+   "sections": [
+    {
+     "heading": "Topdon JS2000 Pro: Kraft für kalte Morgen",
+     "text": "Die Topdon JS2000 Pro liefert 2500 A Startstrom. Das reicht, um auch Diesel bis 6 Liter anzuwerfen, also nicht nur kleine Stadtflitzer, sondern auch größere Motoren. Dazu kommt der Powerbank-Teil: Unterwegs lädt das Gerät dein Smartphone. Starthilfe und Ladestation in einem, das spart Platz und Kabelsalat. Freu dich auf ein starkes Paket zum Black-Friday-Preis von rund 85 Euro (Stand 24.11.)."
+    },
+    {
+     "heading": "Im Alltag: Losfahren statt warten",
+     "text": "Es ist früh, draußen ist es noch dunkel, du willst zur Arbeit, und der Motor gibt keinen Mucks von sich. Mit der JS2000 Pro im Auto brauchst du weder einen zweiten Wagen noch Nachbarn mit Überbrückungskabeln. Anschließen, Motor starten, losfahren. Und wenn dein Handy unterwegs bei wenigen Prozent ist, lädt es einfach mit. So fühlt sich Alltagsruhe in einem Gerät an."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Du im Winter täglich pendelst, einen Diesel vor der Tür hast oder mit der Familie gern in den Urlaub fährst, ist die JS2000 Pro dein Sicherheitsnetz. Sie passt auch richtig gut, wenn du Geräte mit zwei Talenten magst. Tipp: Leg sie fest ins Auto, damit sie immer griffbereit ist, und pack das passende Ladekabel für dein Smartphone gleich dazu."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die im Winter entspannt starten und nebenbei ihr Handy laden wollen, ist die Topdon JS2000 Pro zum Black-Friday-Preis ein richtig starkes Angebot.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/anzeige-topdon-starthilfe-powerbank-fuer-kfz-zum-black-friday-bestpreis-nur-rund-85-euro-2611-215530.html",
+     "title": "Anzeige: Topdon-Starthilfe-Powerbank für Kfz zum Black-Friday-Bestpreis nur rund 85 Euro"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Topdon JS2000 Pro",
+     "query": "Topdon JS2000 Pro"
+    },
+    {
+     "label": "Starthilfe-Powerbank fürs Auto",
+     "query": "Starthilfe Powerbank Auto"
+    },
+    {
+     "label": "Ladekabel fürs Smartphone",
+     "query": "USB Ladekabel Smartphone"
+    }
+   ]
+  },
+  {
+   "id": "79a6d4fba3",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T16:17:10+00:00",
+   "rubrik": "Deal-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Fanttik S2 Pro Preis: Erstmals unter 50 Euro mit 20 Bits",
+   "teaser": "Sieben Drehmomentstufen, 20 Bits, vom Smartphone bis zum Schrank: Der Fanttik S2 Pro kostet zum Black Friday erstmals weniger als 50 Euro.",
+   "body": [
+    "Der Fanttik S2 Pro ist zum Black Friday erstmals unter 50 Euro zu haben (Stand 24.11., bei Amazon). Der Akkuschrauber bringt sieben Drehmomentstufen und gleich 20 Bits mit. Damit schraubst du vom Smartphone bis zum Schrank.",
+    "Stell dir vor: ein Gerät für feine Elektronik und für den Möbelaufbau, kein Wühlen mehr in der Schublade voller Einzelwerkzeuge. Für Regal, Lampe oder den Umbau im Kinderzimmer bekommst du einen handlichen Allrounder, der prima zu Haushalt und Heimwerken passt."
+   ],
+   "sections": [
+    {
+     "heading": "Fanttik S2 Pro Preis: sieben Stufen, 20 Bits",
+     "text": "Mit sieben Drehmomentstufen stellst du die Kraft genau passend ein. Feine Schrauben, etwa am Smartphone, drehst du mit sanfter Stufe ein, für Möbelverbindungen wählst du mehr Power. Dazu kommen 20 Bits für unterschiedliche Schraubenköpfe. So hast du für viele typische Aufgaben im Haushalt das passende Ende gleich zur Hand. Das macht den Schrauber zum echten Allrounder, auf den du dich freuen kannst."
+    },
+    {
+     "heading": "Vom Handy bis zum Kleiderschrank",
+     "text": "Samstagvormittag, der neue Schrank steht als Bausatz im Flur. Du greifst zum Akkuschrauber, wählst eine mittlere Stufe, und die Schrauben drehen sich zügig ins Holz. Am Nachmittag öffnest du damit noch das Smartphone oder ziehst die lockere Schranktür nach. Ein Gerät, ein Bit-Wechsel, und die To-do-Liste schrumpft spürbar."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du einen Allrounder suchst",
+     "text": "Perfekt, wenn du gerade deine erste Wohnung einrichtest, regelmäßig Möbel aufbaust oder zu Hause gern selbst Hand anlegst. Auch als zweites, handliches Gerät neben dem großen Werkzeugkoffer macht er Spaß. Praktischer Tipp: Leg dir die passenden Bits für Kreuz, Schlitz und Co. griffbereit zurecht, dann wechselst du beim Arbeiten blitzschnell zwischen den Aufgaben."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die einen handlichen Allrounder für Haushalt und Heimwerken suchen, ist der Fanttik S2 Pro mit sieben Drehmomentstufen und 20 Bits zu diesem Preis ein richtig starkes Angebot.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/anzeige-akkuschrauber-mit-20-bits-zum-black-friday-erstmals-unter-50-euro-bei-amazon-2611-215586.html",
+     "title": "Anzeige: Akkuschrauber mit 20 Bits zum Black Friday erstmals unter 50 Euro bei Amazon"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Fanttik S2 Pro Akkuschrauber",
+     "query": "Fanttik S2 Pro"
+    },
+    {
+     "label": "Bosch IXO Akkuschrauber",
+     "query": "Bosch IXO Akkuschrauber"
+    },
+    {
+     "label": "Bit-Set für Schraubendreher",
+     "query": "Bit Set Schraubendreher"
+    },
+    {
+     "label": "Werkzeugtasche für zu Hause",
+     "query": "Werkzeugtasche Haushalt"
+    }
+   ]
+  },
+  {
+   "id": "22a2957661",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T16:17:10+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Coros Vertix 4: Outdoor-Uhr mit Taschenlampe und Monats-Akku",
+   "teaser": "Die Coros Vertix 4 vereint AMOLED-Display, schnelle Karten, Taschenlampe und einen Akku, der einen Monat halten soll: ein Traum für alle Outdoor-Fans.",
+   "body": [
+    "Die Coros Vertix 4 ist da: eine Outdoor-Uhr mit AMOLED-Display, schnellen Karten und einer integrierten Taschenlampe. Dazu kommt ein Akku, der einen Monat durchhalten soll.",
+    "Besonders spannend: Die Vertix 4 erneuert eine der wichtigsten Konkurrentinnen der Fenix-Reihe. Wenn du Touren liebst und nicht ständig nach der Steckdose suchen willst, bekommst du hier eine Uhr, die genau darauf zielt. Und das Licht für den frühen Start trägst du gleich am Handgelenk."
+   ],
+   "sections": [
+    {
+     "heading": "Licht, Karten und ein Display mit Wow",
+     "text": "Die integrierte Taschenlampe ist der Hingucker: Am Zelt, auf dem Weg zur Hütte oder beim Start vor Sonnenaufgang leuchtet sie dir den Weg. Die schnellen Karten zeigen dir deine Route ohne langes Warten. Das AMOLED-Display bringt Farben kräftig auf das Handgelenk. Und der Akku, der einen Monat halten soll, schenkt dir viele Touren ohne Ladekabel."
+    },
+    {
+     "heading": "Coros Vertix 4 im Alltag",
+     "text": "Du stehst morgens im Dunkeln vor der Hütte, die Wanderschuhe sind geschnürt. Ein Griff zur Uhr, die Taschenlampe leuchtet, und die Karte zeigt dir sofort, wo es langgeht. Unterwegs behältst du die Route im Blick, ohne zu warten. Abends fällt dir auf: Ladepause? Gar nicht nötig. So fühlt sich eine Uhr an, die mit dir draußen bleibt."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Perfekt, wenn du als Wanderer, Trailrunner oder Bergsportler oft draußen bist, vor allem bei mehrtägigen Touren ohne Steckdose. Auch wenn du bisher eine Fenix im Blick hattest, ist die Vertix 4 eine spannende Option für dich. Praktischer Tipp: Denk an dein typisches Tourenprofil, etwa Länge und Dauer deiner Ausflüge, und ergänze die Uhr mit einer Stirnlampe als zusätzlicher Lichtquelle."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die viel draußen unterwegs sind und eine Uhr mit langer Laufzeit, Taschenlampe und schnellen Karten wollen, ist die Coros Vertix 4 ein richtig spannender Kandidat.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/vertix-4-coros-erneuert-einen-der-wichtigsten-fenix-konkurrenten-2611-215587.html",
+     "title": "Vertix 4: Coros erneuert einen der wichtigsten Fenix-Konkurrenten"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Coros Vertix 4 Outdoor-Uhr",
+     "query": "Coros Vertix 4"
+    },
+    {
+     "label": "Garmin Fenix 7 Outdoor-Uhr",
+     "query": "Garmin Fenix 7"
+    },
+    {
+     "label": "Stirnlampe für Outdoor-Touren",
+     "query": "Stirnlampe Outdoor"
+    }
+   ]
+  },
+  {
+   "id": "681887a749",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T15:49:44+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Odyssey G6: Bis zu 1100 Bilder pro Sekunde für superflüssiges Gaming",
+   "teaser": "Odyssey G6 1100 Hertz: Samsungs neuer Gaming-Monitor macht schnelle Spiele butterweich, in WQHD ebenso wie in Full HD.",
+   "body": [
+    "Samsung bringt den Gaming-Monitor Odyssey G6 mit Bildraten der Extraklasse: bis zu 600 Bilder pro Sekunde in WQHD und sogar bis zu 1100 in Full HD. Jede Bewegung im Spiel wird dadurch ein Stück geschmeidiger.",
+    "Spannend ist das vor allem, wenn du schnelle Shooter spielst. Wenn die Kamera in Sekundenbruchteilen herumschwingt, bleibt das Bild flüssig und du behältst den Überblick. Und du wählst selbst: mehr Schärfe in WQHD oder maximales Tempo in Full HD."
+   ],
+   "sections": [
+    {
+     "heading": "Odyssey G6 1100 Hertz: Tempo ohne Ende",
+     "text": "Hier dreht sich alles um Geschwindigkeit. Der Odyssey G6 stellt in WQHD bis zu 600 Bilder pro Sekunde dar, in Full HD sogar bis zu 1100. Je mehr Bilder, desto kürzer der Abstand zwischen zwei Bildern, und genau das siehst du bei schnellen Kameraschwenks. Du entscheidest: mehr Schärfe in WQHD oder Höchsttempo in Full HD. Das IPS-Panel rundet das Paket ab."
+    },
+    {
+     "heading": "Der Alltag: Flüssig bis in die Fingerspitzen",
+     "text": "Feierabend, Headset auf, nächste Runde. Du startest dein Lieblingsspiel, reißt die Maus herum, und das Bild folgt ohne Ruckeln. Gegner tauchen auf, du reagierst, und alles fühlt sich direkt an. Genau diese Geschmeidigkeit lieben Wettbewerbsspieler in schnellen Titeln. Mit den angekündigten Bildraten bekommst du ein Spielgefühl, das richtig Lust auf die nächste Partie macht."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du schnell zockst",
+     "text": "Der Odyssey G6 glänzt, wenn du kompetitive Shooter spielst, auf Tempo und Reaktion setzt oder deinen starken Gaming-PC voll ausreizen willst. Auch wenn du gern zwischen Schärfe und Speed wählst, bist du hier richtig. Praktischer Tipp: Setz auf ein passendes DisplayPort-Kabel, damit die hohen Bildraten sauber am Monitor ankommen. Dann steht dem Spielspaß nichts im Weg."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du schnelle Wettbewerbsspiele auf einem starken PC liebst, ist der Odyssey G6 ein richtig spannender Monitor, der dein Spielgefühl auf ein neues Tempo hebt.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/Superflinker-Gaming-Monitor-Samsung-verspricht-1100-Hertz-11534912.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Superflinker Gaming-Monitor: Samsung verspricht 1100 Hertz"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Samsung Odyssey G6 Gaming-Monitor",
+     "query": "Samsung Odyssey G6 Monitor"
+    },
+    {
+     "label": "Gaming-Monitor WQHD mit hoher Bildrate",
+     "query": "Gaming-Monitor WQHD"
+    },
+    {
+     "label": "DisplayPort-Kabel",
+     "query": "DisplayPort-Kabel"
+    },
+    {
+     "label": "Gaming-Maus",
+     "query": "Gaming-Maus"
+    }
+   ]
+  },
+  {
+   "id": "362151cf76",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T15:49:44+00:00",
+   "rubrik": "Kurz erklärt",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Nvidia-Treiber und SSD: So hältst du deinen PC in Minuten fit",
+   "teaser": "Nvidia Treiber SSD: Mit zwei kurzen Checks weißt du, welche Treiberversion läuft und wie gesund deine SSD ist.",
+   "body": [
+    "Dein GeForce-Rechner kann mit wenigen Handgriffen noch entspannter laufen. Der Nvidia-Treiber für Windows schreibt derzeit mehr Daten auf die SSD als nötig. Nvidia hat bereits einen ersten Hotfix-Treiber veröffentlicht, und auch bei AMD war zuvor ein ähnlicher Effekt aufgefallen (Stand 23.11.2026).",
+    "Das Beste daran: Du brauchst nur ein paar Minuten. Treiberversion ansehen, SSD-Gesundheitswert auslesen, fertig. Danach weißt du genau, wie fit deine SSD ist, und kannst dich wieder aufs Zocken oder Arbeiten konzentrieren."
+   ],
+   "sections": [
+    {
+     "heading": "Nvidia Treiber SSD: Das bringt dir der Check",
+     "text": "Eine SSD kann eine bestimmte Datenmenge schreiben, bevor ihre Speicherzellen altern. Hersteller nennen diesen Wert oft TBW. Moderne SSDs bringen meist reichlich Reserve mit. Der Hotfix-Treiber von Nvidia greift nicht in jedem Fall, darum rundet der Blick auf deine tatsächlich geschriebene Datenmenge ihn ideal ab. So hast du schwarz auf weiß, wie viel Vorrat noch da ist."
+    },
+    {
+     "heading": "Fünf Minuten am Rechner",
+     "text": "Du startest deinen PC und öffnest die Nvidia-App oder den Windows-Geräte-Manager. Sofort siehst du, welche Treiberversion läuft. Neuere Treiber und Hotfixes findest du auf der Nvidia-Seite. Dann öffnest du das Tool deines SSD-Herstellers oder CrystalDiskInfo, und Gesundheitswert samt geschriebener Datenmenge stehen direkt vor dir. Ein Vergleich mit der TBW-Angabe, und du hast ein richtig gutes Gefühl."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du viel am PC bist",
+     "text": "Der Check passt ideal, wenn du einen Windows-PC mit GeForce-Karte nutzt. Besonders praktisch ist er für Gaming-PCs und Arbeitsrechner, die lange laufen, und für Rechner mit kleinerer SSD, deren Schreibvorrat naturgemäß etwas kleiner ist. Dein Tipp obendrauf: Sichere wichtige Daten regelmäßig, zum Beispiel auf einer externen Festplatte. Dann bist du für jede SSD bestens gerüstet."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du eine GeForce-Karte unter Windows nutzt, ist der kurze Check von Treiberstand und SSD-Zustand eine kleine Mühe mit großem Wohlfühleffekt. Mit aktuellem Treiber und einem Backup bist du richtig gut aufgestellt.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/Nach-AMD-Auch-Nvidias-GeForce-Grafiktreiber-belastet-SSD-Lebensdauer-uebermaessig-11534844.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Nach AMD: Auch Nvidias GeForce-Grafiktreiber belastet SSD-Lebensdauer übermäßig"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Externe Festplatte fürs Backup",
+     "query": "externe Festplatte Backup"
+    },
+    {
+     "label": "Samsung T7 Portable SSD",
+     "query": "Samsung T7 Portable SSD"
+    },
+    {
+     "label": "WD Elements Portable Festplatte",
+     "query": "WD Elements Portable Festplatte"
+    },
+    {
+     "label": "Samsung 990 Pro NVMe SSD",
+     "query": "Samsung 990 Pro SSD"
+    }
+   ]
+  },
+  {
+   "id": "325186d4b9",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T15:49:44+00:00",
+   "rubrik": "Deal-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "AirPods Pro 3 Black Friday: Apples In-Ears bei Amazon unter 190 Euro",
+   "teaser": "Apples AirPods Pro 3 gibt es zum Black Friday bei Amazon für unter 190 Euro – ein Preis, der Lust macht, wenn du neue In-Ears suchst.",
+   "body": [
+    "Unter 190 Euro: Die AirPods Pro 3 gibt es zum Black Friday bei Amazon zu diesem Preis (Stand 23.11.2026). Das sind Apples In-Ear-Kopfhörer, und in der Aktion werden sie zu einem echten Hingucker für alle, die Musik und Podcasts gern ohne Kabel hören.",
+    "Gerade jetzt wird das Angebot spannend, wenn du schon länger mit neuen Kopfhörern für den Weg zur Arbeit oder den Feierabend auf dem Sofa liebäugelst. Du bekommst ein Apple-Modell zu einem Preis, der im Aktionszeitraum richtig Freude macht."
+   ],
+   "sections": [
+    {
+     "heading": "AirPods Pro 3 Black Friday: Das bekommst du",
+     "text": "Du bekommst Apples In-Ear-Kopfhörer AirPods Pro 3 bei Amazon für unter 190 Euro (Stand 23.11.2026). Der Preis gehört zur Black-Friday-Aktion und macht den Einstieg in Apples Kopfhörer-Welt richtig attraktiv. Ein Modell, ein klarer Preis, ein Shop: Das spart dir Sucherei und lässt dich direkt zur Sache kommen. Schau dir die Produktseite an und stell dir vor, wie dein Soundtrack für den Alltag klingt."
+    },
+    {
+     "heading": "Der Alltag mit den AirPods Pro 3",
+     "text": "Morgens im Zug: Du holst dein iPhone raus, steckst dir die In-Ears ins Ohr und dein Lieblingspodcast läuft. Abends auf dem Sofa wechselst du zur Playlist, ohne Kabel und ohne Gefummel. Weil sich Zubehör vom gleichen Hersteller meist besonders unkompliziert einrichten lässt, bist du schnell startklar. So fühlt sich ein Kopfhörer an, der einfach zu deinem Tag passt."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du Apple liebst",
+     "text": "Perfekt, wenn du ein iPhone oder andere Apple-Geräte nutzt und neue In-Ears suchst. Perfekt auch, wenn du alte Kopfhörer ersetzen möchtest und ohnehin zu Apple tendierst. Und perfekt, wenn du dir zum Black Friday etwas Schönes gönnen willst. Praktischer Tipp: Eine passende Schutzhülle für das Ladecase hält deine AirPods Pro 3 in Rucksack und Jackentasche schön in Form."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle mit iPhone oder anderen Apple-Geräten, die neue In-Ears suchen, ist das ein richtig starkes Angebot.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/anzeige-apple-airpods-pro-3-zum-bestpreis-bei-amazon-2611-215540.html",
+     "title": "Anzeige: Apple Airpods Pro 3 zum Bestpreis bei Amazon"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Apple AirPods Pro 3",
+     "query": "Apple AirPods Pro 3"
+    },
+    {
+     "label": "Sony WF-1000XM5",
+     "query": "Sony WF-1000XM5"
+    },
+    {
+     "label": "Schutzhülle für AirPods Pro Ladecase",
+     "query": "Schutzhülle AirPods Pro Case"
+    }
+   ]
+  },
+  {
+   "id": "a87cccd177",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-22T20:17:59+00:00",
+   "rubrik": "Kurz erklärt",
+   "risk": "medium",
+   "risk_reason": "Sicherheitslücke, die bereits ausgenutzt wird; ein Patch ist verfügbar.",
+   "headline": "GL.iNet Schwachstelle: Der Patch ist da und schützt deinen Router",
+   "teaser": "Für die Cloud-Fernverwaltung von GL.iNet gibt es einen Patch: Mit dem Update bringst du deinen Router wieder auf die sichere Seite.",
+   "body": [
+    "Gute Nachricht für alle GL.iNet-Fans: Für die Lücke in den cloudbasierten Fernverwaltungsdiensten gibt es bereits einen Patch. Weil die Schwachstelle schon ausgenutzt wird, ist der Blick aufs Update gerade jetzt ein starker Schritt.",
+    "Mit der Fernverwaltung steuerst du deinen Router von unterwegs über einen Dienst im Internet. Mit dem Patch behältst du diesen Komfort und machst den Zugang wieder dicht. Hier erfährst du kurz, was dahintersteckt und welcher eine Tipp dir sofort hilft."
+   ],
+   "sections": [
+    {
+     "heading": "GL.iNet Schwachstelle: Patch macht's möglich",
+     "text": "Das Wichtigste zuerst: Die Lücke sitzt in den cloudbasierten Fernverwaltungsdiensten, und die Lösung liegt schon bereit. Mit dem Patch schließt du die Schwachstelle und nutzt deinen Router wie gewohnt weiter. Die Fernverwaltung bleibt dabei, was sie ist: ein bequemer Weg, Einstellungen auch außerhalb deines Heimnetzes zu erledigen. Du brauchst also nur einen Update-Schritt, um wieder ein gutes Gefühl zu haben."
+    },
+    {
+     "heading": "Der Alltag damit: Router im Griff",
+     "text": "Stell dir vor, du sitzt abends auf dem Sofa, öffnest die Verwaltungsoberfläche deines Routers und siehst nach, ob ein Update bereitsteht. Ein paar Klicks später ist der Patch drauf. Am Wochenende bist du unterwegs, passt von dort noch schnell eine Einstellung an und weißt: Dein Zugang ist wieder auf dem aktuellen Stand. So fühlt sich entspannte Netzwerkpflege an."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du unterwegs steuerst",
+     "text": "Das Update ist ein Volltreffer, wenn du einen GL.iNet-Router zu Hause, im Homeoffice oder auf Reisen nutzt und gern per Fernzugriff alles im Blick hast. Dein Tipp für sofort: Lass die Fernverwaltung nur eingeschaltet, wenn du sie wirklich verwendest. Was von außen nicht erreichbar ist, lässt sich schwerer angreifen, und dein Router läuft trotzdem rund."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die einen GL.iNet-Router nutzen, ist der Patch ein klarer und entspannter nächster Schritt: Update einspielen, Fernverwaltung bewusst nutzen und wieder sicher unterwegs steuern.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/news/GL-iNet-Schwachstelle-entdeckt-Patch-verfuegbar-11533722.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "GL.iNet: Schwachstelle entdeckt, Patch verfügbar"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "GL.iNet Router",
+     "query": "GL.iNet Router"
+    },
+    {
+     "label": "AVM FRITZ!Box 7590 AX",
+     "query": "FRITZ!Box 7590 AX"
+    },
+    {
+     "label": "TP-Link Archer AX55",
+     "query": "TP-Link Archer AX55"
+    },
+    {
+     "label": "LAN-Kabel Cat 6",
+     "query": "LAN-Kabel Cat 6 Patchkabel"
+    }
+   ]
+  },
+  {
+   "id": "694264ed35",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-22T20:17:59+00:00",
+   "rubrik": "Kurz erklärt",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Google Assistant abgeschaltet: Dein Lautsprecher bekommt Gemini",
+   "teaser": "Ab nächstem Sommer zieht Gemini für Google Home auf smarte Lautsprecher und Displays ein, und dein Gerät bleibt im Einsatz.",
+   "body": [
+    "Dein smarter Lautsprecher bekommt ein neues Gehirn: Google will den Google Assistant auf smarten Lautsprechern und Displays im kommenden Jahr abschalten. Alle Geräte, auf denen er bisher läuft, steigen ab nächstem Sommer auf Gemini für Google Home um.",
+    "Das ist spannend, weil es um eine Umstellung deiner Geräte geht, nicht um einen Verkaufsstopp. Gemini ist Googles KI-System und übernimmt künftig die Rolle des Sprachassistenten bei dir zu Hause."
+   ],
+   "sections": [
+    {
+     "heading": "Google Assistant abgeschaltet, Gemini zieht ein",
+     "text": "Der Google Assistant ist der Sprachassistent, mit dem du Lautsprecher und Displays per Zuruf steuerst. Künftig übernimmt Gemini diese Rolle, und zwar unter dem Namen Gemini für Google Home. Gemini ist Googles KI-System, deine Geräte bekommen damit einen frischen Kern. Die Rede ist von einer Umstellung der Geräte, nicht von einem Verkaufsstopp. Dein Lautsprecher bleibt dein Lautsprecher, nur mit neuem Assistenten."
+    },
+    {
+     "heading": "Dein Alltag mit dem umgestellten Gerät",
+     "text": "Abends auf dem Sofa sprichst du mit deinem Lautsprecher, wie du es gewohnt bist. Das Gerät steht an seinem Platz, du rufst, es hört zu. Ab nächstem Sommer läuft dahinter Gemini für Google Home. Das Wort Umstellung zeigt: Deine Geräte bleiben im Einsatz und starten mit einem neuen Assistenten in ein frisches Kapitel."
+    },
+    {
+     "heading": "Perfekt für dich, wenn du Google Home liebst",
+     "text": "Perfekt, wenn du zu Hause smarte Lautsprecher oder Displays von Google nutzt und gern neue KI-Technik erlebst. Perfekt auch, wenn du täglich auf Routinen und Sprachbefehle setzt. Dein praktischer Tipp: Notiere dir schon jetzt deine liebsten Befehle und Routinen und halte die Google-Home-App aktuell. So bist du bestens vorbereitet und kannst die Umstellung gleich ausprobieren."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die zu Hause mit Google-Lautsprechern und -Displays leben, ist die Umstellung ein spannender Neustart, bei dem du deine Geräte einfach weiternutzt.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/smarte-lautsprecher-und-smarte-displays-google-schaltet-google-assistant-naechstes-jahr-ab-2611-215511.html",
+     "title": "Smarte Lautsprecher und smarte Displays: Google schaltet Google Assistant nächstes Jahr ab"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Google Nest Hub Smart Display",
+     "query": "Google Nest Hub"
+    },
+    {
+     "label": "Google Nest Audio Lautsprecher",
+     "query": "Google Nest Audio"
+    },
+    {
+     "label": "Amazon Echo Dot",
+     "query": "Amazon Echo Dot"
+    },
+    {
+     "label": "Smarte WLAN-Steckdose",
+     "query": "smarte Steckdose WLAN Alexa Google"
+    }
+   ]
+  },
+  {
+   "id": "5a7824f21a",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-22T20:07:19+00:00",
+   "rubrik": "Deal-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Balkonkraftwerk für 200 Euro: Zwei bifaziale Module bei Amazon",
+   "teaser": "Balkonkraftwerk 200 Euro bei Amazon: Zwei bifaziale Module machen den Einstieg in Sonnenstrom vom Balkon richtig reizvoll.",
+   "body": [
+    "Zwei bifaziale Module, ein Balkonkraftwerk, 200 Euro: Bei Amazon gibt es dieses Set befristet zu diesem Preis (Stand 22.11.2026). Ein klarer Einstiegspreis für alle, die Strom direkt vom eigenen Balkon ernten möchten.",
+    "Spannend sind die bifazialen Module: Sie fangen Licht nicht nur vorn ein, sondern auch auf der Rückseite, zum Beispiel das Licht, das eine helle Wand oder ein heller Boden zurückwirft. So holt dein Balkon noch mehr aus dem Tag heraus. Wenn du schon lange mit eigenem Solarstrom liebäugelst, ist das ein schöner Anlass, das Angebot anzusehen."
+   ],
+   "sections": [
+    {
+     "heading": "Balkonkraftwerk 200 Euro: Das steckt drin",
+     "text": "Du bekommst ein Balkonkraftwerk mit zwei bifazialen Modulen, bei Amazon befristet für 200 Euro (Stand 22.11.2026). Bifazial bedeutet: Die Module sammeln Licht nicht nur vorn, sondern auch auf der Rückseite. Das gibt dir die Chance, aus dem Licht rund um deinen Balkon noch mehr herauszuholen. Ein runder Preis, ein klares Konzept und ein einfacher Weg, die Sonne für deinen Haushalt arbeiten zu lassen."
+    },
+    {
+     "heading": "Der Alltag mit Sonnenstrom vom Balkon",
+     "text": "Du sitzt morgens mit dem Kaffee auf dem Balkon, die Sonne kommt über die Dächer, und deine Module arbeiten still für dich mit. Besonders schön: Eine helle Wand oder ein heller Boden wirft Licht zurück, das die Rückseite aufnehmen kann. Wie viel Extra das bringt, hängt von Untergrund und Montage ab, und genau das kannst du an deinem Platz clever nutzen. Sonnenstrom wird so zum Alltagsvergnügen."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Perfekt, wenn du zum ersten Mal Strom selbst erzeugen möchtest und einen Einstieg mit klarem Preis suchst. Ideal auch, wenn du einen sonnigen Balkon mit heller Fläche in der Nähe hast, die der Rückseite der Module Licht schenkt. Und ein Volltreffer für alle, die ihren Haushalt Stück für Stück nachhaltiger machen wollen. Tipp: Wähle dazu eine passende Halterung für dein Geländer oder deine Wand, dann steht der Montage nichts im Weg."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die unkompliziert mit eigenem Sonnenstrom starten möchten, ist das ein richtig spannendes Angebot, das du dir ansehen solltest.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/anzeige-balkonkraftwerk-mit-zwei-bifazialen-modulen-kostet-bei-amazon-nur-200-euro-2611-215505.html",
+     "title": "Anzeige: Balkonkraftwerk mit zwei bifazialen Modulen kostet bei Amazon nur 200 Euro"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Balkonkraftwerk mit bifazialen Modulen",
+     "query": "Balkonkraftwerk bifazial 2 Module"
+    },
+    {
+     "label": "Halterung für Balkonkraftwerk",
+     "query": "Halterung Balkonkraftwerk Geländer"
+    },
+    {
+     "label": "Strommessgerät für die Steckdose",
+     "query": "Steckdosen Energiemessgerät"
+    }
+   ]
+  }
+ ]
 }

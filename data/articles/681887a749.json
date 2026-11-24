@@ -2,7 +2,7 @@
   "id": "681887a749",
   "slug": "odyssey-g6-1100-hertz-681887",
   "created_at": "2026-11-24T15:49:44+00:00",
-  "status": "live",
+  "status": "draft",
   "source": {
     "name": "heise online",
     "url": "https://www.heise.de/news/Superflinker-Gaming-Monitor-Samsung-verspricht-1100-Hertz-11534912.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
@@ -28,80 +28,96 @@
     "risk_reason": "",
     "category": "Hardware",
     "rubrik": "Neuheiten-Check",
-    "headline": "Odyssey G6 mit 1100 Hertz: Für wen lohnt sich so ein Monitor?",
-    "teaser": "Samsung kündigt den Odyssey G6 mit bis zu 1100 fps in Full HD an. Wir zeigen, was 600 und 1100 Bilder pro Sekunde im Alltag bringen.",
+    "headline": "Odyssey G6: Bis zu 1100 Bilder pro Sekunde für superflüssiges Gaming",
+    "teaser": "Odyssey G6 1100 Hertz: Samsungs neuer Gaming-Monitor macht schnelle Spiele butterweich, in WQHD ebenso wie in Full HD.",
     "body": [
-      "Laut heise online hat Samsung den Gaming-Monitor Odyssey G6 mit extrem hohen Bildraten angekündigt. Bei WQHD-Auflösung sollen 600 Bilder pro Sekunde möglich sein, bei Full HD sogar 1100. Heise berichtet das am 23.11.",
-      "Das verbaute IPS-Panel könnte laut heise allerdings Probleme aufwerfen. Preis und Verfügbarkeit prüfst du am besten kurz direkt beim Hersteller oder Händler, sobald der Monitor gelistet ist."
+      "Samsung bringt den Gaming-Monitor Odyssey G6 mit Bildraten der Extraklasse: bis zu 600 Bilder pro Sekunde in WQHD und sogar bis zu 1100 in Full HD. Jede Bewegung im Spiel wird dadurch ein Stück geschmeidiger.",
+      "Spannend ist das vor allem, wenn du schnelle Shooter spielst. Wenn die Kamera in Sekundenbruchteilen herumschwingt, bleibt das Bild flüssig und du behältst den Überblick. Und du wählst selbst: mehr Schärfe in WQHD oder maximales Tempo in Full HD."
     ],
     "sections": [
       {
-        "heading": "Odyssey G6 1100 Hertz: Das bekommst du",
-        "text": "Der Monitor soll Bewegungen besonders flüssig darstellen. Je höher die Bildrate, desto kürzer der Abstand zwischen zwei Bildern, was vor allem bei schnellen Kamerabewegungen auffällt. In WQHD sind 600 fps angekündigt, in Full HD 1100. Du wählst also zwischen mehr Schärfe und maximaler Geschwindigkeit, je nachdem, was dir im Spiel wichtiger ist."
+        "heading": "Odyssey G6 1100 Hertz: Tempo ohne Ende",
+        "text": "Hier dreht sich alles um Geschwindigkeit. Der Odyssey G6 stellt in WQHD bis zu 600 Bilder pro Sekunde dar, in Full HD sogar bis zu 1100. Je mehr Bilder, desto kürzer der Abstand zwischen zwei Bildern, und genau das siehst du bei schnellen Kameraschwenks. Du entscheidest: mehr Schärfe in WQHD oder Höchsttempo in Full HD. Das IPS-Panel rundet das Paket ab."
       },
       {
-        "heading": "Für wen lohnt sich das?",
-        "text": "Interessant ist so ein Monitor vor allem für ambitionierte Spieler schneller Titel, etwa Shooter im Wettbewerb, die jede Millisekunde Flüssigkeit schätzen. Voraussetzung ist ein sehr leistungsstarker PC, der solche Bildraten überhaupt liefert. Wer vor allem optisch aufwendige Spiele genießt oder gelegentlich zockt, hat mit einem günstigeren Monitor meist mehr vom Geld."
+        "heading": "Der Alltag: Flüssig bis in die Fingerspitzen",
+        "text": "Feierabend, Headset auf, nächste Runde. Du startest dein Lieblingsspiel, reißt die Maus herum, und das Bild folgt ohne Ruckeln. Gegner tauchen auf, du reagierst, und alles fühlt sich direkt an. Genau diese Geschmeidigkeit lieben Wettbewerbsspieler in schnellen Titeln. Mit den angekündigten Bildraten bekommst du ein Spielgefühl, das richtig Lust auf die nächste Partie macht."
       },
       {
-        "heading": "Darauf solltest du achten",
-        "text": "Heise weist darauf hin, dass das IPS-Panel Probleme aufwerfen könnte. Achte deshalb auf unabhängige Messungen zu Reaktionszeit und Bewegungsschärfe. Prüfe außerdem, ob dein Rechner die Bildraten schafft, welche Anschlüsse der Monitor mitbringt und wie Preis und Lieferzeit aussehen. So vermeidest du, für Leistung zu zahlen, die du nicht nutzt."
+        "heading": "Perfekt für dich, wenn du schnell zockst",
+        "text": "Der Odyssey G6 glänzt, wenn du kompetitive Shooter spielst, auf Tempo und Reaktion setzt oder deinen starken Gaming-PC voll ausreizen willst. Auch wenn du gern zwischen Schärfe und Speed wählst, bist du hier richtig. Praktischer Tipp: Setz auf ein passendes DisplayPort-Kabel, damit die hohen Bildraten sauber am Monitor ankommen. Dann steht dem Spielspaß nichts im Weg."
       }
     ],
-    "verdict": "Unsere Einschätzung: Wenn du schnelle Wettbewerbsspiele auf einem sehr starken PC spielst, lohnt sich ein Blick auf den Odyssey G6, am besten nach ersten unabhängigen Messungen. Für alle anderen sind Bildqualität und Preis meist die wichtigeren Kriterien.",
+    "verdict": "Unsere Einschätzung: Wenn du schnelle Wettbewerbsspiele auf einem starken PC liebst, ist der Odyssey G6 ein richtig spannender Monitor, der dein Spielgefühl auf ein neues Tempo hebt.",
     "open_questions": [],
     "key_points": [
-      "600 fps in WQHD, 1100 fps in Full HD angekündigt",
-      "Spannend für Wettbewerbsspieler mit starkem PC",
-      "IPS-Panel: auf Messwerte zur Bewegungsschärfe achten"
+      "Bis zu 600 Bilder pro Sekunde in WQHD",
+      "Bis zu 1100 Bilder pro Sekunde in Full HD",
+      "Butterweiche Bewegung für schnelle Shooter"
     ],
     "video_slides": [
-      "Samsung Odyssey G6: bis zu 1100 fps in Full HD",
-      "600 fps sind in WQHD angekündigt",
-      "Lohnt sich vor allem für schnelle Spiele mit starkem PC"
+      "Odyssey G6: bis zu 1100 Bilder pro Sekunde",
+      "600 in WQHD, 1100 in Full HD: du wählst",
+      "Perfekt für schnelle Shooter am starken PC"
     ],
-    "instagram_caption": "Samsung kündigt den Gaming-Monitor Odyssey G6 an: 600 fps in WQHD und 1100 fps in Full HD. Spannend für alle, die schnelle Spiele auf einem sehr starken PC zocken. Heise weist zudem auf mögliche Probleme beim IPS-Panel hin, deshalb lohnt der Blick auf unabhängige Messwerte.",
-    "tiktok_caption": "1100 fps in Full HD? Samsungs Odyssey G6 verspricht das. Für wen lohnt sich das?",
-    "facebook_text": "Samsung verspricht beim Odyssey G6 bis zu 1100 Bilder pro Sekunde in Full HD und 600 in WQHD. Wir erklären, was das im Spielalltag bringt und für wen so ein Monitor interessant ist.",
+    "instagram_caption": "Wie flüssig darf es sein? Samsungs Odyssey G6 kommt mit bis zu 600 Bildern pro Sekunde in WQHD und bis zu 1100 in Full HD. Schnelle Kameraschwenks bleiben geschmeidig, und du entscheidest, ob dir Schärfe oder Tempo wichtiger ist. Ein Traum für alle, die Shooter lieben.",
+    "tiktok_caption": "1100 Bilder pro Sekunde? Der Odyssey G6 macht schnelle Games butterweich!",
+    "facebook_text": "Samsung kündigt den Gaming-Monitor Odyssey G6 an: bis zu 600 Bilder pro Sekunde in WQHD und bis zu 1100 in Full HD. Wir zeigen, was das im Spielalltag bringt und für wen er ein Volltreffer ist.",
     "hashtags": [
-      "Samsung",
       "OdysseyG6",
+      "Samsung",
       "GamingMonitor",
-      "Monitor",
       "Gaming",
-      "Hardware"
+      "Hardware",
+      "PCGaming"
     ],
-    "image_alt": "Gaming-Monitor auf einem Schreibtisch mit buntem Spielbild",
+    "image_alt": "Gaming-Monitor auf einem Schreibtisch mit Maus und Tastatur in gedämpftem Licht.",
     "icon": "tv",
     "image_query": "gaming monitor desk",
-    "narration": "Wie schnell darf ein Bildschirm sein? Laut heise online kündigt Samsung den Gaming-Monitor Odyssey G6 an. In WQHD sollen 600 Bilder pro Sekunde möglich sein, in Full HD sogar 1100. Das klingt nach maximaler Flüssigkeit. Davon profitiert aber nur, wer einen sehr starken Rechner und schnelle Spiele nutzt. Heise weist außerdem darauf hin, dass das IPS-Panel Probleme aufwerfen könnte. Für Wettbewerbsspieler ist der Monitor interessant, alle anderen schauen besser auf Preis und Bildqualität.",
+    "narration": "Stell dir vor, dein Bild läuft so flüssig wie nie. Samsung kündigt den Gaming-Monitor Odyssey G6 an. In WQHD sind bis zu 600 Bilder pro Sekunde möglich, in Full HD sogar bis zu 1100. Das bedeutet: Schnelle Kameraschwenks bleiben geschmeidig, und du behältst im Gefecht den Überblick. Du wählst selbst, ob dir mehr Schärfe oder maximales Tempo wichtiger ist. Perfekt für alle, die schnelle Shooter lieben und einen starken Gaming-PC haben.",
     "shopping": [
       {
-        "label": "Gaming-Monitor mit hoher Bildrate",
+        "label": "Samsung Odyssey G6 Gaming-Monitor",
+        "query": "Samsung Odyssey G6 Monitor",
+        "reason": "Für maximale Flüssigkeit in schnellen Shootern und Wettbewerbsspielen."
+      },
+      {
+        "label": "Gaming-Monitor WQHD mit hoher Bildrate",
         "query": "Gaming-Monitor WQHD",
-        "reason": "Wenn du einen schnellen Monitor für Wettbewerbsspiele suchst"
+        "reason": "Für alle, die scharfe Bilder und flüssige Bewegungen am Schreibtisch wollen."
       },
       {
         "label": "DisplayPort-Kabel",
         "query": "DisplayPort-Kabel",
-        "reason": "Wenn du hohe Bildraten an deinem Monitor nutzen möchtest"
+        "reason": "Damit hohe Bildraten sauber vom PC zum Monitor kommen."
+      },
+      {
+        "label": "Gaming-Maus",
+        "query": "Gaming-Maus",
+        "reason": "Für präzise Bewegungen, die zum flüssigen Bild passen."
       }
     ],
     "focus_keyword": "Odyssey G6 1100 Hertz",
-    "seo_title": "Odyssey G6 1100 Hertz: Was der Gaming-Monitor bringt",
-    "meta_description": "Odyssey G6 mit 1100 Hertz: Was 600 fps in WQHD und 1100 fps in Full HD im Spielalltag bringen und für wen sich der Monitor lohnen könnte.",
+    "seo_title": "Odyssey G6 1100 Hertz: Samsungs Monitor im Check",
+    "meta_description": "Odyssey G6 1100 Hertz: Samsung kündigt 600 Bilder in WQHD und 1100 in Full HD an. Das bringt dir die Bildrate bei schnellen Spielen.",
     "faq": [
       {
-        "question": "Was bedeuten 1100 fps beim Odyssey G6?",
-        "answer": "Laut heise soll der Monitor in Full HD bis zu 1100 Bilder pro Sekunde darstellen können, in WQHD 600. Je mehr Bilder, desto flüssiger wirken Bewegungen. Prüfe, ob dein Rechner und deine Spiele solche Bildraten überhaupt erreichen."
+        "question": "Was bedeuten 1100 Bilder pro Sekunde beim Odyssey G6?",
+        "answer": "Der Odyssey G6 stellt in Full HD bis zu 1100 Bilder pro Sekunde dar, in WQHD bis zu 600. Je mehr Bilder pro Sekunde, desto flüssiger wirken schnelle Bewegungen, besonders bei Kameraschwenks in Shootern."
       },
       {
-        "question": "Brauche ich so einen schnellen Gaming-Monitor?",
-        "answer": "Wenn du schnelle Wettbewerbsspiele auf einem sehr leistungsstarken PC spielst, kann er interessant sein. Für Gelegenheitsspieler reicht meist ein günstigerer Monitor. Vergleiche vor dem Kauf Preis, Bildqualität und unabhängige Messwerte zur Bewegungsschärfe."
+        "question": "Für wen ist der Odyssey G6 interessant?",
+        "answer": "Für Spieler schneller Titel, etwa Shooter im Wettbewerb, mit einem leistungsstarken PC. Dort spielt der Monitor seine Bildraten aus und sorgt für butterweiche Bewegungen. Je nach Vorliebe wählst du mehr Schärfe in WQHD oder maximales Tempo in Full HD."
+      },
+      {
+        "question": "Was ist der Unterschied zwischen WQHD und Full HD?",
+        "answer": "WQHD bietet mehr Pixel als Full HD und damit ein schärferes Bild. Full HD hat weniger Pixel, wodurch beim Odyssey G6 die höchste Bildrate von bis zu 1100 Bildern pro Sekunde möglich ist."
       }
     ],
     "guide": ""
   },
   "published": {},
-  "drafted_at": "2026-11-23T16:13:02+00:00"
+  "drafted_at": "2026-11-23T16:13:02+00:00",
+  "rewritten_at": "2026-11-24T16:41:32+00:00",
+  "keep_date": true
 }

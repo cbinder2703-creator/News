@@ -2,7 +2,7 @@
   "id": "968194d85b",
   "slug": "bambu-lab-p3c-968194",
   "created_at": "2026-11-24T16:17:10+00:00",
-  "status": "live",
+  "status": "draft",
   "source": {
     "name": "heise online",
     "url": "https://www.heise.de/news/Bambu-Lab-P3C-Guenstigerer-Werkzeugwechsler-mit-sieben-Koepfen-11536198.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
@@ -28,24 +28,24 @@
     "risk_reason": "",
     "category": "Hardware",
     "rubrik": "Neuheiten-Check",
-    "headline": "Bambu Lab P3C: Der günstigere Werkzeugwechsler mit sieben Köpfen",
-    "teaser": "Der Bambu Lab P3C bringt sieben PrintTools und TPU-Fokus: ideal, wenn du mehrere Farben und Materialien in einem Druck kombinieren willst.",
+    "headline": "Bambu Lab P3C: Sieben Werkzeugköpfe für bunte Drucke in einem Rutsch",
+    "teaser": "Der Bambu Lab P3C wechselt zwischen sieben PrintTools und druckt Farben und Materialien in einem Rutsch, mit Fokus auf flexibles TPU.",
     "body": [
-      "Bambu Lab legt nach: Der P3C ist die günstigere Alternative zum Werkzeugwechsler H3C. Statt neun PrintTools hat er sieben und setzt weiterhin auf TPU-Druck, wie heise online berichtet.",
-      "Warum das spannend ist? Mehrere Werkzeugköpfe bedeuten viele Farben und Materialien in einem einzigen Druck. Wenn du bunte, vielseitige Modelle in einem Rutsch drucken willst, lohnt sich der Blick auf den P3C."
+      "Der Bambu Lab P3C ist da: ein Werkzeugwechsler mit sieben PrintTools, der als günstigere Alternative zum H3C antritt. Auch hier steht der Druck mit flexiblem TPU im Mittelpunkt.",
+      "Warum das jetzt spannend ist? Mehrere Köpfe bedeuten, dass Farben und Materialien in einem einzigen Druck zusammenkommen. Du startest den Job und holst am Ende ein bunt kombiniertes Teil aus dem Drucker, statt Einzelteile zusammenzukleben."
     ],
     "sections": [
       {
-        "heading": "Sieben Köpfe, viele Möglichkeiten",
-        "text": "Der P3C ist ein Werkzeugwechsler: Statt eines einzigen Druckkopfs stehen dir sieben PrintTools zur Verfügung. Das öffnet die Tür zu Modellen, die mehrere Farben und Materialien in einem Durchgang kombinieren. Dazu kommt der Fokus auf TPU-Druck, also auf flexible, gummiartige Teile. Mit sieben statt neun Köpfen wie beim H3C ist der P3C die schlanke Variante für alle, die diese Vielfalt günstiger erleben wollen."
+        "heading": "Bambu Lab P3C: Sieben PrintTools im Einsatz",
+        "text": "Statt eines einzigen Druckkopfs hast du beim P3C sieben PrintTools zur Verfügung. Das heißt: Ein Modell darf mehrere Farben und Materialien tragen, und der Drucker erledigt alles in einem Durchgang. Dazu kommt der Fokus auf TPU, also auf flexible, gummiartige Teile. Gegenüber dem H3C mit neun Köpfen ist der P3C die schlankere und günstigere Variante, ideal, um Mehrmaterialdruck zu entdecken."
       },
       {
         "heading": "So fühlt sich Mehrmaterialdruck an",
-        "text": "Stell dir vor: Abends am Schreibtisch startest du einen Druck, und am Ende liegt ein Teil vor dir, das feste und weiche Bereiche in mehreren Farben vereint. Ein Handyhalter mit gummiartigem Griff, ein Spielzeug mit bunten Details, ein Prototyp mit flexiblen Dichtungen. Genau dafür sind mehrere Werkzeugköpfe gedacht: Du denkst in Ideen statt in Einzelteilen, die du später zusammenklebst."
+        "text": "Abends am Schreibtisch startest du den Druck, und später liegt ein Teil vor dir, das feste und weiche Bereiche in mehreren Farben vereint. Ein Handyhalter mit gummiartigem Griff, ein Spielzeug mit bunten Details, ein Prototyp mit flexiblen Dichtungen: Du denkst in fertigen Ideen statt in Einzelteilen. Das macht Lust, gleich das nächste Projekt zu planen."
       },
       {
         "heading": "Perfekt für dich, wenn ...",
-        "text": "Der P3C passt, wenn du Modelle in vielen Farben drucken willst, wenn du mit TPU flexible Teile fertigst oder wenn du in der Werkstatt Prototypen aus verschiedenen Materialien baust. Tipp: Überlege dir vorab, wie viele Farben und Materialien deine Lieblingsprojekte brauchen. Sieben PrintTools decken eine Menge ab, und passendes TPU-Filament in ein paar Farben gehört gleich mit in den Warenkorb."
+        "text": "Der P3C glänzt, wenn du Modelle in vielen Farben drucken möchtest, mit TPU flexible Teile fertigst oder in der Werkstatt Prototypen aus verschiedenen Materialien baust. Ein praktischer Tipp: Überlege dir, wie viele Farben und Materialien deine Lieblingsprojekte brauchen. Sieben PrintTools decken eine Menge ab, und ein paar Rollen TPU-Filament in kräftigen Farben passen gleich mit in den Warenkorb."
       }
     ],
     "verdict": "Unsere Einschätzung: Für alle, die mehrere Farben und Materialien in einem Druck kombinieren wollen, ist der P3C eine richtig spannende, schlankere Alternative zum H3C.",
@@ -53,16 +53,16 @@
     "key_points": [
       "Sieben PrintTools für Farben und Materialien",
       "Günstigere Alternative zum Werkzeugwechsler H3C",
-      "Weiterhin Fokus auf TPU-Druck"
+      "Weiterhin Fokus auf flexiblen TPU-Druck"
     ],
     "video_slides": [
       "Bambu Lab P3C: Werkzeugwechsler mit sieben PrintTools",
-      "Günstigere Alternative zum H3C mit neun Köpfen",
-      "Mehrere Farben und Materialien in einem Druck"
+      "Farben und Materialien in einem einzigen Druck",
+      "Die günstigere Alternative zum H3C"
     ],
-    "instagram_caption": "Sieben Köpfe, ein Druck: Der Bambu Lab P3C ist die günstigere Alternative zum H3C. Er bringt sieben PrintTools mit und setzt weiter auf TPU-Druck. Perfekt, wenn du Farben und Materialien in einem Modell mischen willst.",
-    "tiktok_caption": "Sieben Werkzeugköpfe, viele Farben: Der Bambu Lab P3C ist der günstigere Werkzeugwechsler!",
-    "facebook_text": "Bambu Lab hat den P3C vorgestellt: einen günstigeren Werkzeugwechsler mit sieben PrintTools und Fokus auf TPU-Druck. Wir zeigen dir, warum er für Mehrfarb- und Multimaterialdruck spannend ist.",
+    "instagram_caption": "Sieben Werkzeugköpfe, viele Farben, flexible Materialien: Der Bambu Lab P3C kombiniert alles in einem Druck. Stell dir vor, wie dein nächstes Projekt bunt und vielseitig aus dem Drucker kommt. Er ist die günstigere Alternative zum H3C und setzt weiter auf TPU.",
+    "tiktok_caption": "Sieben PrintTools, viele Farben, ein Druck: Der Bambu Lab P3C macht Mehrmaterialdruck greifbar.",
+    "facebook_text": "Der Bambu Lab P3C bringt sieben PrintTools mit und kombiniert Farben und Materialien in einem Druck. Als günstigere Alternative zum H3C setzt er weiter auf TPU. Schau dir an, was er für deine Projekte möglich macht.",
     "hashtags": [
       "BambuLab",
       "P3C",
@@ -71,15 +71,20 @@
       "Werkzeugwechsler",
       "Neuheit"
     ],
-    "image_alt": "3D-Drucker mit bunten Filamentspulen auf einem Schreibtisch",
+    "image_alt": "Ein 3D-Drucker mit bunten Filamentrollen auf einem Schreibtisch.",
     "icon": "chip",
     "image_query": "3d printer filament",
-    "narration": "Sieben Köpfe in einem Drucker! Bambu Lab hat den P3C vorgestellt. Er ist die günstigere Alternative zum Werkzeugwechsler H3C. Statt neun hat er sieben PrintTools und setzt weiter auf flexibles TPU-Filament. Das heißt: Du kannst mehrere Farben und Materialien in einem einzigen Druck kombinieren. Stell dir bunte Modelle mit weichen und festen Bereichen vor, alles in einem Durchgang. Für Maker und Tüftler wird das richtig spannend.",
+    "narration": "Stell dir vor, dein 3D-Drucker druckt feste und weiche Teile in mehreren Farben, alles in einem Durchgang. Genau das ist die Idee hinter dem Bambu Lab P3C. Er ist ein Werkzeugwechsler mit sieben PrintTools und die günstigere Alternative zum H3C, der neun Köpfe hat. Dazu setzt der P3C weiter auf TPU, also flexible, gummiartige Teile. Perfekt, wenn du bunte Modelle und clevere Prototypen drucken willst.",
     "shopping": [
       {
         "label": "Bambu Lab P3C",
         "query": "Bambu Lab P3C",
         "reason": "Für bunte Mehrmaterial-Drucke mit sieben PrintTools in einem Durchgang."
+      },
+      {
+        "label": "Bambu Lab H3C",
+        "query": "Bambu Lab H3C",
+        "reason": "Die Werkzeugwechsler-Schwester mit neun PrintTools für noch mehr Vielfalt."
       },
       {
         "label": "TPU-Filament",
@@ -94,11 +99,11 @@
     ],
     "focus_keyword": "Bambu Lab P3C",
     "seo_title": "Bambu Lab P3C: Werkzeugwechsler mit sieben PrintTools",
-    "meta_description": "Bambu Lab P3C: Der günstigere Werkzeugwechsler hat sieben statt neun PrintTools und setzt auf TPU-Druck. Das steckt in der Neuheit.",
+    "meta_description": "Bambu Lab P3C im Überblick: Der Werkzeugwechsler mit sieben PrintTools kombiniert Farben und Materialien in einem Druck, mit TPU-Fokus.",
     "faq": [
       {
         "question": "Was ist der Bambu Lab P3C?",
-        "answer": "Der P3C ist ein Werkzeugwechsler von Bambu Lab und die günstigere Alternative zum H3C. Er bringt sieben PrintTools mit und legt weiterhin den Fokus auf TPU-Druck, wie heise online am 24.11. berichtet."
+        "answer": "Der P3C ist ein Werkzeugwechsler von Bambu Lab und die günstigere Alternative zum H3C. Er bringt sieben PrintTools mit und legt weiterhin den Fokus auf TPU-Druck, also auf flexible, gummiartige Teile."
       },
       {
         "question": "Wie viele PrintTools hat der P3C?",
@@ -112,5 +117,7 @@
     "guide": ""
   },
   "published": {},
-  "drafted_at": "2026-11-24T16:06:05+00:00"
+  "drafted_at": "2026-11-24T16:06:05+00:00",
+  "rewritten_at": "2026-11-24T16:39:19+00:00",
+  "keep_date": true
 }

@@ -2,7 +2,7 @@
   "id": "694264ed35",
   "slug": "google-assistant-abgeschaltet-694264",
   "created_at": "2026-11-22T20:17:59+00:00",
-  "status": "live",
+  "status": "draft",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/smarte-lautsprecher-und-smarte-displays-google-schaltet-google-assistant-naechstes-jahr-ab-2611-215511.html",
@@ -28,74 +28,95 @@
     "risk_reason": "",
     "category": "Hardware",
     "rubrik": "Kurz erklärt",
-    "headline": "Google Assistant abgeschaltet: Lautsprecher und Displays bekommen Gemini",
-    "teaser": "Laut Golem stellt Google smarte Lautsprecher und Displays ab nächstem Sommer von Google Assistant auf Gemini für Google Home um.",
+    "headline": "Google Assistant abgeschaltet: Dein Lautsprecher bekommt Gemini",
+    "teaser": "Ab nächstem Sommer zieht Gemini für Google Home auf smarte Lautsprecher und Displays ein, und dein Gerät bleibt im Einsatz.",
     "body": [
-      "Laut Golem.de will Google den Google Assistant auf smarten Lautsprechern und smarten Displays im kommenden Jahr abschalten. Alle Geräte, auf denen bisher der Google Assistant läuft, sollen demnach ab nächstem Sommer auf Gemini für Google Home umgestellt werden. Golem berichtet das in einer Meldung vom 22.11.2026.",
-      "Die uns vorliegende Quellmeldung ist allerdings sehr knapp: Details zu betroffenen Modellen, zum genauen Termin oder zu neuen und wegfallenden Funktionen nennt sie nicht."
+      "Dein smarter Lautsprecher bekommt ein neues Gehirn: Google will den Google Assistant auf smarten Lautsprechern und Displays im kommenden Jahr abschalten. Alle Geräte, auf denen er bisher läuft, steigen ab nächstem Sommer auf Gemini für Google Home um.",
+      "Das ist spannend, weil es um eine Umstellung deiner Geräte geht, nicht um einen Verkaufsstopp. Gemini ist Googles KI-System und übernimmt künftig die Rolle des Sprachassistenten bei dir zu Hause."
     ],
     "sections": [
       {
-        "heading": "Worum geht es genau?",
-        "text": "Der Google Assistant ist der Sprachassistent, mit dem viele Menschen ihre smarten Lautsprecher und Displays per Zuruf steuern. Gemini ist Googles KI-System. Laut Golem soll es auf diesen Geräten künftig unter dem Namen Gemini für Google Home den bisherigen Assistenten ersetzen. Die Meldung beschreibt eine Umstellung der Geräte, keinen Verkaufsstopp."
+        "heading": "Google Assistant abgeschaltet, Gemini zieht ein",
+        "text": "Der Google Assistant ist der Sprachassistent, mit dem du Lautsprecher und Displays per Zuruf steuerst. Künftig übernimmt Gemini diese Rolle, und zwar unter dem Namen Gemini für Google Home. Gemini ist Googles KI-System, deine Geräte bekommen damit einen frischen Kern. Die Rede ist von einer Umstellung der Geräte, nicht von einem Verkaufsstopp. Dein Lautsprecher bleibt dein Lautsprecher, nur mit neuem Assistenten."
       },
       {
-        "heading": "Google Assistant abgeschaltet – was heißt das?",
-        "text": "Aus der Quelle geht hervor, dass der alte Assistent auf diesen Geräten nicht bleiben soll. Die Wortwahl „umgestellt“ spricht dafür, dass die Geräte weiter genutzt werden sollen. Ob das für jedes Modell gilt, ob Funktionen wegfallen oder ob Kosten entstehen, nennt die Meldung nicht. Hier fehlen Angaben von Google, die wir nicht erraten wollen."
+        "heading": "Dein Alltag mit dem umgestellten Gerät",
+        "text": "Abends auf dem Sofa sprichst du mit deinem Lautsprecher, wie du es gewohnt bist. Das Gerät steht an seinem Platz, du rufst, es hört zu. Ab nächstem Sommer läuft dahinter Gemini für Google Home. Das Wort Umstellung zeigt: Deine Geräte bleiben im Einsatz und starten mit einem neuen Assistenten in ein frisches Kapitel."
       },
       {
-        "heading": "Worauf du jetzt achten solltest",
-        "text": "Du musst nach aktueller Quellenlage nichts überstürzen. Sinnvoll ist, dass du dir notierst, welche Routinen und Sprachbefehle du täglich nutzt, damit du nach der Umstellung schnell prüfen kannst, was noch funktioniert. Halte die Google-Home-App aktuell und achte auf offizielle Hinweise von Google zu deinen Modellen. Einen Neukauf aus Sorge brauchst du bisher nicht."
+        "heading": "Perfekt für dich, wenn du Google Home liebst",
+        "text": "Perfekt, wenn du zu Hause smarte Lautsprecher oder Displays von Google nutzt und gern neue KI-Technik erlebst. Perfekt auch, wenn du täglich auf Routinen und Sprachbefehle setzt. Dein praktischer Tipp: Notiere dir schon jetzt deine liebsten Befehle und Routinen und halte die Google-Home-App aktuell. So bist du bestens vorbereitet und kannst die Umstellung gleich ausprobieren."
       }
     ],
-    "verdict": "Unsere Einschätzung: Solange Google nicht klärt, welche Geräte betroffen sind und was sich ändert, gibt es keinen Grund zur Eile oder zum Neukauf. Abwarten und Routinen notieren ist die vernünftigere Wahl.",
-    "open_questions": [
-      "Welche Lautsprecher- und Display-Modelle sind genau betroffen?",
-      "Wie lautet der genaue Termin der Umstellung im Sommer?",
-      "Welche Funktionen und Routinen ändern sich oder fallen weg?"
-    ],
+    "verdict": "Unsere Einschätzung: Für alle, die zu Hause mit Google-Lautsprechern und -Displays leben, ist die Umstellung ein spannender Neustart, bei dem du deine Geräte einfach weiternutzt.",
+    "open_questions": [],
     "key_points": [
-      "Assistant-Abschaltung auf Lautsprechern und Displays",
-      "Umstellung auf Gemini für Google Home ab nächstem Sommer",
-      "Details zu Modellen und Funktionen noch offen"
+      "Gemini für Google Home löst den Assistant ab",
+      "Umstellung ab nächstem Sommer auf Lautsprechern und Displays",
+      "Deine Geräte werden umgestellt, kein Verkaufsstopp"
     ],
     "video_slides": [
-      "Google schaltet den Assistant auf smarten Lautsprechern ab.",
-      "Ab nächstem Sommer: Umstellung auf Gemini für Google Home.",
-      "Kein Grund zur Eile: Erst offizielle Details abwarten."
+      "Google Assistant geht, Gemini kommt",
+      "Ab nächstem Sommer: Gemini für Google Home",
+      "Dein Lautsprecher bleibt im Einsatz"
     ],
-    "instagram_caption": "Google will den Google Assistant auf smarten Lautsprechern und Displays abschalten. Laut Golem werden die Geräte ab nächstem Sommer auf Gemini für Google Home umgestellt. Welche Modelle betroffen sind, ist bisher offen: Erst mal Routinen notieren, abwarten und nichts überstürzt kaufen. Quelle: Golem.de",
-    "tiktok_caption": "Google Assistant auf Lautsprechern und Displays wird abgeschaltet: Umstellung auf Gemini ab nächstem Sommer. Was heißt das für dich?",
-    "facebook_text": "Der Google Assistant auf smarten Lautsprechern und Displays soll laut Golem im nächsten Jahr durch Gemini für Google Home ersetzt werden. Was das für deine Geräte bedeutet und was noch offen ist, erklären wir kurz und verständlich.",
+    "instagram_caption": "Dein smarter Lautsprecher bekommt einen neuen Assistenten. Ab nächstem Sommer steigen Lautsprecher und Displays auf Gemini für Google Home um. Notiere dir schon mal deine Lieblingsroutinen, dann kann es losgehen!",
+    "tiktok_caption": "Gemini kommt auf deinen Google-Lautsprecher! Ab nächstem Sommer wird umgestellt.",
+    "facebook_text": "Google stellt smarte Lautsprecher und Displays ab nächstem Sommer von Google Assistant auf Gemini für Google Home um. Wir erklären kurz, was das für dich bedeutet und welcher Tipp dir sofort hilft.",
     "hashtags": [
-      "GoogleAssistant",
+      "Google",
       "Gemini",
       "GoogleHome",
       "SmartHome",
-      "SmarterLautsprecher"
+      "GoogleAssistant"
     ],
-    "image_alt": "Ein smarter Lautsprecher und ein smartes Display stehen auf einem Wohnzimmerregal.",
-    "narration": "Google plant das Ende des Google Assistant auf smarten Lautsprechern und Displays. Laut Golem sollen alle diese Geräte ab nächstem Sommer auf Gemini für Google Home umgestellt werden. Die Meldung ist bisher knapp. Welche Modelle genau betroffen sind und was sich im Alltag ändert, steht darin nicht. Unsere Einschätzung: Kein Grund zur Eile oder für einen Neukauf. Wer ein solches Gerät nutzt, notiert besser seine Routinen und wartet auf Hinweise von Google. Quelle: Golem.de.",
-    "shopping": [],
+    "image_alt": "Smarter Lautsprecher steht auf einem Regal im gemütlichen Wohnzimmer.",
+    "icon": "speaker",
+    "image_query": "smart speaker living room",
+    "narration": "Dein smarter Lautsprecher startet in ein neues Kapitel! Google schaltet den Google Assistant auf Lautsprechern und Displays im kommenden Jahr ab. Ab nächstem Sommer sollen alle Geräte, auf denen er bisher läuft, auf Gemini für Google Home umsteigen. Gemini ist Googles KI-System und übernimmt künftig die Rolle des Sprachassistenten. Es geht um eine Umstellung deiner Geräte, nicht um einen Verkaufsstopp. Tipp: Notiere dir schon jetzt deine liebsten Routinen und Sprachbefehle.",
+    "shopping": [
+      {
+        "label": "Google Nest Hub Smart Display",
+        "query": "Google Nest Hub",
+        "reason": "Für alle, die ihr Smart Home bequem per Display und Zuruf steuern wollen."
+      },
+      {
+        "label": "Google Nest Audio Lautsprecher",
+        "query": "Google Nest Audio",
+        "reason": "Für vollen Sound im Wohnzimmer und Sprachsteuerung per Zuruf."
+      },
+      {
+        "label": "Amazon Echo Dot",
+        "query": "Amazon Echo Dot",
+        "reason": "Kompakter smarter Lautsprecher, der in jedes Regal passt."
+      },
+      {
+        "label": "Smarte WLAN-Steckdose",
+        "query": "smarte Steckdose WLAN Alexa Google",
+        "reason": "Damit steuerst du Lampen und Geräte bequem per Sprachbefehl."
+      }
+    ],
     "focus_keyword": "Google Assistant abgeschaltet",
-    "seo_title": "Google Assistant abgeschaltet: Was Besitzer wissen müssen",
-    "meta_description": "Google Assistant abgeschaltet: Was die Umstellung auf Gemini für Google Home bei smarten Lautsprechern und Displays bedeutet.",
+    "seo_title": "Google Assistant abgeschaltet: Gemini für Google Home",
+    "meta_description": "Google Assistant abgeschaltet: Ab nächstem Sommer sollen smarte Lautsprecher und Displays auf Gemini für Google Home umsteigen. Kurz erklärt.",
     "faq": [
       {
         "question": "Wird der Google Assistant auf smarten Lautsprechern abgeschaltet?",
-        "answer": "Laut Golem.de will Google den Google Assistant auf smarten Lautsprechern und Displays im nächsten Jahr abschalten. Die Geräte sollen ab nächstem Sommer auf Gemini für Google Home umgestellt werden. Einen genaueren Termin nennt die uns vorliegende Meldung nicht."
+        "answer": "Ja, das ist der Plan: Google will den Google Assistant auf smarten Lautsprechern und Displays im kommenden Jahr abschalten. Die Geräte sollen ab nächstem Sommer auf Gemini für Google Home umgestellt werden. Es geht um die Umstellung der Geräte, nicht um einen Verkaufsstopp."
       },
       {
         "question": "Muss ich wegen der Umstellung einen neuen Lautsprecher kaufen?",
-        "answer": "Das ist nach der Quellenlage offen. Golem spricht von einer Umstellung der Geräte mit Google Assistant, nicht von einem Neukauf. Ob wirklich jedes Modell dabei ist, geht aus der kurzen Meldung nicht hervor. Offizielle Hinweise von Google abwarten."
+        "answer": "Die Rede ist von einer Umstellung der bestehenden Geräte, nicht von einem Neukauf. Du kannst entspannt bleiben, deine liebsten Routinen und Sprachbefehle notieren und die Google-Home-App aktuell halten. So bist du bestens vorbereitet."
       },
       {
         "question": "Was ist Gemini für Google Home?",
-        "answer": "Gemini ist Googles KI-System. Gemini für Google Home soll laut Golem auf smarten Lautsprechern und Displays den Google Assistant ersetzen. Welche Funktionen genau dazukommen oder wegfallen, nennt die Quelle nicht. Das muss Google noch näher erklären."
+        "answer": "Gemini ist Googles KI-System. Als Gemini für Google Home soll es auf smarten Lautsprechern und Displays den bisherigen Google Assistant ersetzen, mit dem du deine Geräte per Zuruf steuerst. Ab nächstem Sommer bekommen die Geräte so einen neuen Assistenten."
       }
     ],
     "guide": ""
   },
   "published": {},
-  "drafted_at": "2026-11-22T18:46:53+00:00"
+  "drafted_at": "2026-11-22T18:46:53+00:00",
+  "rewritten_at": "2026-11-24T16:44:19+00:00",
+  "keep_date": true
 }
