@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block main %}
-<h1>Kaufberater</h1>
-<p class="lead-text">Worauf du beim Kauf achten solltest: Kriterien, typische Fehler und Antworten auf häufige Fragen. Ohne Testsieger, denn wir testen nicht selbst.</p>
+<header class="page-head"><h1>Kaufberater</h1>
+<p>Worauf du beim Kauf achten solltest: Kriterien, typische Fehler und Antworten auf häufige Fragen.</p></header>
 <div class="grid">
 {% for g in guides %}
   <a class="card" href="{{ base }}/kaufberater/{{ g.slug }}/">
     {{ guide_image(g) }}
-    <div class="meta"><span class="cat">Kaufberater</span> · {{ (g.updated_at or g.created_at) | de_day }}</div>
-    <h2>{{ g.article.headline }}</h2>
+    <div class="meta"><span class="pricetag" data-r="kaufberater">Kaufberater</span><time datetime="{{ g.updated_at or g.created_at }}">{{ (g.updated_at or g.created_at) | de_day }}</time></div>
+    <h3>{{ g.article.headline }}</h3>
     <p>{{ g.article.meta_description }}</p>
   </a>
 {% endfor %}

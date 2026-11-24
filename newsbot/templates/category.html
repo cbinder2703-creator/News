@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 {% block main %}
-<h1>{{ cat.name }}</h1>
+<header class="page-head"><h1>{{ cat.name }}</h1><p>{{ cat.records | length }} {{ 'Beitrag' if cat.records | length == 1 else 'Beiträge' }}</p></header>
 <div class="grid">
 {% for r in cat.records %}
-  <a class="card" href="{{ base }}/a/{{ r.slug }}/">
-    {{ image_for(r) }}
-    <div class="meta"><span class="cat">{{ r.article.rubrik or r.article.category }}</span> · {{ r.created_at | de_date }}</div>
-    <h2>{{ r.article.headline }}</h2>
-    <p>{{ r.article.teaser }}</p>
-  </a>
+  {% include "_card.html" %}
 {% endfor %}
 </div>
 {% endblock %}

@@ -21,7 +21,7 @@
 {% endblock %}
 {% block main %}
 <article class="post">
-  <div class="meta"><span class="cat">Kaufberater</span> · Zuletzt aktualisiert: <time datetime="{{ g.updated_at or g.created_at }}">{{ (g.updated_at or g.created_at) | de_day }}</time></div>
+  <div class="meta"><span class="pricetag" data-r="kaufberater">Kaufberater</span>Zuletzt aktualisiert: <time datetime="{{ g.updated_at or g.created_at }}">{{ (g.updated_at or g.created_at) | de_day }}</time></div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.intro }}</p>
   <p class="ai-note">Wir testen keine Produkte selbst. Dieser Ratgeber erklärt Kriterien, damit du selbst entscheiden kannst. <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>

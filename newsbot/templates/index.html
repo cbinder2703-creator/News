@@ -5,21 +5,30 @@
 {% block main %}
 <h1 class="visually-hidden">{{ cfg.brand_name }}: {{ cfg.tagline }}</h1>
 {% if not records %}<p class="empty">Noch keine Beiträge. Die erste Ausgabe erscheint mit dem nächsten Lauf.</p>{% endif %}
-<div class="grid">
-{% for r in records %}
-  <a class="card{% if loop.first %} lead{% endif %}" href="{{ base }}/a/{{ r.slug }}/">
-    {{ image_for(r, eager=loop.first) }}
-    <div class="meta"><span class="cat">{{ r.article.rubrik or r.article.category }}</span> · {{ r.created_at | de_day }}</div>
+{% if records %}{% set r = records[0] %}{% set rub = r.article.rubrik or r.article.category %}
+<a class="lead-story" href="{{ base }}/a/{{ r.slug }}/">
+  {{ image_for(r, eager=True) }}
+  <div>
+    <div class="meta"><span class="pricetag" data-r="{{ rub | tagslug }}">{{ rub }}</span><time datetime="{{ r.created_at }}">{{ r.created_at | de_day }}</time></div>
     <h2>{{ r.article.headline }}</h2>
     <p>{{ r.article.teaser }}</p>
-  </a>
-  {% if loop.first and guides %}
-  <section class="guide-strip" aria-label="Kaufberater">
-    <h2>Kaufberater</h2>
-    <ul>{% for g in guides %}<li><a href="{{ base }}/kaufberater/{{ g.slug }}/">{{ g.topic.title }}</a></li>{% endfor %}</ul>
-    <a class="more" href="{{ base }}/kaufberater/">Alle Kaufberater →</a>
-  </section>
-  {% endif %}
+    <span class="go">Zum Beitrag</span>
+  </div>
+</a>
+{% endif %}
+{% if records | length > 1 %}
+<div class="section-head"><h2>Neu auf {{ cfg.brand_name }}</h2><a href="{{ base }}/thema/">Alle Themen</a></div>
+<div class="grid">
+{% for r in records[1:] %}
+  {% include "_card.html" %}
 {% endfor %}
 </div>
+{% endif %}
+{% if guides %}
+<section class="guide-strip" aria-label="Kaufberater">
+  <h2>Kaufberater</h2>
+  <p>Worauf es beim Kauf ankommt, verständlich erklärt.</p>
+  <ul>{% for g in guides %}<li><a href="{{ base }}/kaufberater/{{ g.slug }}/">{{ g.topic.title }}</a></li>{% endfor %}</ul>
+</section>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,6 @@
+{% set rub = r.article.rubrik or r.article.category %}<a class="card" href="{{ base }}/a/{{ r.slug }}/">
+    {{ image_for(r) }}
+    <div class="meta"><span class="pricetag" data-r="{{ rub | tagslug }}">{{ rub }}</span><time datetime="{{ r.created_at }}">{{ r.created_at | de_day }}</time></div>
+    <h3>{{ r.article.headline }}</h3>
+    <p>{{ r.article.teaser }}</p>
+  </a>

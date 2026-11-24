@@ -119,4 +119,5 @@ def thumb(text: str, key: str, preferred: str = "", css_class: str = "thumb") ->
     c1, c2 = palette_for(key)
     svg = (f'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" '
            f'stroke-linejoin="round" aria-hidden="true" focusable="false">{ICONS[name]}</svg>')
-    return Markup(f'<div class="{css_class}" style="--c1:{c1};--c2:{c2}" data-icon="{name}">{svg}</div>')
+    from .store import slugify
+    return Markup(f'<div class="{css_class}" style="--c1:{c1};--c2:{c2}" data-r="{slugify(key or "", 30)}" data-icon="{name}">{svg}</div>')

@@ -24,7 +24,7 @@
 {% endblock %}
 {% block main %}
 <article class="post">
-  <div class="meta"><a class="cat chip" href="{{ base }}/thema/{{ cat.slug }}/">{{ a.rubrik or a.category }}</a> <time datetime="{{ rec.created_at }}">{{ rec.created_at | de_date }}</time></div>
+  {% set rub = a.rubrik or a.category %}<div class="meta"><a class="pricetag" data-r="{{ rub | tagslug }}" href="{{ base }}/thema/{{ cat.slug }}/">{{ rub }}</a><time datetime="{{ rec.created_at }}">{{ rec.created_at | de_date }}</time></div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.teaser }}</p>
   <figure class="photo">{{ image_for(rec, hero=True) }}{% if rec.has_photo and rec.photo.photographer %}<figcaption>Foto: <a href="{{ rec.photo.photographer_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.photographer }}</a> auf <a href="{{ rec.photo.page_url }}" rel="noopener nofollow" target="_blank">Pexels</a></figcaption>{% endif %}</figure>
@@ -33,9 +33,9 @@
   <h2>Worum es geht</h2>
   {% for p in a.body %}<p>{{ p }}</p>{% endfor %}
   {% for s in a.sections %}<h2>{{ s.heading }}</h2><p>{{ s.text }}</p>{% endfor %}
-  {% if a.verdict %}<blockquote class="verdict"><span class="kicker">Unsere Einschätzung</span>{{ a.verdict | replace("Unsere Einschätzung:", "") | trim }}</blockquote>{% endif %}
+  {% if a.verdict %}<blockquote class="verdict"><span class="kicker"><svg viewBox="0 0 52 28" aria-hidden="true"><path d="M2 15h9l5-11 8 20 5-10h21" fill="none" stroke="#ff4d2e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unsere Einschätzung</span>{{ a.verdict | replace("Unsere Einschätzung:", "") | trim }}</blockquote>{% endif %}
   {% if guide %}
-  <aside class="guide-box"><span class="kicker">Kaufberater</span>
+  <aside class="guide-box"><span class="kicker pricetag" data-r="kaufberater">Kaufberater</span>
     <a href="{{ base }}/kaufberater/{{ guide.slug }}/"><strong>{{ guide.article.headline }}</strong></a>
     <p>{{ guide.article.intro | truncate(160) }}</p></aside>
   {% endif %}

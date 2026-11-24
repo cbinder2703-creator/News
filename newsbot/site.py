@@ -61,7 +61,7 @@ def image_html(rec: dict, base: str, hero: bool = False, eager: bool = False) ->
     """Titelbild eines Beitrags: das Foto, sonst ein Symbol auf Farbverlauf. Immer im Format 1200:630."""
     a = rec["article"]
     if rec.get("has_photo"):
-        cls = ' class="hero"' if hero else ""
+        cls = ' class="media hero"' if hero else ' class="media"'
         loading = ' fetchpriority="high"' if hero else f' loading="{"eager" if eager else "lazy"}"'
         return Markup(f'<img{cls} src="{base}/media/{rec["id"]}/photo.jpg" alt="{escape(a.get("image_alt", ""))}" '
                       f'width="1200" height="630"{loading}>')
@@ -86,6 +86,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         shutil.copy(PKG / "static" / name, out / "static" / name)
     for name in ("favicon.ico", "apple-touch-icon.png"):  # Browser suchen diese Dateien an der Wurzel
         shutil.copy(PKG / "static" / name, out / name)
+    shutil.copytree(PKG / "static" / "fonts", out / "static" / "fonts")
     if cfg.admin_api_url:  # Admin-Seite nur, wenn ein Freigabe-Dienst eingetragen ist
         shutil.copy(PKG / "static" / "admin.js", out / "static" / "admin.js")
     (out / ".nojekyll").write_text("")
@@ -100,7 +101,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         rec["cat_slug"] = cat["slug"]
 
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
-    env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822)
+    env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822, tagslug=lambda t: slugify(t or "", 30))
     css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js", "contact.js"))).hexdigest()[:10]
     env.globals.update(image_for=lambda rec, hero=False, eager=False: image_html(rec, cfg.base_path, hero, eager),
                        guide_image=guide_image_html, cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),

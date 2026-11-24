@@ -14,33 +14,41 @@
 <link rel="icon" href="{{ base }}/static/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{{ base }}/apple-touch-icon.png">
 <meta name="theme-color" content="{{ cfg.accent }}">
+<link rel="preload" href="{{ base }}/static/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ base }}/static/style.css?v={{ asset_v }}">
 <style>:root{--accent:{{ cfg.accent }}}</style>
 {% if crumbs_ld is defined %}<script type="application/ld+json">{{ crumbs_ld | tojson }}</script>{% endif %}
 {% block head %}{% endblock %}
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="{{ base }}/"><img class="logo" src="{{ base }}/static/logo.svg" width="36" height="36" alt="">{{ cfg.brand_name }}</a>
-  <span class="tag">{{ cfg.tagline }}</span>
+<header class="top"><div class="top-in">
+  <a class="brand" href="{{ base }}/"><img class="logo" src="{{ base }}/static/logo.svg" width="34" height="34" alt="">{{ cfg.brand_name }}</a>
   <nav class="nav" aria-label="Hauptnavigation">
     {% if has_guides %}<a href="{{ base }}/kaufberater/">Kaufberater</a>{% endif %}
     <a href="{{ base }}/thema/">Themen</a>
     <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a>
   </nav>
-</header>
+</div></header>
 <main>
 {% if crumbs is defined %}<nav class="crumbs" aria-label="Brotkrumen">{% for name, path in crumbs %}{% if not loop.last %}<a href="{{ base }}{{ path }}">{{ name }}</a> › {% else %}<span>{{ name }}</span>{% endif %}{% endfor %}</nav>{% endif %}
 {% block main %}{% endblock %}
 </main>
-<footer>
-  <p>{% if cfg.review %}Mit KI entworfen, vor der Veröffentlichung von uns geprüft.{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %}
-     Fehler melden: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
-  {% if affiliate_on %}<p>Einige Links sind Affiliate-Links und als „Anzeige“ gekennzeichnet. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
-  <p>© {{ year }} {{ cfg.brand_name }} · <a href="{{ base }}/ueber-uns/">Über uns</a> ·
-     <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a> ·
-     <a href="{{ base }}/impressum/">Impressum</a> · <a href="{{ base }}/datenschutz/">Datenschutz</a> ·
-     <a href="{{ base }}/feed.xml">RSS</a></p>
-</footer>
+<footer><div class="foot-in">
+  <div>
+    <div class="foot-brand"><img src="{{ base }}/static/logo.svg" width="28" height="28" alt="">{{ cfg.brand_name }}</div>
+    <p>{{ cfg.tagline }}</p>
+    <p>{% if cfg.review %}Mit KI entworfen, vor der Veröffentlichung von uns geprüft.{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %}
+       Fehler gefunden? Schreib uns: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
+    {% if affiliate_on %}<p>Einige Links sind Affiliate-Links und als „Anzeige“ gekennzeichnet. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
+  </div>
+  <nav class="foot-links" aria-label="Weitere Seiten">
+    <a href="{{ base }}/ueber-uns/">Über uns</a>
+    <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a>
+    <a href="{{ base }}/impressum/">Impressum</a>
+    <a href="{{ base }}/datenschutz/">Datenschutz</a>
+    <a href="{{ base }}/feed.xml">RSS-Feed</a>
+  </nav>
+  <p class="copy">© {{ year }} {{ cfg.brand_name }}</p>
+</div></footer>
 </body>
 </html>
