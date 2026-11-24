@@ -34,11 +34,14 @@ def commons_result(rid, w=3000, h=2000, lic="cc0", host="upload.wikimedia.org"):
 
 
 class FakeHttp:
-    def __init__(self, results, status=200, img_status=200, commons=()):
+    def __init__(self, results, status=200, img_status=200, commons=(), pixabay=()):
         self.results, self.status, self.img_status, self.commons, self.calls = results, status, img_status, list(commons), []
+        self.pixabay = list(pixabay)
 
     def get(self, url, params=None, headers=None, timeout=None, stream=False):
         self.calls.append((url, params, headers))
+        if url == photos.PIXABAY_URL:
+            return type("R", (), {"status_code": 200, "json": lambda s: {"hits": self.pixabay}})()
         if "api.pexels.com" in url:
             return type("R", (), {"status_code": self.status, "json": lambda s: {"photos": self.results}})()
         if url.startswith("https://api.openverse.org/v1/images/?") or url == "https://api.openverse.org/v1/images/":
@@ -190,3 +193,25 @@ def test_icons_are_picked_by_ai_choice_then_keywords():
     assert set(icons.ICON_QUERIES) == set(icons.ICONS)
     html = str(icons.thumb("Powerbank", "Zubehör"))
     assert 'data-icon="powerbank"' in html and "<svg" in html and "--c1:" in html
+
+
+def pixabay_hit(pid, w=4000, h=2600, host="cdn.pixabay.com"):
+    return {"id": pid, "imageWidth": w, "imageHeight": h, "user": "Knipser", "user_id": 42,
+            "pageURL": f"https://pixabay.com/photos/x-{pid}/", "webformatURL": f"https://{host}/photo/{pid}_640.jpg",
+            "largeImageURL": f"https://{host}/photo/{pid}_1280.jpg"}
+
+
+def test_pixabay_photo_with_credit_and_key_never_logged(tmp_path, caplog):
+    http = FakeHttp([], pixabay=[pixabay_hit(5), pixabay_hit(6, 800, 600)])
+    meta = photos.find_photo(rec_for(), tmp_path / "x.jpg", set(), http=http, pixabay_key="SECRET")
+    assert meta["id"] == "pixabay:5" and meta["source"] == "Pixabay" and meta["photographer"] == "Knipser"
+    assert meta["photographer_url"] == "https://pixabay.com/users/Knipser-42/"
+    search = next(c for c in http.calls if c[0] == photos.PIXABAY_URL)
+    assert search[1]["key"] == "SECRET" and search[1]["safesearch"] == "true" and search[1]["image_type"] == "photo"
+
+    class Boom:
+        def get(self, url, params=None, **k):
+            raise requests.ConnectionError(f"{url}?key={(params or {}).get('key')}")
+
+    photos.find_photo(rec_for(), tmp_path / "y.jpg", set(), http=Boom(), pixabay_key="SECRET")
+    assert "SECRET" not in caplog.text

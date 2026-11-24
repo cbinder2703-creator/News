@@ -72,8 +72,9 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos
         run: python -m newsbot generate
       - name: Titelfotos holen
-        # Pexels (mit PEXELS_API_KEY) und freie Wikimedia-Bilder; Claude wählt das passende. Ein Fehler stoppt den Lauf nicht.
+        # Pixabay/Pexels (mit Schlüssel) und freie Wikimedia-Bilder; Claude wählt das passende. Ein Fehler stoppt den Lauf nicht.
         env:
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m newsbot photos || true

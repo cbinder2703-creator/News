@@ -1,7 +1,9 @@
 """Titelfotos: pro Beitrag ein passendes, frei nutzbares Foto, von einer KI auf Eignung geprüft.
 
 Quellen (nur Bilder, deren Lizenz kommerzielle Nutzung und Zuschneiden erlaubt):
-- Pexels (API-Schlüssel PEXELS_API_KEY, Pexels-Lizenz: frei nutzbar, auch kommerziell): gute Stockfotos.
+- Pixabay (API-Schlüssel PIXABAY_API_KEY, Pixabay-Inhaltslizenz: frei nutzbar, auch kommerziell; Bilder müssen
+  auf dem eigenen Server liegen, was wir ohnehin tun): gute Stockfotos.
+- Pexels (API-Schlüssel PEXELS_API_KEY, Pexels-Lizenz: frei nutzbar, auch kommerziell).
 - Wikimedia Commons über Openverse (ohne Schlüssel), NUR Bilder mit CC0 oder Public-Domain-Kennzeichnung:
   oft echte Produktfotos. Die Lizenzangabe stammt von Wikimedia; wir nennen Urheber und Quelle trotzdem.
 Ablauf: Kandidaten sammeln -> Claude schaut sich die Vorschaubilder an und wählt das passende (oder keines) ->
@@ -28,6 +30,8 @@ from .store import Store
 log = logging.getLogger("newsbot.photos")
 
 PEXELS_URL = "https://api.pexels.com/v1/search"
+PIXABAY_URL = "https://pixabay.com/api/"
+PIXABAY_HOSTS = {"pixabay.com", "cdn.pixabay.com"}
 OPENVERSE_URL = "https://api.openverse.org/v1/images/"
 SIZE = (1200, 630)
 MAX_BYTES = 15 * 1024 * 1024
@@ -58,6 +62,29 @@ def pexels_candidates(query: str, api_key: str, http) -> list[dict]:
                     "full": full, "thumb": thumb or full, "query": query,
                     "credit": {"photographer": p.get("photographer", ""), "photographer_url": p.get("photographer_url", ""),
                                "page_url": p.get("url", ""), "source": "Pexels", "license": "Pexels-Lizenz"}})
+    return out
+
+
+def pixabay_candidates(query: str, api_key: str, http) -> list[dict]:
+    if not (query and api_key):
+        return []
+    res = http.get(PIXABAY_URL, params={"key": api_key, "q": query[:100], "image_type": "photo", "orientation": "horizontal",
+                                        "min_width": 1280, "safesearch": "true", "per_page": 15}, headers=UA, timeout=20)
+    if res.status_code != 200:
+        log.warning("Pixabay-Suche %r: HTTP %s", query, res.status_code)  # nie die URL loggen: sie enthält den Schlüssel
+        return []
+    out = []
+    for p in res.json().get("hits", []):
+        full, thumb = p.get("largeImageURL") or "", p.get("webformatURL") or ""
+        if not (_host_ok(full, PIXABAY_HOSTS) and _host_ok(thumb, PIXABAY_HOSTS)):
+            continue
+        iw, ih = p.get("imageWidth") or 0, p.get("imageHeight") or 1
+        w = min(iw, 1280)  # largeImageURL ist höchstens 1280 px breit
+        user, uid = p.get("user", ""), p.get("user_id", "")
+        out.append({"id": f"pixabay:{p.get('id')}", "w": w, "h": round(ih * w / iw) if iw else 0,
+                    "full": full, "thumb": thumb, "query": query,
+                    "credit": {"photographer": user, "photographer_url": f"https://pixabay.com/users/{user}-{uid}/" if user else "",
+                               "page_url": p.get("pageURL", ""), "source": "Pixabay", "license": "Pixabay-Lizenz"}})
     return out
 
 
@@ -93,8 +120,8 @@ def usable(c: dict, used: set[str]) -> bool:
 
 
 def choose(cands: list[dict], seed: str) -> dict | None:
-    """Ersatz ohne KI-Prüfung: nur Pexels-Fotos; der Start wechselt je Beitrag, damit nicht immer Platz 1 gewinnt."""
-    pex = [c for c in cands if c["id"].startswith("pexels:")]
+    """Ersatz ohne KI-Prüfung: nur Stockfotos (Pixabay/Pexels); der Start wechselt je Beitrag."""
+    pex = [c for c in cands if c["id"].startswith(("pexels:", "pixabay:"))]
     return pex[zlib.crc32(seed.encode()) % len(pex)] if pex else None
 
 
@@ -180,17 +207,18 @@ def query_for(rec: dict) -> str:
 
 
 def find_photo(rec: dict, out_path: Path, used: set[str], pexels_key: str = "", client=None, model: str = "",
-               http=None) -> dict | None:
+               http=None, pixabay_key: str = "") -> dict | None:
     """Sucht Kandidaten, lässt die KI wählen, lädt und speichert. Gibt die Angaben für den Bildnachweis zurück."""
     http = http or requests
     stock, product = queries_for(rec)
     cands: list[dict] = []
-    for name, fn in (("pexels", lambda: pexels_candidates(stock, pexels_key, http)),
+    for name, fn in (("pixabay", lambda: pixabay_candidates(stock, pixabay_key, http)),
+                     ("pexels", lambda: pexels_candidates(stock, pexels_key, http)),
                      ("commons", lambda: (commons_candidates(product, http) + commons_candidates(stock, http)) if client else [])):
         try:
             cands += [c for c in fn() if usable(c, used)][:5]
         except (requests.RequestException, ValueError) as exc:
-            log.warning("Bildsuche %s fehlgeschlagen: %s", name, exc)
+            log.warning("Bildsuche %s fehlgeschlagen: %s", name, type(exc).__name__)  # Meldung kann den Schlüssel enthalten
     cands = list({c["id"]: c for c in cands}.values())  # doppelte Treffer aus beiden Suchen entfernen
     if not cands:
         return None
@@ -214,12 +242,13 @@ def find_photo(rec: dict, out_path: Path, used: set[str], pexels_key: str = "", 
     return {"id": photo["id"], "query": photo["query"], **photo["credit"]}
 
 
-def add_photo(store: Store, rec: dict, pexels_key: str = "", client=None, model: str = "", http=None) -> bool:
+def add_photo(store: Store, rec: dict, pexels_key: str = "", client=None, model: str = "", http=None,
+              pixabay_key: str = "") -> bool:
     """Holt für einen Beitrag ein Foto, falls er noch keins hat. True, wenn jetzt eines vorhanden ist."""
     if rec.get("photo") and store.photo_path(rec["id"]).exists():
         return True
     used = {str(r["photo"]["id"]) for r in store.all() if r.get("photo") and r["id"] != rec["id"]}
-    meta = find_photo(rec, store.photo_path(rec["id"]), used, pexels_key, client, model, http)
+    meta = find_photo(rec, store.photo_path(rec["id"]), used, pexels_key, client, model, http, pixabay_key)
     if meta is None:
         return False
     rec["photo"] = meta
@@ -228,18 +257,20 @@ def add_photo(store: Store, rec: dict, pexels_key: str = "", client=None, model:
     return True
 
 
-def backfill(store: Store, pexels_key: str | None = None, client=None, model: str = "", http=None) -> int:
-    """Holt Fotos für alle Entwürfe und Beiträge ohne Foto. Ohne Pexels-Schlüssel und ohne KI passiert nichts."""
+def backfill(store: Store, pexels_key: str | None = None, client=None, model: str = "", http=None,
+             pixabay_key: str | None = None) -> int:
+    """Holt Fotos für alle Entwürfe und Beiträge ohne Foto. Ohne Bild-Schlüssel und ohne KI passiert nichts."""
     pexels_key = pexels_key if pexels_key is not None else os.environ.get("PEXELS_API_KEY", "")
+    pixabay_key = pixabay_key if pixabay_key is not None else os.environ.get("PIXABAY_API_KEY", "")
     if client is None and os.environ.get("ANTHROPIC_API_KEY"):
         import anthropic
 
         client = anthropic.Anthropic()
-    if not (pexels_key or client):
-        log.info("Weder PEXELS_API_KEY noch ANTHROPIC_API_KEY: keine Fotos (die Seite zeigt Symbole)")
+    if not (pexels_key or pixabay_key or client):
+        log.info("Kein Bild-Schlüssel und kein ANTHROPIC_API_KEY: keine Fotos (die Seite zeigt Symbole)")
         return 0
     done = 0
     for rec in store.all():
         if rec["status"] in ("draft", "live", "held") and not (rec.get("photo") and store.photo_path(rec["id"]).exists()):
-            done += add_photo(store, rec, pexels_key, client, model, http)
+            done += add_photo(store, rec, pexels_key, client, model, http, pixabay_key)
     return done
