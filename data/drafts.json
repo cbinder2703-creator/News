@@ -1,4 +1,53 @@
 {
- "updated_at": "2026-11-24T15:55:53+00:00",
- "drafts": []
+ "updated_at": "2026-11-24T15:59:56+00:00",
+ "drafts": [
+  {
+   "id": "22a2957661",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-24T15:59:56+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Coros Vertix 4: Outdoor-Uhr mit Taschenlampe und Monats-Akku",
+   "teaser": "Die neue Outdoor-Uhr von Coros bringt AMOLED, schnelle Karten, Taschenlampe und laut Golem.de einen Monat Akkulaufzeit. Für wen ist das spannend?",
+   "body": [
+    "Laut Golem.de hat Coros die Outdoor-Uhr Vertix 4 vorgestellt und erneuert damit eine der wichtigsten Konkurrentinnen der Fenix-Reihe. Zu den Merkmalen zählen eine integrierte Taschenlampe, schnelle Karten und ein AMOLED-Display. Der Akku soll nach dem Bericht vom 24.11. einen Monat durchhalten.",
+    "Preis, Marktstart und die genaue Ausstattung prüfst du am besten kurz direkt bei Coros oder beim Händler, sobald die Uhr gelistet ist."
+   ],
+   "sections": [
+    {
+     "heading": "Das bekommst du",
+     "text": "Die Taschenlampe hilft, wenn es am Zelt, auf dem Weg zur Hütte oder beim frühen Start noch dunkel ist. Schnelle Karten sind unterwegs praktisch, weil du die Route ohne langes Warten im Blick behältst. Ein AMOLED-Display ist meist farbstark und gut ablesbar. Und ein Monat Akku, so das Ziel laut Golem.de, bedeutet weniger Ladepausen."
+    },
+    {
+     "heading": "Coros Vertix 4: Für wen ist sie interessant?",
+     "text": "Die Uhr richtet sich an alle, die viel draußen unterwegs sind: Wanderer, Trailrunner und Bergsportler, besonders bei mehrtägigen Touren ohne Steckdose. Auch wer bisher eine Fenix im Blick hatte, bekommt eine Alternative zum Vergleichen. Für den Büroalltag mit gelegentlichem Spaziergang reicht meist eine einfachere Sportuhr, die günstiger sein dürfte."
+    },
+    {
+     "heading": "Darauf solltest du achten",
+     "text": "Eine Monatsangabe ist ein Richtwert, denn die Laufzeit hängt stark von der Nutzung ab. Achte daher auf Angaben zum GPS-Dauerbetrieb, zum Display im Always-on-Modus und zur Taschenlampe. Prüfe außerdem Preis, Gewicht, Größe, Kartenumfang, Offline-Nutzung und Armbandoptionen. Vergleiche das Ganze mit deinem typischen Tourenprofil, dann passt die Wahl."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Wenn du viel draußen unterwegs bist und eine Uhr mit langer Laufzeit suchst, lohnt sich ein Blick auf die Vertix 4. Vergleiche sie in Ruhe mit der Fenix-Reihe, sobald Preis und Ausstattung feststehen.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "Golem.de",
+     "url": "https://www.golem.de/news/vertix-4-coros-erneuert-einen-der-wichtigsten-fenix-konkurrenten-2611-215587.html",
+     "title": "Vertix 4: Coros erneuert einen der wichtigsten Fenix-Konkurrenten"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Outdoor-Uhr mit GPS",
+     "query": "Outdoor GPS Uhr"
+    },
+    {
+     "label": "Stirnlampe",
+     "query": "Stirnlampe Outdoor"
+    }
+   ]
+  }
+ ]
 }
