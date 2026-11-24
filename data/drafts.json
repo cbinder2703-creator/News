@@ -1,54 +1,6 @@
 {
- "updated_at": "2026-11-23T16:13:02+00:00",
+ "updated_at": "2026-11-24T15:48:16+00:00",
  "drafts": [
-  {
-   "id": "681887a749",
-   "kind": "news",
-   "status": "draft",
-   "created_at": "2026-11-23T16:13:02+00:00",
-   "rubrik": "Neuheiten-Check",
-   "risk": "low",
-   "risk_reason": "",
-   "headline": "Odyssey G6 mit 1100 Hertz: Für wen lohnt sich so ein Monitor?",
-   "teaser": "Samsung kündigt den Odyssey G6 mit bis zu 1100 fps in Full HD an. Wir zeigen, was 600 und 1100 Bilder pro Sekunde im Alltag bringen.",
-   "body": [
-    "Laut heise online hat Samsung den Gaming-Monitor Odyssey G6 mit extrem hohen Bildraten angekündigt. Bei WQHD-Auflösung sollen 600 Bilder pro Sekunde möglich sein, bei Full HD sogar 1100. Heise berichtet das am 23.11.",
-    "Das verbaute IPS-Panel könnte laut heise allerdings Probleme aufwerfen. Preis und Verfügbarkeit prüfst du am besten kurz direkt beim Hersteller oder Händler, sobald der Monitor gelistet ist."
-   ],
-   "sections": [
-    {
-     "heading": "Odyssey G6 1100 Hertz: Das bekommst du",
-     "text": "Der Monitor soll Bewegungen besonders flüssig darstellen. Je höher die Bildrate, desto kürzer der Abstand zwischen zwei Bildern, was vor allem bei schnellen Kamerabewegungen auffällt. In WQHD sind 600 fps angekündigt, in Full HD 1100. Du wählst also zwischen mehr Schärfe und maximaler Geschwindigkeit, je nachdem, was dir im Spiel wichtiger ist."
-    },
-    {
-     "heading": "Für wen lohnt sich das?",
-     "text": "Interessant ist so ein Monitor vor allem für ambitionierte Spieler schneller Titel, etwa Shooter im Wettbewerb, die jede Millisekunde Flüssigkeit schätzen. Voraussetzung ist ein sehr leistungsstarker PC, der solche Bildraten überhaupt liefert. Wer vor allem optisch aufwendige Spiele genießt oder gelegentlich zockt, hat mit einem günstigeren Monitor meist mehr vom Geld."
-    },
-    {
-     "heading": "Darauf solltest du achten",
-     "text": "Heise weist darauf hin, dass das IPS-Panel Probleme aufwerfen könnte. Achte deshalb auf unabhängige Messungen zu Reaktionszeit und Bewegungsschärfe. Prüfe außerdem, ob dein Rechner die Bildraten schafft, welche Anschlüsse der Monitor mitbringt und wie Preis und Lieferzeit aussehen. So vermeidest du, für Leistung zu zahlen, die du nicht nutzt."
-    }
-   ],
-   "verdict": "Unsere Einschätzung: Wenn du schnelle Wettbewerbsspiele auf einem sehr starken PC spielst, lohnt sich ein Blick auf den Odyssey G6, am besten nach ersten unabhängigen Messungen. Für alle anderen sind Bildqualität und Preis meist die wichtigeren Kriterien.",
-   "open_questions": [],
-   "sources": [
-    {
-     "name": "heise online",
-     "url": "https://www.heise.de/news/Superflinker-Gaming-Monitor-Samsung-verspricht-1100-Hertz-11534912.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
-     "title": "Superflinker Gaming-Monitor: Samsung verspricht 1100 Hertz"
-    }
-   ],
-   "shopping": [
-    {
-     "label": "Gaming-Monitor mit hoher Bildrate",
-     "query": "Gaming-Monitor WQHD"
-    },
-    {
-     "label": "DisplayPort-Kabel",
-     "query": "DisplayPort-Kabel"
-    }
-   ]
-  },
   {
    "id": "362151cf76",
    "kind": "news",
