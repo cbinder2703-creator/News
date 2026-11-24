@@ -15,6 +15,10 @@ on:
         description: 'Entwürfe ablehnen: IDs (mit Komma). Abgelehnte gehen nie online.'
         required: false
         default: ""
+      rewrite:
+        description: 'Beiträge nach aktuellem Briefing neu schreiben: IDs (mit Komma) oder "alle". Sie kommen als Entwürfe in die Freigabe.'
+        required: false
+        default: ""
       only_decisions:
         description: 'Nur "ja" setzen, wenn nur WhatsApp-Entscheidungen umgesetzt und keine neuen Entwürfe erzeugt werden sollen (setzt der Webhook).'
         required: false
@@ -55,8 +59,14 @@ jobs:
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: python -m newsbot decisions
+      - name: Beiträge neu schreiben
+        if: ${{ inputs.rewrite != '' }}
+        env:
+          REWRITE: ${{ inputs.rewrite }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m newsbot rewrite "$REWRITE"
       - name: Neue Entwürfe erzeugen
-        if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.only_decisions != 'ja' }}
+        if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.rewrite == '' && inputs.only_decisions != 'ja' }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # optional: ohne Key stumme Videos
@@ -67,7 +77,7 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: python -m newsbot photos || true
       - name: Entwürfe per WhatsApp schicken
-        if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.only_decisions != 'ja' }}
+        if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.rewrite == '' && inputs.only_decisions != 'ja' }}
         env:
           WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
           WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}

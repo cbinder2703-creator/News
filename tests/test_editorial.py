@@ -170,3 +170,43 @@ def test_footer_and_prompts_follow_show_sources(cfg):
         assert 'am Ende "Quelle: ..."' not in prompt and "ohne eigene Quellenzeile" in prompt and "<<" not in prompt
     finally:
         anthropic.Anthropic = anthropic_client
+
+
+def test_source_names_are_detected_in_every_text_field():
+    from newsbot.writer import source_mentions
+    a = {"headline": "AirPods Pro 3 günstig", "body": ["Laut Golem.de kosten sie unter 190 Euro."],
+         "faq": [{"question": "Was sagt heise?", "answer": "Nichts."}], "sections": [], "shopping": []}
+    assert source_mentions(a, ["Golem.de", "heise online", "THE DECODER"]) == ["golem", "heise"]
+    clean = {**a, "body": ["Die AirPods kosten unter 190 Euro."], "faq": []}
+    assert source_mentions(clean, ["Golem.de", "heise online"]) == []
+    # Wortgrenzen: "heiser" ist kein Treffer
+    assert source_mentions({"headline": "Ich bin heiser"}, ["heise online"]) == []
+
+
+def test_prompt_forbids_source_names_when_sources_are_hidden(cfg, monkeypatch):
+    import sys, types
+    monkeypatch.setitem(sys.modules, "anthropic", types.SimpleNamespace(Anthropic=lambda: None))
+    from newsbot.writer import Writer
+    cfg.show_sources = False
+    hidden = Writer(cfg).system
+    assert "Nenne NIE Quellen" in hidden and "Laut heise" not in hidden and "<<" not in hidden
+    cfg.show_sources = True
+    shown = Writer(cfg).system
+    assert "Laut heise" in shown and "Nenne NIE Quellen" not in shown
+
+
+def test_rewrite_sends_live_articles_back_to_review_and_keeps_their_date(cfg, tmp_path):
+    from newsbot import pipeline
+    from newsbot.store import Store
+    store = Store(tmp_path / "d")
+    (rec,) = pipeline.generate(cfg, store, StubWriter(), items=[ITEMS[0]], now=NOW)
+    pipeline.approve(cfg, store, "alle")
+    get = lambda i: next(r for r in store.all() if r["id"] == i)  # noqa: E731
+    live = get(rec["id"])
+    done = pipeline.rewrite(cfg, store, StubWriter(), "alle")
+    again = get(rec["id"])
+    assert len(done) == 1 and again["status"] == "draft" and again["article"]["headline"].startswith("Neu: ")
+    assert again["slug"] == live["slug"]
+    pipeline.approve(cfg, store, "alle")
+    back = get(rec["id"])
+    assert back["status"] == "live" and back["created_at"] == live["created_at"] and "keep_date" not in back

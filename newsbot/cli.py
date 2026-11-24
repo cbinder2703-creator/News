@@ -38,12 +38,13 @@ def _write_summary(markdown: str) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
     ap.add_argument("command", choices=["generate", "approve", "reject", "decisions", "notify", "drafts", "build",
-                                        "publish", "run", "guide", "photos", "demo"],
+                                        "publish", "run", "guide", "photos", "rewrite", "demo"],
                     help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
                          "reject: Entwürfe ablehnen | decisions: Klicks aus WhatsApp umsetzen (data/decisions) | "
                          "notify: neue Entwürfe per WhatsApp schicken | photos: Titelfotos von Pexels holen | "
                          "drafts: offene Entwürfe zeigen | build: Website | publish: Social-Posts | run: generate+build | "
-                         "guide: Kaufberater <slug> neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
+                         "guide: Kaufberater <slug> neu schreiben (als Entwurf) | rewrite: Beiträge (IDs oder 'alle') nach "
+                         "aktuellem Briefing neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
     ap.add_argument("arg", nargs="?", default="",
                     help="bei approve/reject: IDs (Komma-getrennt), bei approve auch 'alle'; bei guide: slug")
     ap.add_argument("--config", default="config.yaml")
@@ -89,6 +90,12 @@ def main(argv: list[str] | None = None) -> int:
             print(exc, file=sys.stderr)
             return 2
         print(f"{len(done)} Kaufberater-Entwurf erzeugt. Lesen: python -m newsbot drafts")
+    if args.command == "rewrite":
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            print("ANTHROPIC_API_KEY fehlt (siehe .env.example).", file=sys.stderr)
+            return 2
+        done = pipeline.rewrite(cfg, store, Writer(cfg), args.arg or "alle")
+        print(f"{len(done)} Beiträge neu geschrieben" + (" (warten auf Freigabe)" if cfg.review else ""))
     if args.command == "approve":
         done = pipeline.approve(cfg, store, args.arg or "alle")
         print(f"{len(done)} Beiträge freigegeben")
@@ -112,6 +119,6 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "publish":
         done = pipeline.publish(cfg, store, args.out)
         print(f"{len(done)} Posts veröffentlicht")
-    if args.command in ("generate", "run", "approve", "reject", "decisions", "guide"):
+    if args.command in ("generate", "run", "approve", "reject", "decisions", "guide", "rewrite"):
         pipeline.write_drafts_index(store)  # Grundlage der Admin-Seite
     return 0

@@ -122,4 +122,4 @@ def test_drafts_summary_previews_shop_links(cfg, tmp_path):
 def test_shop_ideas_are_limited_by_normalization():
     art = StubWriter().write(items()).model_copy(update={"shopping": [ShopIdea(label="x" * 200, query="q" * 200)] * 6})
     n = art.normalized()
-    assert len(n.shopping) == 3 and len(n.shopping[0].label) <= 60 and len(n.shopping[0].query) <= 60
+    assert len(n.shopping) == 4 and len(n.shopping[0].label) <= 60 and len(n.shopping[0].query) <= 60

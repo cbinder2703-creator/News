@@ -132,6 +132,32 @@ def generate_guides(cfg: Config, store: Store, guide_writer, only: str | None = 
     return created
 
 
+def rewrite(cfg: Config, store: Store, writer, selector: str) -> list[dict]:
+    """Beiträge nach dem aktuellen Briefing neu schreiben lassen. selector: "alle" (alle live/Entwürfe) oder IDs.
+    Mit Freigabe (review) gehen sie als Entwurf zurück in die Freigabe; die Adresse (slug) bleibt gleich."""
+    sel = selector.strip().lower()
+    wanted = None if sel in ("alle", "all") else {s for s in re.split(r"[,\s]+", sel) if s}
+    done = []
+    for rec in store.all():
+        if rec["status"] not in ("live", "draft") or (wanted is not None and rec["id"] not in wanted):
+            continue
+        names = [s.get("name", "") for s in (rec.get("sources") or [rec.get("source") or {}])]
+        art = writer.rewrite(rec["article"], names)
+        if art is None:
+            continue
+        was_live = rec["status"] == "live"
+        rec["article"] = art.model_dump()
+        rec["rewritten_at"] = now_iso()
+        if cfg.review:
+            rec["status"] = "draft"
+            if was_live:
+                rec["keep_date"] = True
+        store.save(rec)
+        done.append(rec)
+        log.info("Neu geschrieben: %s | %s", rec["id"], art.headline)
+    return done
+
+
 def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
     """Gibt Entwürfe frei. selector: "alle" (alle Entwürfe) oder IDs, getrennt durch Komma/Leerzeichen.
     Nur mit ausdrücklicher ID lassen sich auch "held"-Beiträge (hohes Risiko) freigeben.
@@ -151,8 +177,11 @@ def approve(cfg: Config, store: Store, selector: str, synth=None) -> list[dict]:
         if not ok:
             continue
         rec["status"] = "live"
-        rec["drafted_at"] = rec["created_at"]
-        rec["created_at"] = now_iso()  # Veröffentlichungszeit = Freigabe
+        if rec.pop("keep_date", False):  # neu geschriebener, schon veröffentlichter Beitrag behält sein Datum
+            rec["updated_at"] = now_iso()
+        else:
+            rec["drafted_at"] = rec["created_at"]
+            rec["created_at"] = now_iso()  # Veröffentlichungszeit = Freigabe
         store.save(rec)
         if _voice_wanted(synth):
             add_voice(cfg, store, rec, synth)
