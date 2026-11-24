@@ -2,7 +2,7 @@
   "id": "79a6d4fba3",
   "slug": "fanttik-s2-pro-preis-79a6d4",
   "created_at": "2026-11-24T16:17:10+00:00",
-  "status": "draft",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-akkuschrauber-mit-20-bits-zum-black-friday-erstmals-unter-50-euro-bei-amazon-2611-215586.html",
@@ -118,6 +118,8 @@
   },
   "published": {},
   "drafted_at": "2026-11-24T16:05:30+00:00",
+  "rewritten_at": "2026-11-24T16:40:17+00:00",
+  "updated_at": "2026-11-24T16:53:45+00:00",
   "photo": {
     "id": "pixabay:4063572",
     "query": "cordless screwdriver workbench",

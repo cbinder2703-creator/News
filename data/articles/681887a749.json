@@ -2,7 +2,7 @@
   "id": "681887a749",
   "slug": "odyssey-g6-1100-hertz-681887",
   "created_at": "2026-11-24T15:49:44+00:00",
-  "status": "draft",
+  "status": "live",
   "source": {
     "name": "heise online",
     "url": "https://www.heise.de/news/Superflinker-Gaming-Monitor-Samsung-verspricht-1100-Hertz-11534912.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
@@ -118,6 +118,8 @@
   },
   "published": {},
   "drafted_at": "2026-11-23T16:13:02+00:00",
+  "rewritten_at": "2026-11-24T16:41:32+00:00",
+  "updated_at": "2026-11-24T16:53:45+00:00",
   "photo": {
     "id": "pixabay:2564367",
     "query": "gaming monitor desk",

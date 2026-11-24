@@ -2,7 +2,7 @@
   "id": "325186d4b9",
   "slug": "airpods-pro-3-black-friday-325186",
   "created_at": "2026-11-24T15:49:44+00:00",
-  "status": "draft",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-apple-airpods-pro-3-zum-bestpreis-bei-amazon-2611-215540.html",
@@ -112,6 +112,8 @@
   },
   "published": {},
   "drafted_at": "2026-11-23T16:11:51+00:00",
+  "rewritten_at": "2026-11-24T16:42:52+00:00",
+  "updated_at": "2026-11-24T16:53:45+00:00",
   "photo": {
     "id": "pixabay:6849119",
     "query": "wireless earbuds table",

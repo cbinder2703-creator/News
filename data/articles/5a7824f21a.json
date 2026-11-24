@@ -2,7 +2,7 @@
   "id": "5a7824f21a",
   "slug": "balkonkraftwerk-200-euro-5a7824",
   "created_at": "2026-11-22T20:07:19+00:00",
-  "status": "draft",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-balkonkraftwerk-mit-zwei-bifazialen-modulen-kostet-bei-amazon-nur-200-euro-2611-215505.html",
@@ -112,12 +112,14 @@
   },
   "published": {},
   "drafted_at": "2026-11-22T18:47:53+00:00",
+  "rewritten_at": "2026-11-24T16:44:58+00:00",
+  "updated_at": "2026-11-24T16:53:45+00:00",
   "photo": {
-    "id": "pixabay:2138992",
-    "query": "solar panels",
-    "photographer": "andreas160578",
-    "photographer_url": "https://pixabay.com/users/andreas160578-2383079/",
-    "page_url": "https://pixabay.com/photos/photovoltaic-photovoltaic-system-2138992/",
+    "id": "pixabay:8141275",
+    "query": "balcony solar panels",
+    "photographer": "Franz26",
+    "photographer_url": "https://pixabay.com/users/Franz26-1553839/",
+    "page_url": "https://pixabay.com/photos/balcony-power-station-solar-system-8141275/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   }
