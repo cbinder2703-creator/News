@@ -114,5 +114,14 @@
   "published": {},
   "drafted_at": "2026-11-24T16:05:01+00:00",
   "rewritten_at": "2026-11-24T16:39:44+00:00",
-  "updated_at": "2026-11-24T16:53:45+00:00"
+  "updated_at": "2026-11-24T16:53:45+00:00",
+  "photo": {
+    "id": "pixabay:5226459",
+    "query": "power bank charging",
+    "photographer": "viarami",
+    "photographer_url": "https://pixabay.com/users/viarami-13458823/",
+    "page_url": "https://pixabay.com/photos/product-minimalist-object-article-5226459/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }

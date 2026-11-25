@@ -118,5 +118,14 @@
   "published": {},
   "drafted_at": "2026-11-22T18:46:53+00:00",
   "rewritten_at": "2026-11-24T16:44:19+00:00",
-  "updated_at": "2026-11-24T16:53:45+00:00"
+  "updated_at": "2026-11-24T16:53:45+00:00",
+  "photo": {
+    "id": "pixabay:2562335",
+    "query": "speaker living room",
+    "photographer": "StockSnap",
+    "photographer_url": "https://pixabay.com/users/StockSnap-894430/",
+    "page_url": "https://pixabay.com/photos/lifestyle-house-home-interior-2562335/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }
