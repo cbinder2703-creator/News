@@ -215,3 +215,24 @@ def test_pixabay_photo_with_credit_and_key_never_logged(tmp_path, caplog):
 
     photos.find_photo(rec_for(), tmp_path / "y.jpg", set(), http=Boom(), pixabay_key="SECRET")
     assert "SECRET" not in caplog.text
+
+
+def test_ai_rejection_triggers_search_with_other_terms(tmp_path):
+    class PickSecondRound(FakeClient):
+        def __init__(self):
+            super().__init__()
+            self.rounds = 0
+
+        def parse(self, model, max_tokens, output_format, messages):
+            self.rounds += 1
+            self.choice = 0 if self.rounds == 1 else 1
+            return super().parse(model, max_tokens, output_format, messages)
+
+    rec = rec_for(query="car jump starter", product="")
+    rec["article"]["icon"] = "powerbank"
+    http = FakeHttp([], pixabay=[pixabay_hit(1), pixabay_hit(2)])
+    client = PickSecondRound()
+    meta = photos.find_photo(rec, tmp_path / "x.jpg", set(), client=client, model="m", http=http, pixabay_key="K")
+    queries = [c[1]["q"] for c in http.calls if c[0] == photos.PIXABAY_URL]
+    assert queries[:2] == ["car jump starter", "jump starter"] and client.rounds == 2 and meta is not None
+    assert photos.fallback_queries(rec, "car jump starter") == ["jump starter", "power bank charging"]

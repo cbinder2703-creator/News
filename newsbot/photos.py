@@ -206,26 +206,46 @@ def query_for(rec: dict) -> str:
     return queries_for(rec)[0]
 
 
-def find_photo(rec: dict, out_path: Path, used: set[str], pexels_key: str = "", client=None, model: str = "",
-               http=None, pixabay_key: str = "") -> dict | None:
-    """Sucht Kandidaten, lässt die KI wählen, lädt und speichert. Gibt die Angaben für den Bildnachweis zurück."""
-    http = http or requests
-    stock, product = queries_for(rec)
+def fallback_queries(rec: dict, stock: str) -> list[str]:
+    """Weitere Suchbegriffe, falls zur ersten Suche kein Bild passt: kürzer gefasst und das Motiv zum Symbol."""
+    a = rec["article"]
+    words = stock.split()
+    text = f"{a.get('headline', '')} {a.get('focus_keyword', '')} {a.get('category', '')}"
+    out = [" ".join(words[1:]) if len(words) > 2 else "", ICON_QUERIES[pick_icon(text, a.get("icon", ""))]]
+    return [q for q in dict.fromkeys(out) if q and q != stock]
+
+
+def _candidates(stock: str, product: str, used: set[str], pexels_key: str, pixabay_key: str, with_commons: bool,
+                http) -> list[dict]:
     cands: list[dict] = []
     for name, fn in (("pixabay", lambda: pixabay_candidates(stock, pixabay_key, http)),
                      ("pexels", lambda: pexels_candidates(stock, pexels_key, http)),
-                     ("commons", lambda: (commons_candidates(product, http) + commons_candidates(stock, http)) if client else [])):
+                     ("commons", lambda: (commons_candidates(product, http) + commons_candidates(stock, http))
+                      if with_commons else [])):
         try:
             cands += [c for c in fn() if usable(c, used)][:5]
         except (requests.RequestException, ValueError) as exc:
             log.warning("Bildsuche %s fehlgeschlagen: %s", name, type(exc).__name__)  # Meldung kann den Schlüssel enthalten
-    cands = list({c["id"]: c for c in cands}.values())  # doppelte Treffer aus beiden Suchen entfernen
-    if not cands:
-        return None
-    if client is not None:
-        photo = ai_pick(cands, rec["article"].get("headline", ""), product or stock, client, model, http)
-    else:
-        photo = choose(cands, rec["id"])
+    return list({c["id"]: c for c in cands}.values())  # doppelte Treffer aus beiden Suchen entfernen
+
+
+def find_photo(rec: dict, out_path: Path, used: set[str], pexels_key: str = "", client=None, model: str = "",
+               http=None, pixabay_key: str = "") -> dict | None:
+    """Sucht Kandidaten, lässt die KI wählen, lädt und speichert. Gibt die Angaben für den Bildnachweis zurück.
+    Lehnt die KI alle ab, wird mit bis zu zwei weiteren Suchbegriffen erneut gesucht."""
+    http = http or requests
+    stock, product = queries_for(rec)
+    photo = None
+    for n, query in enumerate([stock] + (fallback_queries(rec, stock) if client is not None else [])):
+        cands = _candidates(query, product, used, pexels_key, pixabay_key, client is not None and n == 0, http)
+        if not cands:
+            continue
+        if client is not None:
+            photo = ai_pick(cands, rec["article"].get("headline", ""), product or stock, client, model, http)
+        else:
+            photo = choose(cands, rec["id"])
+        if photo is not None:
+            break
     if photo is None:
         return None
     try:
