@@ -1,8 +1,8 @@
 {
   "id": "f5c8878a6b",
   "slug": "bmw-update-dezember-f5c887",
-  "created_at": "2026-11-25T15:46:11+00:00",
-  "status": "draft",
+  "created_at": "2026-11-26T14:25:56+00:00",
+  "status": "live",
   "source": {
     "name": "heise online",
     "url": "https://www.heise.de/news/BMW-OS-8-5-9-und-X-BMW-kuendigt-Softwareupdate-mit-24-Funktionen-an-11537886.html?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
@@ -111,5 +111,15 @@
     ],
     "guide": ""
   },
-  "published": {}
+  "published": {},
+  "drafted_at": "2026-11-25T15:46:11+00:00",
+  "photo": {
+    "id": "pixabay:2095800",
+    "query": "car infotainment display",
+    "photographer": "noelsch",
+    "photographer_url": "https://pixabay.com/users/noelsch-136390/",
+    "page_url": "https://pixabay.com/photos/apple-carplay-audi-a3-audi-2095800/",
+    "source": "Pixabay",
+    "license": "Pixabay-Lizenz"
+  }
 }
