@@ -1,7 +1,7 @@
 {
   "id": "f5c8878a6b",
   "slug": "bmw-update-dezember-f5c887",
-  "created_at": "2026-11-26T14:25:56+00:00",
+  "created_at": "2026-11-26T14:28:17+00:00",
   "status": "live",
   "source": {
     "name": "heise online",
@@ -114,11 +114,11 @@
   "published": {},
   "drafted_at": "2026-11-25T15:46:11+00:00",
   "photo": {
-    "id": "pixabay:2095800",
-    "query": "car infotainment display",
-    "photographer": "noelsch",
-    "photographer_url": "https://pixabay.com/users/noelsch-136390/",
-    "page_url": "https://pixabay.com/photos/apple-carplay-audi-a3-audi-2095800/",
+    "id": "pixabay:1726067",
+    "query": "infotainment display",
+    "photographer": "AS_Photography",
+    "photographer_url": "https://pixabay.com/users/AS_Photography-1546875/",
+    "page_url": "https://pixabay.com/photos/navigation-gps-travel-road-map-1726067/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   }
