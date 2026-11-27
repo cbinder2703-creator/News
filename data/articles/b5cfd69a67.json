@@ -1,8 +1,8 @@
 {
   "id": "b5cfd69a67",
   "slug": "lenovo-idea-tab-plus-b5cfd6",
-  "created_at": "2026-11-26T15:27:29+00:00",
-  "status": "draft",
+  "created_at": "2026-11-27T19:29:55+00:00",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-12-1-zoll-grosses-lenovo-idea-tab-plus-fuer-unter-240-euro-bei-amazon-2611-215703.html",
@@ -125,5 +125,6 @@
     "page_url": "https://pixabay.com/photos/tablet-digital-technology-coffee-791051/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "drafted_at": "2026-11-26T15:27:29+00:00"
 }

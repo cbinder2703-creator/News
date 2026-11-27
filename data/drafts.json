@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-27T15:16:32+00:00",
+ "updated_at": "2026-11-27T19:29:55+00:00",
  "drafts": [
   {
    "id": "08925ec0b8",
@@ -279,62 +279,6 @@
     {
      "label": "Fotopapier für Canon Zoemini",
      "query": "Canon Zoemini Fotopapier"
-    }
-   ]
-  },
-  {
-   "id": "b5cfd69a67",
-   "kind": "news",
-   "status": "draft",
-   "created_at": "2026-11-26T15:27:29+00:00",
-   "rubrik": "Deal-Check",
-   "risk": "low",
-   "risk_reason": "",
-   "headline": "Lenovo Idea Tab Plus mit Stift: 12,1 Zoll groß für unter 240 Euro",
-   "teaser": "Das Lenovo Idea Tab Plus bringt 12,1 Zoll und einen Eingabestift mit – in der Black Friday Woche bei Amazon für unter 240 Euro (Stand 26.11.).",
-   "body": [
-    "Das Lenovo Idea Tab Plus bietet ein großes 12,1-Zoll-Display und kommt samt Eingabestift. In der Black Friday Woche gibt es das Set bei Amazon für unter 240 Euro (Stand 26.11.). So viel Tablet-Fläche plus Stift ist zu diesem Preis ein richtig starkes Paket.",
-    "Gerade jetzt, wo die Abende länger werden, wird das Tablet zur Kinoleinwand fürs Sofa und zum Notizblock für den Alltag. Du bekommst viel Fläche zum Schauen, Schreiben und Skizzieren und musst den Stift nicht extra einplanen."
-   ],
-   "sections": [
-    {
-     "heading": "Lenovo Idea Tab Plus: Das steckt im Set",
-     "text": "Das Highlight ist die Größe: 12,1 Zoll geben Serien, Filmen und Webseiten richtig viel Platz. Du musst nicht mehr zu zweit auf einen kleinen Bildschirm schauen. Dazu kommt der Eingabestift, der das Tablet zum digitalen Notizbuch macht. Texte markieren, Ideen aufschreiben, schnell etwas skizzieren: Alles ist direkt startklar, ohne dass du Zubehör nachkaufen musst."
-    },
-    {
-     "heading": "Sofa, Küche, Schreibtisch: so fühlt sich der Alltag an",
-     "text": "Abends auf dem Sofa läuft deine Lieblingsserie auf großer Fläche, und du lehnst das Tablet einfach an. Am nächsten Morgen liegt es in der Küche, die Kinder schauen ein Video, während du das Wochenmenü handschriftlich notierst. Später im Homeoffice zückst du den Stift für Meeting-Notizen. Ein Gerät, das sich in jede Situation einfügt und alle im Haushalt begeistert."
-    },
-    {
-     "heading": "Perfekt für dich, wenn ...",
-     "text": "Perfekt, wenn du gern streamst und dir ein großes Bild wünschst. Ideal auch, wenn du viel mit der Hand notierst, in Uni, Schule oder Büro. Und ein Volltreffer für Familien, die ein Gemeinschaftstablet für Couch und Küche suchen. Praktischer Tipp: Eine passende Schutzhülle mit Aufsteller macht das Tablet noch alltagstauglicher, weil du es beim Schauen und Schreiben bequem hinstellen kannst."
-    }
-   ],
-   "verdict": "Unsere Einschätzung: Für alle, die ein großes Tablet mit Stift für Streaming, Notizen und die ganze Familie suchen, ist das ein richtig starkes Angebot.",
-   "open_questions": [],
-   "sources": [
-    {
-     "name": "Golem.de",
-     "url": "https://www.golem.de/news/anzeige-12-1-zoll-grosses-lenovo-idea-tab-plus-fuer-unter-240-euro-bei-amazon-2611-215703.html",
-     "title": "Anzeige: 12,1 Zoll großes Lenovo Idea Tab Plus für unter 240 Euro bei Amazon"
-    }
-   ],
-   "shopping": [
-    {
-     "label": "Lenovo Idea Tab Plus mit Stift",
-     "query": "Lenovo Idea Tab Plus"
-    },
-    {
-     "label": "Samsung Galaxy Tab S6 Lite",
-     "query": "Samsung Galaxy Tab S6 Lite"
-    },
-    {
-     "label": "Xiaomi Pad 6",
-     "query": "Xiaomi Pad 6"
-    },
-    {
-     "label": "Schutzhülle mit Aufsteller für Tablets",
-     "query": "Tablet Hülle Lenovo Idea Tab Plus"
     }
    ]
   }
