@@ -11,6 +11,7 @@ ALLOWED_ORIGIN = "https://dealpuls.de"
 
 # Speicher für Nachrichten aus dem Kontaktformular (Cloudflare: Storage & Databases -> KV -> "dealpuls-nachrichten").
 # Die id steht nach dem Anlegen im Cloudflare-Dashboard.
-# [[kv_namespaces]]
-# binding = "MESSAGES"
-# id = "<id aus Cloudflare>"
+# Speicherort: EU (Jurisdiction). Angelegt am 27.11.2026.
+[[kv_namespaces]]
+binding = "MESSAGES"
+id = "9f23213e035e45ddba3529d5e71b2d46"
