@@ -79,7 +79,8 @@
       {
         "label": "Anker Laptop Powerbank A1695",
         "query": "Anker Laptop Powerbank A1695",
-        "reason": "165 Watt, Display und zwei Kabel für Laptop und Smartphone unterwegs."
+        "reason": "165 Watt, Display und zwei Kabel für Laptop und Smartphone unterwegs.",
+        "asin": "B0DCBB2YTR"
       },
       {
         "label": "Anker 737 Power Bank",
@@ -126,5 +127,6 @@
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   },
-  "drafted_at": "2026-11-27T15:15:37+00:00"
+  "drafted_at": "2026-11-27T15:15:37+00:00",
+  "asin_checked": true
 }

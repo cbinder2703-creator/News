@@ -79,7 +79,8 @@
       {
         "label": "Fanttik S2 Pro Akkuschrauber",
         "query": "Fanttik S2 Pro",
-        "reason": "Für sieben Drehmomentstufen und 20 Bits in einem handlichen Allrounder."
+        "reason": "Für sieben Drehmomentstufen und 20 Bits in einem handlichen Allrounder.",
+        "asin": "B0F3X74WT9"
       },
       {
         "label": "Bosch IXO Akkuschrauber",
@@ -128,5 +129,6 @@
     "page_url": "https://pixabay.com/photos/screwdriver-table-saw-saw-tools-4063572/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "asin_checked": true
 }

@@ -78,7 +78,8 @@
       {
         "label": "Apple AirPods Pro 3",
         "query": "Apple AirPods Pro 3",
-        "reason": "Für Musik und Podcasts ohne Kabel, nahtlos im Apple-Alltag."
+        "reason": "Für Musik und Podcasts ohne Kabel, nahtlos im Apple-Alltag.",
+        "asin": "B0FQF32239"
       },
       {
         "label": "Sony WF-1000XM5",
@@ -122,5 +123,6 @@
     "page_url": "https://pixabay.com/photos/earphone-wireless-airpods-audio-6849119/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "asin_checked": true
 }

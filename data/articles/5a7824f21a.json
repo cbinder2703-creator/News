@@ -83,7 +83,8 @@
       {
         "label": "Halterung für Balkonkraftwerk",
         "query": "Halterung Balkonkraftwerk Geländer",
-        "reason": "Damit deine Module sicher und passend am Balkon sitzen."
+        "reason": "Damit deine Module sicher und passend am Balkon sitzen.",
+        "asin": "B0H6BWZGDF"
       },
       {
         "label": "Strommessgerät für die Steckdose",
@@ -122,5 +123,6 @@
     "page_url": "https://pixabay.com/photos/balcony-power-station-solar-system-8141275/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "asin_checked": true
 }

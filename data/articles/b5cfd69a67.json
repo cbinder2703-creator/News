@@ -79,7 +79,8 @@
       {
         "label": "Lenovo Idea Tab Plus mit Stift",
         "query": "Lenovo Idea Tab Plus",
-        "reason": "Für großes Kino auf 12,1 Zoll und handschriftliche Notizen mit dem passenden Stift."
+        "reason": "Für großes Kino auf 12,1 Zoll und handschriftliche Notizen mit dem passenden Stift.",
+        "asin": "B0FHLVZRTC"
       },
       {
         "label": "Samsung Galaxy Tab S6 Lite",
@@ -126,5 +127,6 @@
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   },
-  "drafted_at": "2026-11-26T15:27:29+00:00"
+  "drafted_at": "2026-11-26T15:27:29+00:00",
+  "asin_checked": true
 }

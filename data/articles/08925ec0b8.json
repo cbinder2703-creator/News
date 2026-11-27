@@ -83,7 +83,8 @@
       {
         "label": "TP-Link Tapo C200",
         "query": "TP-Link Tapo C200",
-        "reason": "Eine bekannte, schwenkbare Innenkamera, die sich gut im Wohnzimmer oder Flur macht."
+        "reason": "Eine bekannte, schwenkbare Innenkamera, die sich gut im Wohnzimmer oder Flur macht.",
+        "asin": "B07XLML2YS"
       },
       {
         "label": "microSD-Karte für Überwachungskamera",
@@ -120,5 +121,6 @@
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   },
-  "drafted_at": "2026-11-27T15:16:32+00:00"
+  "drafted_at": "2026-11-27T15:16:32+00:00",
+  "asin_checked": true
 }

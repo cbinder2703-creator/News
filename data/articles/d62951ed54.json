@@ -107,7 +107,8 @@
       {
         "label": "Elgato Stream Deck Scissor Keys",
         "query": "Elgato Stream Deck Scissor Keys",
-        "reason": "Für Streamer und Kreative, die Aktionen mit einem Tastendruck auslösen."
+        "reason": "Für Streamer und Kreative, die Aktionen mit einem Tastendruck auslösen.",
+        "asin": "B0DVZCB7JD"
       },
       {
         "label": "LAN-Kabel Cat6",
@@ -144,5 +145,6 @@
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
   },
-  "drafted_at": "2026-11-25T15:45:38+00:00"
+  "drafted_at": "2026-11-25T15:45:38+00:00",
+  "asin_checked": true
 }

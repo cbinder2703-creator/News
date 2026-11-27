@@ -1,4 +1,183 @@
 {
- "updated_at": "2026-11-27T19:31:28+00:00",
- "drafts": []
+ "updated_at": "2026-11-27T20:00:43+00:00",
+ "drafts": [
+  {
+   "id": "f063dcc3d7",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-27T20:00:43+00:00",
+   "rubrik": "Neuheiten-Check",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Kodak SlideTag: Retro-Dia mit Foto-Display und Tracker für 41,50 Euro",
+   "teaser": "Der Kodak SlideTag sieht aus wie ein Kodachrome-Dia, zeigt deine Lieblingsfotos und ist ein Bluetooth-Tracker für Schlüssel und Co.",
+   "body": [
+    "Stell dir ein altes Kodachrome-Dia vor, nur mit Farbdisplay: Der Kodak SlideTag zeigt deine Lieblingsfotos auf einem kleinen E-Ink-Display und ist nebenbei ein Bluetooth-Tracker. Stand 27.11. kostet er 41,50 Euro.",
+    "Nach der Charmera, der Mini-Kamera am Schlüsselbund, legt Kodak damit das nächste Retro-Gadget nach. Das Schöne: Dein Schlüsselbund bekommt ein Gesicht, und das Foto vom Hund ist immer dabei."
+   ],
+   "sections": [
+    {
+     "heading": "Kodak SlideTag: Foto-Display im Dia-Look",
+     "text": "Der SlideTag sieht aus wie ein echtes Kodachrome-Dia und bringt Nostalgie ans Schlüsselbund. Das Besondere ist das kleine Farb-E-Ink-Display: Es zeigt deine Lieblingsfotos und macht aus dem Tracker ein persönliches Mini-Bilderrahmen-Gadget. Als Bluetooth-Tracker ist er eine AirTag-Alternative, die richtig Charakter hat. Praktisch und hübsch in einem, das hat man selten."
+    },
+    {
+     "heading": "Der Alltag mit dem SlideTag",
+     "text": "Morgens im Flur: Du greifst nach deinen Schlüsseln, und dir lacht das Foto vom Hund entgegen. Schon startet der Tag mit einem Lächeln. Unterwegs baumelt dein Lieblingsmotiv an Rucksack oder Tasche und weckt Erinnerungen, etwa an den letzten Urlaub. Und als Tracker hilft dir der SlideTag, wenn mal wieder etwas Wichtiges verschwunden ist. Das ist Alltagstechnik mit Gefühl."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Perfekt, wenn du Retro-Design liebst und dein Zubehör gern persönlich machst. Ideal auch, wenn du jemandem mit Nostalgie-Faible oder Fotoleidenschaft ein ausgefallenes Geschenk machen willst. Und wenn du die Charmera von Kodak schon magst, passt der SlideTag wunderbar dazu. Unser Tipp: Such dir vorab ein Lieblingsfoto mit klaren Farben und einem eindeutigen Motiv aus, dann wirkt es auf dem kleinen Display am schönsten."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die Retro-Charme, Fotos und einen praktischen Tracker in einem Gadget wollen, ist der SlideTag für 41,50 Euro (Stand 27.11.) ein richtig sympathisches Angebot und eine tolle Geschenkidee.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "DealDoktor",
+     "url": "https://www.dealdoktor.de/kodak-slidetag/",
+     "title": "🎁 KODAK SlideTag: Retro-Dia mit Fotos + AirTag-Alternative für 41,50€ – Geschenk-Tipp"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Kodak SlideTag Foto-Tracker",
+     "query": "Kodak SlideTag"
+    },
+    {
+     "label": "Apple AirTag",
+     "query": "Apple AirTag"
+    },
+    {
+     "label": "Samsung Galaxy SmartTag2",
+     "query": "Samsung Galaxy SmartTag2"
+    },
+    {
+     "label": "Schlüsselanhänger mit Karabiner",
+     "query": "Karabiner Schlüsselanhänger"
+    }
+   ]
+  },
+  {
+   "id": "262e133317",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-27T20:00:10+00:00",
+   "rubrik": "Ratgeber",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Fitness-Tracker ab 30 Euro: Redmi Watch 6 Active für rund 40 Euro",
+   "teaser": "Puls, Schlaf und Schritte im Blick, ohne Sportuhr-Preis: Die leichte Redmi Watch 6 Active kostet rund 40 Euro (Stand 27.11.).",
+   "body": [
+    "Puls, Schlaf und Schritte im Blick zu behalten, kostet heute nicht mehr viel: Fitness-Tracker gibt es schon ab 30 Euro, mit und ohne GPS. Ein spannender Kandidat ist die Xiaomi Redmi Watch 6 Active, die leichte Variante der Redmi Watch 6, für rund 40 Euro (Stand 27.11.).",
+    "Genau das macht den Einstieg jetzt so reizvoll: Du bekommst die Alltagsdaten, die wirklich motivieren, ohne in eine teure Sportuhr zu investieren. Und mit ein paar Kriterien findest du schnell das Modell, das zu deinem Tag passt."
+   ],
+   "sections": [
+    {
+     "heading": "Fitness-Tracker ab 30 Euro: Das steckt drin",
+     "text": "Die Basis gibt es schon für kleines Geld: Puls messen, Schlaf nachvollziehen, Schritte zählen. So siehst du morgens, wie erholt du warst, und abends, wie aktiv dein Tag wirklich lief. Die Redmi Watch 6 Active ist die abgespeckte Schwester der Redmi Watch 6 und setzt auf geringes Gewicht. Genau das zählt bei einem Tracker, den du rund um die Uhr trägst. Schau dir das Modell gern einmal an."
+    },
+    {
+     "heading": "Ein Tag mit dem leichten Tracker",
+     "text": "Morgens wirfst du einen Blick aufs Handgelenk und siehst, wie die Nacht war. Tagsüber läuft die Schrittzahl ganz nebenbei mit, und beim Abendspaziergang behältst du deinen Puls im Blick. Weil die Uhr leicht ist, spürst du sie kaum, auch nachts im Bett nicht. So wird Bewegung zum kleinen Spiel mit dir selbst, und jeder Extraschritt fühlt sich nach Fortschritt an."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Du gerade mit mehr Bewegung startest und einfach Zahlen sehen willst. Oder du suchst einen leichten Begleiter für Schlaf und Alltag, ganz ohne Sportuhr-Budget. Auch als Zweituhr für Spaziergänge macht so ein Tracker Freude. Dein Kauftipp: Überlege dir, ob dir GPS für Läufe wichtig ist, denn es gibt günstige Modelle mit und ohne. Für den entspannten Einstieg ist die Active-Variante eine schlanke Wahl."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die Puls, Schlaf und Schritte für kleines Geld im Blick haben möchten, ist die leichte Redmi Watch 6 Active ein richtig sympathischer Einstieg.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "TechStage",
+     "url": "https://www.heise.de/bestenlisten/testsieger/top-10-der-beste-fitness-tracker-im-test-guenstige-pulsuhren-ab-30-euro/nh3k090",
+     "title": "Top 10: Der beste Fitness-Tracker im Test – günstige Pulsuhren ab 30 Euro"
+    },
+    {
+     "name": "TechStage",
+     "url": "https://www.heise.de/bestenlisten/testbericht/xiaomi-redmi-watch-6-active-im-test-leichter-fitness-tracker-fuer-nur-40-euro/q5zhzng",
+     "title": "Xiaomi Redmi Watch 6 Active im Test: leichter Fitness-Tracker für nur 40 Euro"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Xiaomi Redmi Watch 6 Active",
+     "query": "Xiaomi Redmi Watch 6 Active"
+    },
+    {
+     "label": "Xiaomi Smart Band 9",
+     "query": "Xiaomi Smart Band 9"
+    },
+    {
+     "label": "Huawei Band 9",
+     "query": "Huawei Band 9"
+    },
+    {
+     "label": "Ersatzarmband für Smartwatch",
+     "query": "Silikon Ersatzarmband Smartwatch"
+    }
+   ]
+  },
+  {
+   "id": "58c6a986a7",
+   "kind": "news",
+   "status": "draft",
+   "created_at": "2026-11-27T19:59:37+00:00",
+   "rubrik": "Ratgeber",
+   "risk": "low",
+   "risk_reason": "",
+   "headline": "Heizkörperthermostate ohne Cloud ab 30 Euro: Smart heizen zum Black Friday",
+   "teaser": "Smarte Heizkörperthermostate gibt es ab 30 Euro (Stand 27.11.), fast alle laufen ohne Cloud. So findest du das Modell, das zu dir passt.",
+   "body": [
+    "Smart heizen ab 30 Euro (Stand 27.11.): Heizkörperthermostate machen deine Heizung schlauer und deinen Alltag bequemer. Fast alle Modelle funktionieren ganz ohne Cloud, also ohne Umweg über einen Online-Dienst des Herstellers.",
+    "Zum Black Friday sind die Geräte besonders günstig. Das ist ein richtig guter Moment, um loszulegen: Du heizt dann, wenn du es brauchst, und kommst abends in ein warmes Wohnzimmer. Dieser Ratgeber zeigt dir die Kriterien, mit denen dir die Auswahl leichtfällt."
+   ],
+   "sections": [
+    {
+     "heading": "Heizkörperthermostat ohne Cloud: die Stärken",
+     "text": "Smarte Thermostate regeln die Raumwärme nach Zeitplan. Du heizt morgens das Bad vor, fährst tagsüber die Temperatur im leeren Wohnzimmer herunter und senkst so deine Heizkosten, ohne dass es ungemütlich wird. Dass fast alle Modelle ohne Cloud laufen, bedeutet: Die Steuerung funktioniert unabhängig von einem Herstellerserver. Das macht die Einrichtung angenehm unkompliziert und den Alltag entspannt."
+    },
+    {
+     "heading": "So fühlt sich smartes Heizen im Alltag an",
+     "text": "Dienstagmorgen, draußen ist es noch dunkel. Dein Bad ist schon warm, weil das Thermostat rechtzeitig losgelegt hat. Mittags, wenn du im Büro sitzt, hält sich die Heizung zuhause zurück. Und wenn du abends die Tür aufschließt, empfängt dich ein gemütliches Wohnzimmer. Du hast an keinem Rädchen gedreht, und genau das fühlt sich richtig gut an."
+    },
+    {
+     "heading": "Perfekt für dich, wenn ...",
+     "text": "Perfekt, wenn du zur Miete wohnst und ohne Umbau smart heizen willst, wenn dir Unabhängigkeit von Cloud-Diensten gefällt oder wenn du deine Räume nach festen Tagesabläufen wärmen möchtest. Praktischer Tipp: Wähle das Funksystem passend zu deiner Smart-Home-Zentrale, etwa Zigbee, Bluetooth oder WLAN. Beiliegende Adapter für gängige Ventile machen den Einbau einfach."
+    }
+   ],
+   "verdict": "Unsere Einschätzung: Für alle, die ohne großen Aufwand komfortabler und sparsamer heizen möchten, ist der Einstieg ins smarte Heizen mit einem Thermostat ohne Cloud ein richtig starker Schritt.",
+   "open_questions": [],
+   "sources": [
+    {
+     "name": "heise online",
+     "url": "https://www.heise.de/bestenlisten/testsieger/top-10-das-beste-heizkoerperthermostat-im-test-ohne-cloud-ab-30-euro/1e43f3r?wt_mc=rss.red.ho.ho.atom.beitrag.beitrag",
+     "title": "Top 10: Das beste Heizkörperthermostat im Test – ohne Cloud ab 30 Euro"
+    },
+    {
+     "name": "TechStage",
+     "url": "https://www.heise.de/bestenlisten/testsieger/top-10-das-beste-heizkoerperthermostat-im-test-ohne-cloud-ab-30-euro/1e43f3r",
+     "title": "Top 10: Das beste Heizkörperthermostat im Test – ohne Cloud ab 30 Euro"
+    }
+   ],
+   "shopping": [
+    {
+     "label": "Smartes Heizkörperthermostat ohne Cloud",
+     "query": "smartes Heizkörperthermostat ohne Cloud"
+    },
+    {
+     "label": "AVM FRITZ!DECT 302",
+     "query": "AVM FRITZ!DECT 302"
+    },
+    {
+     "label": "Homematic IP Heizkörperthermostat",
+     "query": "Homematic IP Heizkörperthermostat"
+    },
+    {
+     "label": "Ventil-Adapter für Heizkörperthermostate",
+     "query": "Heizkörperthermostat Adapter Ventil Set"
+    }
+   ]
+  }
+ ]
 }
