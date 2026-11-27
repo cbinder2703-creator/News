@@ -67,7 +67,7 @@ affiliate:
 # Im Modus auto gehen sie direkt online (wie die Beiträge), sonst erst nach Freigabe. News verlinken automatisch auf den passenden.
 # Neue Fassung schreiben lassen (z. B. alle paar Monate): python -m newsbot guide <slug>
 guides:
-  enabled: false             # true: pro Lauf werden fehlende Kaufberater geschrieben (Kosten: ca. 1 längerer KI-Aufruf je Kaufberater)
+  enabled: true              # true: pro Lauf werden fehlende Kaufberater geschrieben (Kosten: ca. 1 längerer KI-Aufruf je Kaufberater)
   per_run: 1                 # höchstens so viele neue Kaufberater pro Lauf
   topics:                    # slug = Adresse (/kaufberater/<slug>/), keyword = Suchbegriff bei Google
     - { slug: "powerbank", title: "Powerbank", keyword: "Powerbank kaufen", category: "Zubehör" }

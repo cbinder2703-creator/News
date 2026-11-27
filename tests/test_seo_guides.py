@@ -38,7 +38,7 @@ def ld_blocks(html: str) -> list[dict]:
 
 def test_config_loads_guides_and_commerce():
     c = load_config(ROOT / "config.yaml")
-    assert c.commerce is True and c.guides_enabled is False
+    assert c.commerce is True and c.guides_enabled is True and len(c.guide_topics) >= 10
     assert all(t["slug"] and t["title"] for t in c.guide_topics)
 
 
