@@ -108,7 +108,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{len(done)} Entwürfe abgelehnt")
     if args.command == "decisions":
         res = notify.apply_decisions(cfg, store, pipeline.approve)
-        print(f"WhatsApp-Entscheidungen: {len(res['approved'])} freigegeben, {len(res['rejected'])} abgelehnt")
+        print(f"Entscheidungen: {len(res['approved'])} freigegeben, {len(res['rejected'])} abgelehnt, "
+              f"{len(res.get('unpublished', []))} offline genommen")
     if args.command == "notify":
         print(f"{notify.notify(cfg, store)} WhatsApp-Nachrichten gesendet")
     if args.command == "photos":

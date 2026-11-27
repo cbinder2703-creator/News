@@ -279,11 +279,21 @@ def drafts_index(store: Store) -> list[dict]:
     return sorted(items, key=lambda i: i["created_at"], reverse=True)
 
 
+def live_index(store: Store, limit: int = 60) -> list[dict]:
+    """Die neuesten veröffentlichten Beiträge für die Admin-Seite (zum Offline-Nehmen)."""
+    return [{"id": r["id"], "slug": r["slug"], "created_at": r["created_at"],
+             "rubrik": r["article"].get("rubrik") or r["article"].get("category", ""),
+             "headline": r["article"]["headline"], "teaser": r["article"].get("teaser", "")}
+            for r in store.live()[:limit]]
+
+
 def write_drafts_index(store: Store) -> Path:
-    """Schreibt data/drafts.json. Die Admin-Seite (über den Worker) liest diese Datei."""
+    """Schreibt data/drafts.json und data/live.json. Die Admin-Seite (über den Worker) liest diese Dateien."""
     path = store.dir / "drafts.json"
     path.write_text(json.dumps({"updated_at": now_iso(), "drafts": drafts_index(store)}, indent=1, ensure_ascii=False),
                     encoding="utf-8")
+    (store.dir / "live.json").write_text(json.dumps({"updated_at": now_iso(), "live": live_index(store)}, indent=1,
+                                                     ensure_ascii=False), encoding="utf-8")
     return path
 
 

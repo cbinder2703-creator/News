@@ -84,13 +84,22 @@ async function readDrafts(env) {
   return Array.isArray(data.drafts) ? data.drafts : [];
 }
 
+async function readLive(env) {
+  const res = await gh(env, `/contents/data/live.json?ref=${encodeURIComponent(env.GITHUB_BRANCH)}`,
+    { accept: "application/vnd.github.raw+json" });
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`GitHub live ${res.status}`);
+  const data = JSON.parse(await res.text());
+  return Array.isArray(data.live) ? data.live : [];
+}
+
 async function readPending(env) { // schon getroffene, aber noch nicht umgesetzte Entscheidungen
   const res = await gh(env, `/contents/data/decisions?ref=${encodeURIComponent(env.GITHUB_BRANCH)}`);
   if (res.status === 404) return {};
   if (!res.ok) throw new Error(`GitHub decisions ${res.status}`);
   const out = {};
   for (const f of await res.json()) {
-    const m = /^(approve|reject)-([a-z0-9][a-z0-9-]{2,60})\.txt$/.exec(f.name || "");
+    const m = /^(approve|reject|unpublish)-([a-z0-9][a-z0-9-]{2,60})\.txt$/.exec(f.name || "");
     if (m) out[m[2]] = m[1];
   }
   return out;
@@ -201,19 +210,21 @@ export default {
       }
 
       if (path === "/drafts" && request.method === "GET") {
-        const [drafts, pending] = await Promise.all([readDrafts(env), readPending(env)]);
-        return json({ drafts, pending });
+        const [drafts, pending, live] = await Promise.all([readDrafts(env), readPending(env), readLive(env)]);
+        return json({ drafts, pending, live });
       }
 
       if (path === "/decide" && request.method === "POST") {
         let body = {};
         try { body = await request.json(); } catch { /* leer */ }
         const { action, id } = body;
-        if (!["approve", "reject"].includes(action) || typeof id !== "string" || !ID_RE.test(id)) {
+        if (!["approve", "reject", "unpublish"].includes(action) || typeof id !== "string" || !ID_RE.test(id)) {
           return json({ error: "Ungültige Anfrage" }, 400);
         }
-        const drafts = await readDrafts(env);
-        if (!drafts.some((d) => d.id === id)) return json({ error: "Diesen Entwurf gibt es nicht (mehr)" }, 404);
+        const list = action === "unpublish" ? await readLive(env) : await readDrafts(env);
+        if (!list.some((d) => d.id === id)) {
+          return json({ error: action === "unpublish" ? "Dieser Beitrag ist nicht (mehr) online" : "Diesen Entwurf gibt es nicht (mehr)" }, 404);
+        }
         await decide(env, action, id);
         return json({ ok: true });
       }

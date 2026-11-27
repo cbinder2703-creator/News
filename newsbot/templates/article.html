@@ -50,7 +50,7 @@
   {% endif %}
   {% if cfg.show_sources %}<div class="source">{{ 'Quellen' if (rec.sources or [rec.source]) | length > 1 else 'Quelle' }}:
     <ul>{% for src in (rec.sources or [rec.source]) %}<li><a href="{{ src.url }}" rel="nofollow noopener" target="_blank">{{ src.name }}</a> – „{{ src.title }}“</li>{% endfor %}</ul></div>{% endif %}
-  <p class="ai-line">{% if cfg.review %}{{ cfg.disclosure }}{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %} · <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>
+  <p class="ai-line">{% if cfg.review %}{{ cfg.disclosure }}{% else %}Mit KI erstellt und automatisch veröffentlicht. Wir sehen die Beiträge regelmäßig durch und korrigieren oder entfernen Fehlerhaftes.{% endif %} · <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>
   {% if related %}<h2>Mehr zum Thema {{ cat.name }}</h2>
   <ul class="related">{% for r in related %}<li><a href="{{ base }}/a/{{ r.slug }}/">{{ r.article.headline }}</a></li>{% endfor %}</ul>{% endif %}
 </article>

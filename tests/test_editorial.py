@@ -20,6 +20,7 @@ def cfg():
     c = load_config(ROOT / "config.yaml")
     c.site_url = "https://news.example"
     c.videos_for_recent = 20  # die Tests prüfen auch die Videofunktion, die in der echten Konfiguration aus ist
+    c.review = True  # die Tests prüfen den Freigabe-Ablauf; live läuft der Modus "auto"
     return c
 
 
@@ -39,7 +40,8 @@ ITEMS = [item("A bei heise", "u1", "heise"), item("A bei Golem", "u2", "Golem", 
 
 
 def test_config_has_editorial_line(cfg):
-    assert cfg.review is True and "begeisterung" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
+    assert load_config(ROOT / "config.yaml").review is False  # Beiträge gehen automatisch online
+    assert "begeisterung" in cfg.haltung.lower() and "testen nicht selbst" in cfg.haltung
     names = [r["name"] for r in cfg.rubriken]
     assert names[0] == "Deal-Check" and "Neuheiten-Check" in names and "Ratgeber" in names
 
@@ -210,3 +212,22 @@ def test_rewrite_sends_live_articles_back_to_review_and_keeps_their_date(cfg, tm
     pipeline.approve(cfg, store, "alle")
     back = get(rec["id"])
     assert back["status"] == "live" and back["created_at"] == live["created_at"] and "keep_date" not in back
+
+
+def test_auto_mode_publishes_but_holds_high_risk_and_says_so_honestly(tmp_path):
+    from newsbot import notify
+    c = load_config(ROOT / "config.yaml")
+    c.site_url = "https://news.example"
+    store = Store(tmp_path / "d")
+    (rec,) = pipeline.generate(c, store, StubWriter(), items=[ITEMS[0]], now=NOW)
+    assert rec["status"] == "live"
+    out = pipeline.build(c, store, tmp_path / "pub")
+    page = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
+    assert "automatisch veröffentlicht" in page and "vor der Veröffentlichung von uns geprüft" not in page
+    # Offline nehmen über die Admin-Seite (Entscheidungsdatei)
+    pipeline.write_drafts_index(store)
+    assert '"id": "%s"' % rec["id"] in (store.dir / "live.json").read_text(encoding="utf-8")
+    (store.dir / "decisions").mkdir(exist_ok=True)
+    (store.dir / "decisions" / f"unpublish-{rec['id']}.txt").write_text("x")
+    res = notify.apply_decisions(c, store, pipeline.approve)
+    assert res["unpublished"] == [rec["id"]] and store.live() == []

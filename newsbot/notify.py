@@ -124,7 +124,7 @@ def notify(cfg: Config, store: Store, session: requests.Session | None = None) -
 
 # --- Entscheidungen aus dem Webhook (Dateien in data/decisions/, eine je Klick) ---
 
-DECISION_RE = re.compile(r"^(approve|reject)-([a-z0-9][a-z0-9-]{2,60})\.txt$")
+DECISION_RE = re.compile(r"^(approve|reject|unpublish)-([a-z0-9][a-z0-9-]{2,60})\.txt$")
 
 
 def apply_decisions(cfg: Config, store: Store, approve_fn, synth=None) -> dict[str, list[str]]:
@@ -134,13 +134,15 @@ def apply_decisions(cfg: Config, store: Store, approve_fn, synth=None) -> dict[s
     if not folder.exists():
         return result
     files = sorted(folder.glob("*.txt"))
-    approve_ids, reject_ids = [], []
+    approve_ids, reject_ids, unpublish_ids = [], [], []
     for p in files:
         m = DECISION_RE.match(p.name)
         if not m:
             log.warning("Unbekannte Datei in decisions/ ignoriert: %s", p.name)
             continue
-        (approve_ids if m.group(1) == "approve" else reject_ids).append(m.group(2))
+        {"approve": approve_ids, "reject": reject_ids, "unpublish": unpublish_ids}[m.group(1)].append(m.group(2))
+    if unpublish_ids:
+        result["unpublished"] = unpublish(store, unpublish_ids)
     approve_ids = [i for i in approve_ids if i not in reject_ids]  # im Zweifel gilt Ablehnen
     if reject_ids:
         result["rejected"] = reject(store, reject_ids)
@@ -150,6 +152,18 @@ def apply_decisions(cfg: Config, store: Store, approve_fn, synth=None) -> dict[s
     for p in files:
         p.unlink()
     return result
+
+
+def unpublish(store: Store, ids: list[str]) -> list[str]:
+    """Nimmt veröffentlichte Beiträge von der Seite: Status 'removed' (Daten bleiben, nur nicht mehr online)."""
+    done, wanted = [], set(ids)
+    for rec in store.all():
+        if rec["id"] in wanted and rec["status"] == "live":
+            rec["status"] = "removed"
+            store.save(rec)
+            done.append(rec["id"])
+            log.info("Offline genommen: %s | %s", rec["id"], rec["article"]["headline"])
+    return done
 
 
 def reject(store: Store, ids: list[str]) -> list[str]:

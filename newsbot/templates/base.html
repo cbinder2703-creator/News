@@ -42,7 +42,7 @@
   <div>
     <div class="foot-brand"><img src="{{ base }}/static/logo.svg" width="28" height="28" alt="">{{ cfg.brand_name }}</div>
     <p>{{ cfg.tagline }}</p>
-    <p>{% if cfg.review %}Mit KI entworfen, vor der Veröffentlichung von uns geprüft.{% else %}Automatisch mit KI erstellt, nicht vorab geprüft.{% endif %}
+    <p>{% if cfg.review %}Mit KI entworfen, vor der Veröffentlichung von uns geprüft.{% else %}Mit KI erstellt und automatisch veröffentlicht. Wir sehen die Beiträge regelmäßig durch und korrigieren oder entfernen Fehlerhaftes.{% endif %}
        Fehler gefunden? Schreib uns: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
     {% if affiliate_on %}<p>Einige Links sind Affiliate-Links und als „Anzeige“ gekennzeichnet. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
   </div>

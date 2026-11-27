@@ -101,7 +101,8 @@
 
   function decide(d, action, buttons, row) {
     var warn = d.status === "held" ? "\n\nAchtung: Dieser Beitrag hat hohes Risiko." : "";
-    var q = (action === "approve" ? "Jetzt freigeben und veröffentlichen?" : "Entwurf ablehnen? Er geht nie online.") + "\n\n" + d.headline + warn;
+    var q = (action === "approve" ? "Jetzt freigeben und veröffentlichen?" : action === "unpublish"
+      ? "Beitrag von der Seite nehmen?" : "Entwurf ablehnen? Er geht nie online.") + "\n\n" + d.headline + warn;
     if (!window.confirm(q)) return;
     buttons.forEach(function (b) { b.disabled = true; });
     api("/decide", "POST", { action: action, id: d.id }).then(function (r) {
@@ -110,7 +111,7 @@
         buttons.forEach(function (b) { b.disabled = false; });
         return say("app-msg", "Hat nicht geklappt: " + (r.data.error || ("Fehler " + r.status)), true);
       }
-      say("app-msg", (action === "approve" ? "Freigabe" : "Ablehnung") + " gesendet.");
+      say("app-msg", (action === "approve" ? "Freigabe" : action === "unpublish" ? "Offline-Nehmen" : "Ablehnung") + " gesendet.");
       load();
     }).catch(function () {
       buttons.forEach(function (b) { b.disabled = false; });
@@ -125,10 +126,40 @@
       if (r.status !== 200) return say("app-msg", "Fehler: " + (r.data.error || r.status), true);
       var list = $("list"); list.textContent = "";
       var drafts = r.data.drafts || [], decided = r.data.pending || {};
+      renderLive(r.data.live || [], decided);
       if (!drafts.length) { say("app-msg", "Keine offenen Entwürfe."); return; }
       say("app-msg", drafts.length + (drafts.length === 1 ? " Entwurf" : " Entwürfe") + " warten auf dich.");
       drafts.forEach(function (d) { list.appendChild(card(d, decided[d.id])); });
     }).catch(function () { say("app-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
+  }
+
+  function renderLive(items, decided) {
+    var box = $("live"); box.textContent = "";
+    var site = document.body.getAttribute("data-site") || "";
+    items.forEach(function (it) {
+      var row = el("article", "admin-card admin-live");
+      var meta = el("div", "admin-meta");
+      meta.appendChild(el("span", "tagline", it.rubrik));
+      var when = new Date(it.created_at);
+      meta.appendChild(el("span", null, isNaN(when) ? "" : when.toLocaleDateString("de-DE")));
+      row.appendChild(meta);
+      var h = el("h2");
+      var href = safeUrl(site + "/a/" + encodeURIComponent(it.slug) + "/");
+      if (href) { var a = el("a", null, it.headline); a.href = href; a.target = "_blank"; a.rel = "noopener"; h.appendChild(a); }
+      else h.textContent = it.headline;
+      row.appendChild(h);
+      var act = el("div", "admin-actions");
+      if (decided[it.id] === "unpublish") {
+        act.appendChild(el("p", "admin-msg", "Wird offline genommen. Die Seite wird in ca. 4 Minuten aktualisiert."));
+      } else {
+        var off = el("button", "admin-btn no", "Offline nehmen"); off.type = "button";
+        off.addEventListener("click", function () { decide(it, "unpublish", [off], act); });
+        act.appendChild(off);
+      }
+      row.appendChild(act);
+      box.appendChild(row);
+    });
+    if (!items.length) box.appendChild(el("p", "admin-note", "Noch keine veröffentlichten Beiträge."));
   }
 
   function message(m) {

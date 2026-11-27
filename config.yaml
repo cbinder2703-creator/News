@@ -19,7 +19,7 @@ voice:                       # Sprecherstimme für die Videos (ElevenLabs)
 
 # Redaktionelle Linie: Das ist dein Hebel. Hier legst du Haltung und Themen fest, die KI hält sich daran.
 editorial:
-  mode: review               # review: KI erstellt Entwürfe, du gibst sie frei (wenige Minuten) | auto: ohne Freigabe
+  mode: auto                 # auto: Beiträge gehen sofort online (hohes Risiko wartet trotzdem auf Freigabe) | review: erst nach Freigabe
   haltung: |
     Wir lieben gute Technik und gute Deals und zeigen sie mit Begeisterung. Jeder Beitrag macht Lust auf das Produkt:
     Was kann es richtig gut, wie fühlt sich der Alltag damit an, für wen ist es ein Volltreffer. Ton: lebendig, warm,

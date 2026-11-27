@@ -26,11 +26,13 @@ assert.equal(await tokenOk("", token, now), false);
 // --- HTTP-Ablauf mit nachgebautem GitHub
 const calls = [];
 let drafts = [{ id: "5a7824f21a", kind: "news", status: "draft", headline: "x" }, { id: "kb-saugroboter", kind: "guide", status: "draft", headline: "y" }];
-let decisionsListing = null; // null = Ordner existiert nicht (404)
+let decisionsListing = null;
+let liveList = []; // null = Ordner existiert nicht (404)
 globalThis.fetch = async (url, init = {}) => {
   url = String(url);
   calls.push({ url, method: init.method || "GET", body: init.body });
   if (url.includes("/contents/data/drafts.json")) return new Response(JSON.stringify({ drafts }), { status: 200 });
+  if (url.includes("/contents/data/live.json")) return new Response(JSON.stringify({ live: liveList }), { status: 200 });
   if (url.includes("/contents/data/decisions?")) return decisionsListing
     ? new Response(JSON.stringify(decisionsListing), { status: 200 }) : new Response("{}", { status: 404 });
   if (url.includes("/contents/data/decisions/")) return new Response("{}", { status: 201 });
@@ -90,6 +92,18 @@ for (const body of [{ action: "delete", id: "5a7824f21a" }, { action: "approve",
   assert.equal(res.status, 400, JSON.stringify(body));
 }
 assert.equal(calls.length, 0);
+
+// Offline nehmen: nur Beiträge aus live.json
+liveList = [{ id: "694264ed35", slug: "google", headline: "Live-Beitrag" }];
+calls.length = 0;
+res = await call("/decide", { method: "POST", auth: tk, body: { action: "unpublish", id: "694264ed35" } });
+assert.equal(res.status, 200);
+assert.ok(calls.some((c) => c.method === "PUT" && c.url.endsWith("/contents/data/decisions/unpublish-694264ed35.txt")));
+res = await call("/decide", { method: "POST", auth: tk, body: { action: "unpublish", id: "5a7824f21a" } });
+assert.equal(res.status, 404, "Entwürfe kann man nicht offline nehmen");
+res = await call("/drafts", { auth: tk });
+assert.equal((await res.json()).live[0].id, "694264ed35");
+calls.length = 0;
 
 // Unbekannter Entwurf
 res = await call("/decide", { method: "POST", auth: tk, body: { action: "approve", id: "0000000000" } });
