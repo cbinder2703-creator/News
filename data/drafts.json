@@ -1,62 +1,6 @@
 {
- "updated_at": "2026-11-27T20:00:43+00:00",
+ "updated_at": "2026-11-27T20:04:58+00:00",
  "drafts": [
-  {
-   "id": "f063dcc3d7",
-   "kind": "news",
-   "status": "draft",
-   "created_at": "2026-11-27T20:00:43+00:00",
-   "rubrik": "Neuheiten-Check",
-   "risk": "low",
-   "risk_reason": "",
-   "headline": "Kodak SlideTag: Retro-Dia mit Foto-Display und Tracker für 41,50 Euro",
-   "teaser": "Der Kodak SlideTag sieht aus wie ein Kodachrome-Dia, zeigt deine Lieblingsfotos und ist ein Bluetooth-Tracker für Schlüssel und Co.",
-   "body": [
-    "Stell dir ein altes Kodachrome-Dia vor, nur mit Farbdisplay: Der Kodak SlideTag zeigt deine Lieblingsfotos auf einem kleinen E-Ink-Display und ist nebenbei ein Bluetooth-Tracker. Stand 27.11. kostet er 41,50 Euro.",
-    "Nach der Charmera, der Mini-Kamera am Schlüsselbund, legt Kodak damit das nächste Retro-Gadget nach. Das Schöne: Dein Schlüsselbund bekommt ein Gesicht, und das Foto vom Hund ist immer dabei."
-   ],
-   "sections": [
-    {
-     "heading": "Kodak SlideTag: Foto-Display im Dia-Look",
-     "text": "Der SlideTag sieht aus wie ein echtes Kodachrome-Dia und bringt Nostalgie ans Schlüsselbund. Das Besondere ist das kleine Farb-E-Ink-Display: Es zeigt deine Lieblingsfotos und macht aus dem Tracker ein persönliches Mini-Bilderrahmen-Gadget. Als Bluetooth-Tracker ist er eine AirTag-Alternative, die richtig Charakter hat. Praktisch und hübsch in einem, das hat man selten."
-    },
-    {
-     "heading": "Der Alltag mit dem SlideTag",
-     "text": "Morgens im Flur: Du greifst nach deinen Schlüsseln, und dir lacht das Foto vom Hund entgegen. Schon startet der Tag mit einem Lächeln. Unterwegs baumelt dein Lieblingsmotiv an Rucksack oder Tasche und weckt Erinnerungen, etwa an den letzten Urlaub. Und als Tracker hilft dir der SlideTag, wenn mal wieder etwas Wichtiges verschwunden ist. Das ist Alltagstechnik mit Gefühl."
-    },
-    {
-     "heading": "Perfekt für dich, wenn ...",
-     "text": "Perfekt, wenn du Retro-Design liebst und dein Zubehör gern persönlich machst. Ideal auch, wenn du jemandem mit Nostalgie-Faible oder Fotoleidenschaft ein ausgefallenes Geschenk machen willst. Und wenn du die Charmera von Kodak schon magst, passt der SlideTag wunderbar dazu. Unser Tipp: Such dir vorab ein Lieblingsfoto mit klaren Farben und einem eindeutigen Motiv aus, dann wirkt es auf dem kleinen Display am schönsten."
-    }
-   ],
-   "verdict": "Unsere Einschätzung: Für alle, die Retro-Charme, Fotos und einen praktischen Tracker in einem Gadget wollen, ist der SlideTag für 41,50 Euro (Stand 27.11.) ein richtig sympathisches Angebot und eine tolle Geschenkidee.",
-   "open_questions": [],
-   "sources": [
-    {
-     "name": "DealDoktor",
-     "url": "https://www.dealdoktor.de/kodak-slidetag/",
-     "title": "🎁 KODAK SlideTag: Retro-Dia mit Fotos + AirTag-Alternative für 41,50€ – Geschenk-Tipp"
-    }
-   ],
-   "shopping": [
-    {
-     "label": "Kodak SlideTag Foto-Tracker",
-     "query": "Kodak SlideTag"
-    },
-    {
-     "label": "Apple AirTag",
-     "query": "Apple AirTag"
-    },
-    {
-     "label": "Samsung Galaxy SmartTag2",
-     "query": "Samsung Galaxy SmartTag2"
-    },
-    {
-     "label": "Schlüsselanhänger mit Karabiner",
-     "query": "Karabiner Schlüsselanhänger"
-    }
-   ]
-  },
   {
    "id": "262e133317",
    "kind": "news",
