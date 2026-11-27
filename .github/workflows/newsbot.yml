@@ -130,6 +130,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: sudo apt-get update -y && sudo apt-get install -y ffmpeg fonts-dejavu-core
       - run: python -m newsbot build   # Videodatei für den TikTok-Upload lokal bereitstellen
+      - name: Neue Seiten an Bing melden (IndexNow)
+        # Erst nach dem Deploy, damit Bing die neuen Seiten schon abrufen kann. Ein Fehler stoppt den Lauf nicht.
+        run: python -m newsbot indexnow || true
       - name: Auf Social Media posten
         env:
           FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}

@@ -33,6 +33,7 @@ class Config:
     voice_model: str = "eleven_multilingual_v2"
     review: bool = True
     brand_description: str = ""
+    indexnow_key: str = ""
     haltung: str = ""
     rubriken: list[dict] = field(default_factory=list)
     focus: list[str] = field(default_factory=list)
@@ -106,6 +107,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         guide_topics=[t for t in (gd.get("topics") or []) if t.get("slug") and t.get("title")],
         show_sources=bool(ed.get("show_sources", True)),
         show_video=bool(ed.get("show_video", False)),
+        indexnow_key=str((raw.get("indexnow") or {}).get("key") or "").strip(),
         brand_description=str((raw.get("brand") or {}).get("description") or "").strip(),
         contact_form=bool((raw.get("contact_form") or {}).get("enabled")),
         admin_api_url=((raw.get("admin") or {}).get("api_url") or "").rstrip("/"),

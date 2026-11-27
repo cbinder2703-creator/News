@@ -177,11 +177,13 @@ def test_site_shows_photo_with_credit_or_falls_back_to_icon(cfg, store, tmp_path
     photos.backfill(store, "KEY", http=FakeHttp([pexels_photo(i) for i in range(1, 6)]))
     out = pipeline.build(cfg, store, tmp_path / "yes")
     page = next((out / "a").glob("*/index.html")).read_text(encoding="utf-8")
-    assert "photo.jpg" in page and "Foto Graf" in page and "auf <a href=\"https://www.pexels.com/photo/" in page
+    assert ".jpg\" srcset=" in page and "-640.jpg 640w" in page and "Foto Graf" in page and "auf <a href=\"https://www.pexels.com/photo/" in page
     assert 'rel="noopener nofollow"' in page and "thumb hero" not in page
-    assert any((out / "media").glob("*/photo.jpg"))
+    rec = store.all()[0]
+    assert (out / "media" / rec["id"] / f"{rec['slug']}.jpg").exists()  # sprechender Dateiname
+    assert (out / "media" / rec["id"] / f"{rec['slug']}-1x1.jpg").exists() and (out / "media" / rec["id"] / f"{rec['slug']}-4x3.jpg").exists()
     home = (out / "index.html").read_text(encoding="utf-8")
-    assert home.count("/photo.jpg\" srcset=") == 2 and home.count("photo-640.jpg 640w") == 2  # beide Karten mit Foto, kleine Variante fürs Handy
+    assert home.count(".jpg\" srcset=") == 2 and home.count("-640.jpg 640w") == 2  # beide Karten mit Foto, kleine Variante fürs Handy
 
 
 def test_icons_are_picked_by_ai_choice_then_keywords():

@@ -85,6 +85,11 @@ guides:
     - { slug: "heizkoerperthermostat", title: "Smartes Heizkörperthermostat", keyword: "smartes Heizkörperthermostat kaufen", category: "Smart Home" }
     - { slug: "bluetooth-lautsprecher", title: "Bluetooth-Lautsprecher", keyword: "Bluetooth Lautsprecher kaufen", category: "Audio" }
 
+# IndexNow: meldet neue Seiten sofort an Bing (auch Grundlage für ChatGPT-Suche, Copilot, DuckDuckGo). Der Schlüssel ist
+# absichtlich öffentlich (liegt als Datei auf der Website). Leer lassen = aus.
+indexnow:
+  key: "bc1653735a24a852a0f187cb27097bc3"
+
 # Admin-Seite zum Freigeben unter /admin/ (Login über einen kleinen Cloudflare-Worker, siehe README "Admin-Seite").
 # Leer lassen = es wird keine Admin-Seite gebaut. Danach hier die Adresse des Workers eintragen, z. B. https://dealpuls-admin.DEIN-NAME.workers.dev
 admin:

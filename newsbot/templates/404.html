@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block robots %}noindex, follow{% endblock %}
+{% block main %}
+<header class="page-head"><h1>Diese Seite gibt es nicht (mehr)</h1>
+<p>Vielleicht ist das Angebot abgelaufen oder der Link hat sich geändert. Hier geht es weiter: zur <a href="{{ base }}/">Startseite</a>,
+zu den {% for rp in rubrik_nav %}<a href="{{ base }}/{{ rp.slug }}/">{{ rp.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% if has_guides %} oder zu den <a href="{{ base }}/kaufberater/">Kaufberatern</a>{% endif %}.</p></header>
+{% if records %}
+<div class="section-head"><h2>Neu auf {{ cfg.brand_name }}</h2></div>
+<div class="grid">
+{% for r in records %}
+  {% include "_card.html" %}
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

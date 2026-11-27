@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url><loc>{{ cfg.site_url }}/</loc>{% if records %}<lastmod>{{ records[0].created_at[:10] }}</lastmod>{% endif %}</url>
 {% if guides %}<url><loc>{{ cfg.site_url }}/kaufberater/</loc></url>
 {% endif %}{% for rp in rubriken %}<url><loc>{{ cfg.site_url }}/{{ rp.slug }}/</loc><lastmod>{{ rp.records[0].created_at[:10] }}</lastmod></url>
 {% endfor %}{% for g in guides %}<url><loc>{{ cfg.site_url }}/kaufberater/{{ g.slug }}/</loc><lastmod>{{ (g.updated_at or g.created_at)[:10] }}</lastmod></url>
 {% endfor %}<url><loc>{{ cfg.site_url }}/thema/</loc></url>
-{% for c in cats %}<url><loc>{{ cfg.site_url }}/thema/{{ c.slug }}/</loc><lastmod>{{ c.records[0].created_at[:10] }}</lastmod></url>
-{% endfor %}{% for r in records %}<url><loc>{{ cfg.site_url }}/a/{{ r.slug }}/</loc><lastmod>{{ (r.updated_at or r.created_at)[:10] }}</lastmod></url>
+{% for c in cats if c.indexable %}<url><loc>{{ cfg.site_url }}/thema/{{ c.slug }}/</loc><lastmod>{{ c.records[0].created_at[:10] }}</lastmod></url>
+{% endfor %}{% for r in records %}<url><loc>{{ cfg.site_url }}/a/{{ r.slug }}/</loc><lastmod>{{ (r.updated_at or r.created_at)[:10] }}</lastmod>{% if r.has_photo %}<image:image><image:loc>{{ cfg.site_url }}/media/{{ r.id }}/{{ r.photo_file }}.jpg</image:loc></image:image>{% endif %}</url>
 {% endfor %}{% for slug, _ in pages %}<url><loc>{{ cfg.site_url }}/{{ slug }}/</loc></url>
 {% endfor %}</urlset>

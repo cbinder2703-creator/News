@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block main %}
 <header class="page-head"><h1>Kaufberater</h1>
-<p>Worauf du beim Kauf achten solltest: Kriterien, typische Fehler und Antworten auf häufige Fragen.</p></header>
+<p>Du willst ein neues Gerät kaufen und weißt nicht, worauf es ankommt? Unsere Kaufberater erklären in einfachen Worten,
+welche Arten es gibt, für wen sich welches Modell lohnt und welche Angaben wirklich zählen. Dazu findest du Antworten auf die
+häufigsten Fragen und die aktuellen Deals zum Thema. So triffst du deine Wahl in Ruhe und mit gutem Gefühl.</p></header>
 <div class="grid">
 {% for g in guides %}
   <a class="card" href="{{ base }}/kaufberater/{{ g.slug }}/">

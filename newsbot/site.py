@@ -37,6 +37,24 @@ RUBRIK_PAGES = (
 )
 
 RUBRIK_OF = {slug: rubs for slug, _, rubs, _, _ in RUBRIK_PAGES}
+MIN_TOPIC_POSTS = 3
+
+STATIC_DESC = {
+    "ueber-uns": "Über {brand}: wer hinter der Seite steht, wie die Beiträge entstehen und wie wir uns finanzieren.",
+    "so-arbeiten-wir": "So arbeitet {brand}: wie Deals und Beiträge entstehen, wie wir Preise angeben und Fehler korrigieren.",
+    "impressum": "Impressum von {brand}: Anbieter, Kontakt und Angaben nach § 5 DDG.",
+    "datenschutz": "Datenschutzerklärung von {brand}: welche Daten beim Besuch der Seite verarbeitet werden und welche Rechte du hast.",
+}
+
+
+def list_ld(cfg, records, path: str, name: str, guides=None) -> dict:
+    """CollectionPage mit Liste der Beiträge: hilft Google, Übersichtsseiten zu verstehen."""
+    items = [(f"{cfg.site_url}/a/{r['slug']}/", r["article"]["headline"]) for r in records[:30]]
+    items += [(f"{cfg.site_url}/kaufberater/{g['slug']}/", g["article"]["headline"]) for g in (guides or [])[:30]]
+    return {"@context": "https://schema.org", "@type": "CollectionPage", "name": name, "url": cfg.site_url + path,
+            "inLanguage": "de-DE",
+            "mainEntity": {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": n, "url": u, "name": t} for n, (u, t) in enumerate(items, 1)]}}
 
 STATIC_PAGES = (("ueber-uns", "Über uns"), ("so-arbeiten-wir", "So arbeiten wir"),
                 ("impressum", "Impressum"), ("datenschutz", "Datenschutz"))
@@ -81,8 +99,8 @@ def image_html(rec: dict, base: str, hero: bool = False, eager: bool = False, si
         loading = ' fetchpriority="high"' if hero else f' loading="{"eager" if eager else "lazy"}"'
         sizes = sizes or ("(max-width:1032px) calc(100vw - 32px), 1000px" if hero
                           else "(max-width:600px) calc(100vw - 32px), (max-width:900px) 46vw, 380px")
-        src = f"{base}/media/{rec['id']}"
-        return Markup(f'<img{cls} src="{src}/photo.jpg" srcset="{src}/photo-640.jpg 640w, {src}/photo.jpg 1200w" '
+        src = f"{base}/media/{rec['id']}/{rec.get('photo_file') or 'photo'}"
+        return Markup(f'<img{cls} src="{src}.jpg" srcset="{src}-640.jpg 640w, {src}.jpg 1200w" '
                       f'sizes="{sizes}" alt="{escape(a.get("image_alt", ""))}" width="1200" height="630"{loading}>')
     return thumb(article_text(a), a.get("rubrik") or a.get("category", ""), a.get("icon", ""),
                  "thumb hero" if hero else "thumb")
@@ -142,10 +160,17 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         photo = photos_dir / f"{rec['id']}.jpg" if photos_dir else None
         rec["has_photo"] = bool(photo and photo.exists() and rec.get("photo"))
         if rec["has_photo"]:
-            shutil.copy(photo, media_dir / "photo.jpg")
-            small = Image.open(photo).convert("RGB")
+            name = rec["photo_file"] = rec["slug"]  # sprechender Dateiname hilft der Bildersuche
+            shutil.copy(photo, media_dir / f"{name}.jpg")
+            img = Image.open(photo).convert("RGB")
+            small = img.copy()
             small.thumbnail((640, 640))
-            small.save(media_dir / "photo-640.jpg", "JPEG", quality=80, optimize=True, progressive=True)
+            small.save(media_dir / f"{name}-640.jpg", "JPEG", quality=80, optimize=True, progressive=True)
+            w, h = img.size  # Google empfiehlt Titelbilder zusätzlich in 1:1 und 4:3
+            for suffix, cw in (("1x1", h), ("4x3", h * 4 // 3)):
+                left = max(0, (w - cw) // 2)
+                img.crop((left, 0, left + min(cw, w), h)).save(media_dir / f"{name}-{suffix}.jpg", "JPEG", quality=82,
+                                                                optimize=True, progressive=True)
         rec["has_video"] = False
         if n < cfg.videos_for_recent:
             target = media_dir / "video.mp4"
@@ -190,28 +215,38 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
 
     render = lambda tpl, path, **kw: _write(out / path, env.get_template(tpl).render(**kw))  # noqa: E731
     cats = sorted(categories.values(), key=lambda c: -len(c["records"]))
+    for c in cats:  # Themen mit sehr wenigen Beiträgen sind für Google dünn: erreichbar, aber nicht im Index
+        c["indexable"] = len(c["records"]) >= MIN_TOPIC_POSTS
     render("index.html", "index.html", records=records, guides=guides[:6], cats=cats[:8], title=cfg.brand_name)
     if guides:
-        render("guides.html", "kaufberater/index.html", guides=guides, title="Kaufberater",
-               canonical="/kaufberater/", desc=f"Alle Kaufberater von {cfg.brand_name}: worauf du beim Kauf achten solltest.")
-    render("topics.html", "thema/index.html", cats=cats, title="Alle Themen", canonical="/thema/")
+        render("guides.html", "kaufberater/index.html", guides=guides, title="Kaufberater: worauf du beim Kauf achten solltest",
+               canonical="/kaufberater/", list_ld=list_ld(cfg, [], "/kaufberater/", "Kaufberater", guides),
+               desc=f"Kaufberater von {cfg.brand_name}: So findest du die passende Powerbank, den richtigen Saugroboter, Fernseher und mehr. Verständlich erklärt.")
+    render("topics.html", "thema/index.html", cats=cats, title="Alle Themen", canonical="/thema/",
+           desc=f"Alle Themen bei {cfg.brand_name}: Technik-Deals, Neuheiten und Kaufberatung, sortiert nach Bereichen.")
     for cat in cats:
         crumbs = [("Start", "/"), (cat["name"], f"/thema/{cat['slug']}/")]
         render("category.html", f"thema/{cat['slug']}/index.html", cat=cat, title=f"{cat['name']}: aktuelle Beiträge",
+               robots=None if cat["indexable"] else "noindex, follow", list_ld=list_ld(cfg, cat["records"], f"/thema/{cat['slug']}/", cat["name"]),
                canonical=f"/thema/{cat['slug']}/", crumbs=crumbs, crumbs_ld=breadcrumb_ld(cfg, crumbs),
                desc=f"Aktuelle Beiträge und Einordnungen zum Thema {cat['name']} bei {cfg.brand_name}.")
     for rp in rubrik_pages:
         crumbs = [("Start", "/"), (rp["name"], f"/{rp['slug']}/")]
         render("rubrik.html", f"{rp['slug']}/index.html", rp=rp, title=rp["title"], canonical=f"/{rp['slug']}/",
+               list_ld=list_ld(cfg, rp["records"], f"/{rp['slug']}/", rp["title"]),
                desc=rp["intro"], crumbs=crumbs, crumbs_ld=breadcrumb_ld(cfg, crumbs))
     render("feed.xml", "feed.xml", records=records[:30])
     render("sitemap.xml", "sitemap.xml", records=records, guides=guides, cats=cats, pages=STATIC_PAGES,
            rubriken=rubrik_pages)
     for slug, title in STATIC_PAGES:
-        render(f"{slug}.html", f"{slug}/index.html", title=title, canonical=f"/{slug}/")
+        render(f"{slug}.html", f"{slug}/index.html", title=title, canonical=f"/{slug}/",
+               desc=STATIC_DESC.get(slug, "").format(brand=cfg.brand_name))
+    render("404.html", "404.html", title="Seite nicht gefunden", records=records[:6])
+    if cfg.indexnow_key:
+        _write(out / f"{cfg.indexnow_key}.txt", cfg.indexnow_key)
     if cfg.admin_api_url:
         render("admin.html", "admin/index.html", api_url=cfg.admin_api_url)  # nicht verlinkt, nicht in der Sitemap, noindex
-    _write(out / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {cfg.site_url}/sitemap.xml\n")
+    _write(out / "robots.txt", f"User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {cfg.site_url}/sitemap.xml\n")
     return videos
 
 

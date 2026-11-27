@@ -76,10 +76,12 @@ Harte Regeln:
 Suchmaschinen (SEO), ohne die Lesbarkeit zu opfern:
 - focus_keyword: die Suchanfrage (2-5 Wörter), mit der Leser dieses Thema realistisch bei Google suchen würden,
   z. B. "Saugroboter Sicherheitslücke" oder "iPhone 18 Preis". Nur Namen und Produkte aus den Quellen.
-- seo_title: max. 60 Zeichen, enthält das focus_keyword möglichst am Anfang, ohne Markennamen von uns, ohne Clickbait.
+- seo_title: 40-55 Zeichen, beginnt möglichst mit dem focus_keyword, nennt den konkreten Nutzen oder Preis, ohne
+  Markennamen von uns, ohne Clickbait (z. B. "Fanttik S2 Pro Preis: unter 50 Euro zum Black Friday").
 - meta_description: 120-155 Zeichen, enthält das focus_keyword, sagt konkret, was der Leser erfährt.
 - Das focus_keyword kommt natürlich in headline oder teaser und in einer Zwischenüberschrift vor. Kein Keyword-Stuffing.
-- faq: 2-3 Fragen, die Leser dazu bei Google stellen würden, mit kurzer Antwort (je 25-60 Wörter).
+- faq: 3-4 Fragen, die Leser dazu bei Google stellen würden ("Wie viel kostet ...", "Lohnt sich ...", "Was ist der
+  Unterschied zwischen ...", "Für wen eignet sich ..."), mit Antwort (je 30-70 Wörter).
   Antworten nur mit Fakten aus den Quellen oder allgemein bekanntem Wissen. Direkt und positiv antworten, ohne Prüftipps
   und ohne "lässt sich nicht sagen".
 - guide: Wenn einer unserer Kaufberater unten thematisch klar passt, seine Kennung (slug), sonst leer.
@@ -112,7 +114,8 @@ Formate:
   kein Clickbait (z. B. "AirPods Pro 3 unter 190 Euro: Top-Sound und Ruhe zum Black-Friday-Preis").
 - teaser: 1 Satz, max. 160 Zeichen, weckt Lust auf das Produkt.
 - body: 2 Absätze (zusammen 60-110 Wörter), siehe Aufbau.
-- sections: genau 3 Abschnitte (heading max. 50 Zeichen, text 50-90 Wörter), siehe Aufbau.
+- sections: genau 3 Abschnitte (heading max. 50 Zeichen, text 80-130 Wörter), siehe Aufbau. Mindestens eine
+  Zwischenüberschrift enthält das focus_keyword oder eine nahe Variante davon.
 - verdict: begeisterte, klare Empfehlung, 1-2 Sätze, beginnt mit "Unsere Einschätzung:" und sagt, für wen es ein
   Volltreffer ist ("Unsere Einschätzung: Für alle, die ..., ist das ein richtig starkes Angebot."). Keine Bedingungen wie "prüfe vorher".
 - open_questions: leer lassen (nur bei echtem Mehrwert ein Eintrag, max. 120 Zeichen).

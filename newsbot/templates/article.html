@@ -6,7 +6,10 @@
 <meta property="og:url" content="{{ cfg.site_url }}/a/{{ rec.slug }}/">
 <meta property="og:title" content="{{ a.headline }}">
 <meta property="og:description" content="{{ a.meta_description or a.teaser }}">
-<meta property="og:image" content="{{ cfg.site_url }}/media/{{ rec.id }}/og.jpg">
+{% set media = cfg.site_url ~ "/media/" ~ rec.id ~ "/" %}{% if rec.has_photo %}{% set pimg = media ~ rec.photo_file %}
+<meta property="og:image" content="{{ pimg }}.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">{% else %}
+<meta property="og:image" content="{{ media }}og.jpg">{% endif %}
 <meta property="article:published_time" content="{{ rec.created_at }}">
 <meta property="article:section" content="{{ a.category }}">
 <meta name="twitter:card" content="summary_large_image">
@@ -15,10 +18,12 @@
   "mainEntityOfPage": cfg.site_url ~ "/a/" ~ rec.slug ~ "/",
   "headline": a.headline, "description": a.meta_description or a.teaser,
   "datePublished": rec.created_at, "dateModified": rec.updated_at or rec.created_at,
-  "image": [cfg.site_url ~ "/media/" ~ rec.id ~ "/og.jpg", cfg.site_url ~ "/media/" ~ rec.id ~ "/card.jpg"],
+  "image": ([pimg ~ ".jpg", pimg ~ "-4x3.jpg", pimg ~ "-1x1.jpg"] if rec.has_photo else [media ~ "og.jpg", media ~ "card.jpg"]),
+  "isAccessibleForFree": true, "wordCount": (a.body | join(" ") ~ " " ~ (a.sections | map(attribute="text") | join(" "))).split() | length,
   "articleSection": a.category, "keywords": a.focus_keyword or a.category, "inLanguage": "de-DE",
-  "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/so-arbeiten-wir/"},
-  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/"}
+  "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/ueber-uns/"},
+  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/",
+                "logo": {"@type": "ImageObject", "url": cfg.site_url ~ "/static/logo-512.png", "width": 512, "height": 512}}
 } %}{% if cfg.show_sources %}{% set _ = ld.update({"isBasedOn": ((rec.sources or [rec.source]) | map(attribute="url") | list)}) %}{% endif %}
 <script type="application/ld+json">{{ ld | tojson }}</script>
 {% endblock %}

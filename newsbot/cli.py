@@ -38,7 +38,7 @@ def _write_summary(markdown: str) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
     ap.add_argument("command", choices=["generate", "approve", "reject", "decisions", "notify", "drafts", "build",
-                                        "publish", "run", "guide", "photos", "products", "rewrite", "demo"],
+                                        "publish", "run", "guide", "photos", "products", "rewrite", "indexnow", "demo"],
                     help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
                          "reject: Entwürfe ablehnen | decisions: Klicks aus WhatsApp umsetzen (data/decisions) | "
                          "notify: neue Entwürfe per WhatsApp schicken | photos: Titelfotos holen (Pexels/Wikimedia, KI-geprüft) | "
@@ -114,6 +114,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{notify.notify(cfg, store)} WhatsApp-Nachrichten gesendet")
     if args.command == "photos":
         print(f"{photos.backfill(store, model=cfg.model)} Fotos geholt")
+    if args.command == "indexnow":
+        from . import indexnow
+        print(f"{indexnow.submit(cfg, store)} Adressen an IndexNow gemeldet")
     if args.command == "products":
         print(f"{products.backfill(store)} direkte Produktlinks zugeordnet")
     if args.command == "drafts":

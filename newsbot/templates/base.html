@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}{% if title and title != cfg.brand_name %}{{ title }} – {% endif %}{{ cfg.brand_name }}{% endblock %}</title>
+<title>{% block title %}{% if title and title != cfg.brand_name %}{{ title }}{% if (title | length) + (cfg.brand_name | length) <= 58 %} – {{ cfg.brand_name }}{% endif %}{% else %}{{ cfg.brand_name }}{% endif %}{% endblock %}</title>
 <meta name="description" content="{% block desc %}{{ desc or cfg.tagline }}{% endblock %}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="{% block robots %}{{ robots or "index, follow, max-image-preview:large, max-snippet:-1" }}{% endblock %}">
 {% if canonical is defined %}<link rel="canonical" href="{{ cfg.site_url }}{{ canonical }}">{% endif %}
 <meta property="og:site_name" content="{{ cfg.brand_name }}">
 <meta property="og:locale" content="de_DE">
@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="{{ base }}/static/style.css?v={{ asset_v }}">
 <style>:root{--accent:{{ cfg.accent }}}</style>
 {% if crumbs_ld is defined %}<script type="application/ld+json">{{ crumbs_ld | tojson }}</script>{% endif %}
+{% if list_ld is defined and list_ld %}<script type="application/ld+json">{{ list_ld | tojson }}</script>{% endif %}
 {% block head %}{% endblock %}
 </head>
 <body>

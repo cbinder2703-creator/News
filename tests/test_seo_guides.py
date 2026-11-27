@@ -120,9 +120,12 @@ def test_site_has_seo_structure_and_internal_links(cfg, tmp_path):
     assert (out / "media" / "kb-saugroboter" / "card.jpg").exists()
 
     sitemap = (out / "sitemap.xml").read_text(encoding="utf-8")
-    for path in ("/kaufberater/saugroboter/", "/kaufberater/", "/thema/demo/", f"/a/{rec['slug']}/", "/so-arbeiten-wir/"):
+    for path in ("/kaufberater/saugroboter/", "/kaufberater/", f"/a/{rec['slug']}/", "/so-arbeiten-wir/"):
         assert f"https://news.example{path}</loc>" in sitemap
-    assert (out / "thema" / "demo" / "index.html").exists() and (out / "kaufberater" / "index.html").exists()
+    # Thema mit nur einem Beitrag: erreichbar, aber nicht im Index und nicht in der Sitemap (dünne Seite)
+    assert "/thema/demo/</loc>" not in sitemap
+    assert 'content="noindex, follow"' in (out / "thema" / "demo" / "index.html").read_text(encoding="utf-8")
+    assert (out / "kaufberater" / "index.html").exists()
     home = (out / "index.html").read_text(encoding="utf-8")
     assert "/kaufberater/powerbank/" in home and '"@type": "WebSite"' in home
 

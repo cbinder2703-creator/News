@@ -15,8 +15,9 @@
   "datePublished": g.created_at, "dateModified": g.updated_at or g.created_at,
   "image": cfg.site_url ~ "/media/" ~ g.id ~ "/og.jpg", "inLanguage": "de-DE",
   "keywords": g.topic.keyword or g.topic.title,
-  "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/so-arbeiten-wir/"},
-  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/"}
+  "author": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/ueber-uns/"},
+  "publisher": {"@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/",
+                "logo": {"@type": "ImageObject", "url": cfg.site_url ~ "/static/logo-512.png", "width": 512, "height": 512}}
 } | tojson }}</script>
 {% endblock %}
 {% block main %}

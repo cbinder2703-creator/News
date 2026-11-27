@@ -55,3 +55,50 @@ def test_old_deals_get_a_notice_and_articles_link_to_newer_posts(tmp_path):
     new = (out / "a" / recs[1]["slug"] / "index.html").read_text(encoding="utf-8")
     assert 'class="stale"' in old and 'class="stale"' not in new
     assert 'class="more-posts"' in old and 'href="/deals/">Alle Deals' in old
+
+
+def _site(tmp_path, n=1):
+    cfg = load_config(ROOT / "config.yaml")
+    cfg.site_url = "https://news.example"
+    store = Store(tmp_path / "d")
+    titles = ["Powerbank im Angebot", "Neuer Saugroboter günstig", "Kopfhörer zum Bestpreis"][:n]
+    pipeline.generate(cfg, store, StubWriter(), items=[SourceItem(t, "Teaser", f"https://x.example/{i}", "Q", NOW)
+                                                       for i, t in enumerate(titles)], now=NOW)
+    return cfg, store, pipeline.build(cfg, store, tmp_path / "pub")
+
+
+def test_technical_seo_basics(tmp_path):
+    cfg, store, out = _site(tmp_path)
+    robots = (out / "robots.txt").read_text(encoding="utf-8")
+    assert "Disallow: /admin/" in robots and "Sitemap: https://news.example/sitemap.xml" in robots
+    page404 = (out / "404.html").read_text(encoding="utf-8")
+    assert 'content="noindex, follow"' in page404 and "Neu auf" in page404
+    descs = {re.search(r'name="description" content="([^"]*)"', (out / p / "index.html").read_text(encoding="utf-8")).group(1)
+             for p in ("ueber-uns", "so-arbeiten-wir", "impressum", "datenschutz")}
+    assert len(descs) == 4  # jede Seite hat eine eigene Beschreibung
+    assert (out / f"{cfg.indexnow_key}.txt").read_text(encoding="utf-8") == cfg.indexnow_key
+    rec = store.all()[0]
+    art = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
+    ld = json.loads(re.findall(r'<script type="application/ld\+json">(.*?)</script>', art, re.S)[-1])
+    assert ld["publisher"]["logo"]["url"].endswith("logo-512.png") and ld["wordCount"] > 0
+    title = re.search(r"<title>([^<]*)</title>", art).group(1)
+    assert len(title) <= 70
+
+
+def test_indexnow_reports_only_changes(tmp_path):
+    from newsbot import indexnow
+    cfg, store, _ = _site(tmp_path, n=2)
+
+    class Http:
+        calls = []
+
+        def post(self, url, json=None, timeout=None, headers=None):
+            Http.calls.append(json)
+            return type("R", (), {"status_code": 202})()
+
+    assert indexnow.submit(cfg, store, Http()) >= 3  # zwei Beiträge + Startseite
+    body = Http.calls[0]
+    assert body["host"] == "news.example" and body["keyLocation"] == f"https://news.example/{cfg.indexnow_key}.txt"
+    assert indexnow.submit(cfg, store, Http()) == 0 and len(Http.calls) == 1  # nichts Neues, keine Meldung
+    cfg.indexnow_key = ""
+    assert indexnow.submit(cfg, store, Http()) == 0
