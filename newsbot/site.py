@@ -7,7 +7,9 @@ from __future__ import annotations
 
 import hashlib
 import shutil
-from datetime import datetime
+
+from PIL import Image
+from datetime import datetime, timezone
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -33,6 +35,8 @@ RUBRIK_PAGES = (
     ("kurz-erklaert", "Kurz erklärt", ("Kurz erklärt",), "Kurz erklärt: Technik-News verständlich",
      "Technik-News in einfachen Worten: was passiert ist und was du davon hast."),
 )
+
+RUBRIK_OF = {slug: rubs for slug, _, rubs, _, _ in RUBRIK_PAGES}
 
 STATIC_PAGES = (("ueber-uns", "Über uns"), ("so-arbeiten-wir", "So arbeiten wir"),
                 ("impressum", "Impressum"), ("datenschutz", "Datenschutz"))
@@ -69,14 +73,17 @@ def article_text(a: dict) -> str:
     return f"{a.get('headline', '')} {a.get('focus_keyword', '')} {a.get('category', '')} {ideas}"
 
 
-def image_html(rec: dict, base: str, hero: bool = False, eager: bool = False) -> Markup:
+def image_html(rec: dict, base: str, hero: bool = False, eager: bool = False, sizes: str = "") -> Markup:
     """Titelbild eines Beitrags: das Foto, sonst ein Symbol auf Farbverlauf. Immer im Format 1200:630."""
     a = rec["article"]
     if rec.get("has_photo"):
         cls = ' class="media hero"' if hero else ' class="media"'
         loading = ' fetchpriority="high"' if hero else f' loading="{"eager" if eager else "lazy"}"'
-        return Markup(f'<img{cls} src="{base}/media/{rec["id"]}/photo.jpg" alt="{escape(a.get("image_alt", ""))}" '
-                      f'width="1200" height="630"{loading}>')
+        sizes = sizes or ("(max-width:1032px) calc(100vw - 32px), 1000px" if hero
+                          else "(max-width:600px) calc(100vw - 32px), (max-width:900px) 46vw, 380px")
+        src = f"{base}/media/{rec['id']}"
+        return Markup(f'<img{cls} src="{src}/photo.jpg" srcset="{src}/photo-640.jpg 640w, {src}/photo.jpg 1200w" '
+                      f'sizes="{sizes}" alt="{escape(a.get("image_alt", ""))}" width="1200" height="630"{loading}>')
     return thumb(article_text(a), a.get("rubrik") or a.get("category", ""), a.get("icon", ""),
                  "thumb hero" if hero else "thumb")
 
@@ -113,9 +120,11 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         rec["cat_slug"] = cat["slug"]
 
     env = Environment(loader=FileSystemLoader(PKG / "templates"), autoescape=select_autoescape(default=True))
-    env.filters.update(de_date=de_date, de_day=de_day, rfc822=rfc822, tagslug=lambda t: slugify(t or "", 30))
+    build_now = datetime.now(timezone.utc)
+    env.filters.update(age_days=lambda v: max(0, (build_now - _dt(v)).days),
+                       de_date=de_date, de_day=de_day, rfc822=rfc822, tagslug=lambda t: slugify(t or "", 30))
     css_version = hashlib.sha1(b"".join((PKG / "static" / n).read_bytes() for n in ("style.css", "admin.js", "contact.js", "theme.js", "site.js"))).hexdigest()[:10]
-    env.globals.update(image_for=lambda rec, hero=False, eager=False: image_html(rec, cfg.base_path, hero, eager),
+    env.globals.update(image_for=lambda rec, hero=False, eager=False, sizes="": image_html(rec, cfg.base_path, hero, eager, sizes),
                        guide_image=guide_image_html, cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
                        affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
 
@@ -134,6 +143,9 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         rec["has_photo"] = bool(photo and photo.exists() and rec.get("photo"))
         if rec["has_photo"]:
             shutil.copy(photo, media_dir / "photo.jpg")
+            small = Image.open(photo).convert("RGB")
+            small.thumbnail((640, 640))
+            small.save(media_dir / "photo-640.jpg", "JPEG", quality=80, optimize=True, progressive=True)
         rec["has_video"] = False
         if n < cfg.videos_for_recent:
             target = media_dir / "video.mp4"
@@ -151,6 +163,9 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         a = rec["article"]
         cat = categories[rec["cat_slug"]]
         related = [r for r in cat["records"] if r["id"] != rec["id"]][:3]
+        related_ids = {r["id"] for r in related} | {rec["id"]}
+        latest = [r for r in records if r["id"] not in related_ids][:4]
+        rub_page = next((rp for rp in rubrik_pages if (a.get("rubrik") or "") in RUBRIK_OF[rp["slug"]]), None)
         guide = guide_by_slug.get(a.get("guide") or "")
         crumbs = [("Start", "/"), (cat["name"], f"/thema/{cat['slug']}/"), (a["headline"], f"/a/{rec['slug']}/")]
         page = out / "a" / rec["slug"]
@@ -159,6 +174,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         (page / "index.html").write_text(
             env.get_template("article.html").render(
                 rec=rec, a=a, title=a.get("seo_title") or a["headline"], shop=shop, cat=cat, related=related,
+                latest=latest, rub_page=rub_page,
                 guide=guide, crumbs=crumbs, crumbs_ld=breadcrumb_ld(cfg, crumbs)),
             encoding="utf-8")
 

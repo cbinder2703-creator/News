@@ -28,6 +28,9 @@ Harte Regeln:
   wenn sie allgemein anerkannt sind, und dann vorsichtig formuliert ("häufig", "in der Regel"). Im Zweifel weglassen.
 - Keine erfundenen Erfahrungen ("wir haben ausprobiert", "in unserem Test").
 - Schreibe hilfreich und konkret für Menschen ohne Vorwissen, nicht für Suchmaschinen. Kein Keyword-Stuffing.
+- Ton: freundlich, zuversichtlich, motivierend. Der Leser soll sich nach dem Lesen sicher fühlen und Lust auf die
+  richtige Wahl haben. Erst was ein gutes Gerät im Alltag bringt, dann worauf es ankommt. Keine Panikmache,
+  keine Bedenkenträgerei, kein ständiger Hinweis, dass wir nicht testen (das steht auf einer eigenen Seite).
 
 Suchmaschinen (SEO):
 - Das Suchwort lautet: "<<KEYWORD>>". Es steht natürlich in headline, seo_title (max. 60 Zeichen, Suchwort vorn),
@@ -39,7 +42,8 @@ Formate:
 - intro: 2-3 Sätze (50-80 Wörter): für wen dieser Ratgeber ist und was er beantwortet.
 - sections: 3-5 Abschnitte (je 80-150 Wörter), z. B. "Welche Arten gibt es?", "Für wen lohnt sich das?", "Darauf kommt es an".
 - criteria: 5-7 Kaufkriterien, je name (max. 40 Zeichen) und text (40-80 Wörter): warum wichtig, worauf achten.
-- mistakes: 3-5 typische Fehlkäufe in je einem Satz.
+- mistakes: 3-5 kurze Tipps, wie man typische Fehlkäufe vermeidet, je ein Satz, positiv als Rat formuliert
+  ("Achte auf ..., dann ..."), nicht als Warnung.
 - summary: 1-2 Sätze, beginnt mit "Kurz gesagt:".
 - shopping: 1-3 neutrale Suchbegriffe ohne Marken (label, query max. 4 Wörter, reason), z. B. Unterarten der Kategorie.
 - image_alt: 1 Satz."""

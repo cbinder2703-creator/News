@@ -64,15 +64,26 @@ affiliate:
       link_template: "https://www.awin1.com/cread.php?awinmid=DEINE_OTTO_MERCHANT_ID&awinaffid=DEINE_AWIN_ID&ued={url}"
 
 # Kaufberater: zeitlose Ratgeberseiten unter /kaufberater/<slug>/, die bei Google ranken sollen.
-# Jeder entsteht als Entwurf und geht erst nach deiner Freigabe online. News verlinken automatisch auf den passenden.
+# Im Modus auto gehen sie direkt online (wie die Beiträge), sonst erst nach Freigabe. News verlinken automatisch auf den passenden.
 # Neue Fassung schreiben lassen (z. B. alle paar Monate): python -m newsbot guide <slug>
 guides:
   enabled: false             # true: pro Lauf werden fehlende Kaufberater geschrieben (Kosten: ca. 1 längerer KI-Aufruf je Kaufberater)
   per_run: 1                 # höchstens so viele neue Kaufberater pro Lauf
-  topics:                    # BEISPIELE: durch deine Nische ersetzen. slug = Adresse, keyword = Suchbegriff bei Google
-    - { slug: "saugroboter", title: "Saugroboter", keyword: "Saugroboter kaufen", category: "Smart Home" }
+  topics:                    # slug = Adresse (/kaufberater/<slug>/), keyword = Suchbegriff bei Google
     - { slug: "powerbank", title: "Powerbank", keyword: "Powerbank kaufen", category: "Zubehör" }
-    - { slug: "wlan-router", title: "WLAN-Router", keyword: "WLAN Router kaufen", category: "Netz" }
+    - { slug: "saugroboter", title: "Saugroboter", keyword: "Saugroboter kaufen", category: "Smart Home" }
+    - { slug: "noise-cancelling-kopfhoerer", title: "Noise-Cancelling-Kopfhörer", keyword: "Noise Cancelling Kopfhörer kaufen", category: "Audio" }
+    - { slug: "wlan-router", title: "WLAN-Router und Mesh", keyword: "WLAN Router kaufen", category: "Netz" }
+    - { slug: "balkonkraftwerk", title: "Balkonkraftwerk", keyword: "Balkonkraftwerk kaufen", category: "Energie" }
+    - { slug: "smartwatch", title: "Smartwatch", keyword: "Smartwatch kaufen", category: "Wearables" }
+    - { slug: "fitness-tracker", title: "Fitness-Tracker", keyword: "Fitness Tracker kaufen", category: "Wearables" }
+    - { slug: "gaming-monitor", title: "Gaming-Monitor", keyword: "Gaming Monitor kaufen", category: "Hardware" }
+    - { slug: "fernseher", title: "Fernseher", keyword: "Fernseher kaufen", category: "TV" }
+    - { slug: "tablet", title: "Tablet", keyword: "Tablet kaufen", category: "Hardware" }
+    - { slug: "akkuschrauber", title: "Akkuschrauber", keyword: "Akkuschrauber kaufen", category: "Werkzeug" }
+    - { slug: "ueberwachungskamera", title: "Überwachungskamera", keyword: "Überwachungskamera kaufen", category: "Smart Home" }
+    - { slug: "heizkoerperthermostat", title: "Smartes Heizkörperthermostat", keyword: "smartes Heizkörperthermostat kaufen", category: "Smart Home" }
+    - { slug: "bluetooth-lautsprecher", title: "Bluetooth-Lautsprecher", keyword: "Bluetooth Lautsprecher kaufen", category: "Audio" }
 
 # Admin-Seite zum Freigeben unter /admin/ (Login über einen kleinen Cloudflare-Worker, siehe README "Admin-Seite").
 # Leer lassen = es wird keine Admin-Seite gebaut. Danach hier die Adresse des Workers eintragen, z. B. https://dealpuls-admin.DEIN-NAME.workers.dev

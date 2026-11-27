@@ -26,6 +26,8 @@
 <article class="post">
   {% set rub = a.rubrik or a.category %}<div class="meta"><a class="pricetag" data-r="{{ rub | tagslug }}" href="{{ base }}/thema/{{ cat.slug }}/">{{ rub }}</a><time datetime="{{ rec.created_at }}">{{ rec.created_at | de_date }}</time></div>
   <h1>{{ a.headline }}</h1>
+  {% set age = rec.created_at | age_days %}{% if (a.rubrik or "") == "Deal-Check" and age >= 14 %}
+  <p class="stale">Dieses Angebot ist vom {{ rec.created_at | de_day }} und vermutlich nicht mehr aktuell. Preise ändern sich schnell: {% if shop %}den aktuellen Preis siehst du <a href="{{ shop[0].links[0].url }}" rel="sponsored nofollow noopener" target="_blank">direkt beim Händler</a> (Anzeige).{% else %}den aktuellen Preis siehst du direkt beim Händler.{% endif %}{% if rub_page %} Neue Angebote findest du unter <a href="{{ base }}/{{ rub_page.slug }}/">{{ rub_page.name }}</a>.{% endif %}</p>{% endif %}
   <p class="lead-text">{{ a.teaser }}</p>
   <figure class="photo">{{ image_for(rec, hero=True) }}{% if rec.has_photo and rec.photo.photographer %}<figcaption>Foto: {% if rec.photo.photographer_url %}<a href="{{ rec.photo.photographer_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.photographer }}</a>{% else %}{{ rec.photo.photographer }}{% endif %} auf <a href="{{ rec.photo.page_url }}" rel="noopener nofollow" target="_blank">{{ rec.photo.source or 'Pexels' }}</a>{% if rec.photo.license and rec.photo.license != 'Pexels-Lizenz' %} ({{ rec.photo.license }}){% endif %}</figcaption>{% endif %}</figure>
   <div class="keypoints"><h2>Das Wichtigste in Kürze</h2>
@@ -54,4 +56,14 @@
   {% if related %}<h2>Mehr zum Thema {{ cat.name }}</h2>
   <ul class="related">{% for r in related %}<li><a href="{{ base }}/a/{{ r.slug }}/">{{ r.article.headline }}</a></li>{% endfor %}</ul>{% endif %}
 </article>
+{% if latest %}
+<section class="more-posts" aria-label="Neu auf {{ cfg.brand_name }}">
+  <div class="section-head"><h2>Neu auf {{ cfg.brand_name }}</h2>{% if rub_page %}<a href="{{ base }}/{{ rub_page.slug }}/">Alle {{ rub_page.name }}</a>{% else %}<a href="{{ base }}/">Zur Startseite</a>{% endif %}</div>
+  <div class="grid grid-4">
+  {% for r in latest %}
+    {% include "_card.html" %}
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
 {% endblock %}

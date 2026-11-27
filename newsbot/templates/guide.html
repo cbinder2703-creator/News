@@ -24,17 +24,16 @@
   <div class="meta"><span class="pricetag" data-r="kaufberater">Kaufberater</span>Zuletzt aktualisiert: <time datetime="{{ g.updated_at or g.created_at }}">{{ (g.updated_at or g.created_at) | de_day }}</time></div>
   <h1>{{ a.headline }}</h1>
   <p class="lead-text">{{ a.intro }}</p>
-  <p class="ai-note">Wir testen keine Produkte selbst. Dieser Ratgeber erklärt Kriterien, damit du selbst entscheiden kannst. <a href="{{ base }}/so-arbeiten-wir/">So arbeiten wir</a></p>
   <nav class="toc" aria-label="Inhalt"><strong>Inhalt</strong><ol>
     {% for s in a.sections %}<li><a href="#s{{ loop.index }}">{{ s.heading }}</a></li>{% endfor %}
     <li><a href="#kriterien">Darauf solltest du achten</a></li>
-    {% if a.mistakes %}<li><a href="#fehler">Typische Fehlkäufe</a></li>{% endif %}
+    {% if a.mistakes %}<li><a href="#fehler">So triffst du die richtige Wahl</a></li>{% endif %}
     {% if a.faq %}<li><a href="#faq">Häufige Fragen</a></li>{% endif %}
   </ol></nav>
   {% for s in a.sections %}<h2 id="s{{ loop.index }}">{{ s.heading }}</h2><p>{{ s.text }}</p>{% endfor %}
   <h2 id="kriterien">Darauf solltest du achten</h2>
   {% for c in a.criteria %}<h3>{{ loop.index }}. {{ c.name }}</h3><p>{{ c.text }}</p>{% endfor %}
-  {% if a.mistakes %}<h2 id="fehler">Typische Fehlkäufe</h2>
+  {% if a.mistakes %}<h2 id="fehler">So triffst du die richtige Wahl</h2>
   <ul>{% for m in a.mistakes %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
   {% if a.summary %}<blockquote class="verdict">{{ a.summary }}</blockquote>{% endif %}
   {% include "_shop.html" %}

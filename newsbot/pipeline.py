@@ -131,9 +131,11 @@ def generate_guides(cfg: Config, store: Store, guide_writer, only: str | None = 
         rec = store.guide(topic["slug"]) or {"id": guide_id(topic["slug"]), "slug": topic["slug"],
                                              "created_at": now_iso(), "article": None}
         rec.update(topic=topic, draft=guide.model_dump(), drafted_at=now_iso())
+        if not cfg.review:  # Modus auto: wie die Beiträge sofort online
+            rec["article"], rec["draft"], rec["updated_at"] = rec["draft"], None, now_iso()
         store.save_guide(rec)
         created.append(rec)
-        log.info("[Kaufberater-Entwurf] %s | %s", rec["id"], guide.headline)
+        log.info("[Kaufberater%s] %s | %s", "" if not cfg.review else "-Entwurf", rec["id"], guide.headline)
     return created
 
 

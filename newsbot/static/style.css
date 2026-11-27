@@ -322,3 +322,14 @@ a.admin-row-title:hover{text-decoration:underline;text-decoration-color:var(--ac
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 @media (max-width:600px){.filters{flex-wrap:nowrap;overflow-x:auto;margin:-6px -16px 22px;padding:0 16px 4px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filters button{flex:none}}
 .crumbs:has(+ .post){margin:0 auto 18px}
+
+/* Hinweis bei älteren Deals */
+.stale{margin:0 0 18px;padding:12px 16px;border-radius:12px;background:var(--canvas);border-left:4px solid var(--t-deal);font-size:16px;line-height:1.5;color:var(--ink)}
+.stale a{font-weight:600}
+/* Weitere Beiträge unter dem Artikel */
+.more-posts{max-width:var(--wrap);margin:64px auto 0;padding-top:8px;border-top:1px solid var(--line)}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 22px}
+.grid-4 .card h3{font-size:18px}
+.grid-4 .card p{display:none}
+@media (max-width:900px){.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid-4{grid-template-columns:1fr}}

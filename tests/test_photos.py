@@ -181,7 +181,7 @@ def test_site_shows_photo_with_credit_or_falls_back_to_icon(cfg, store, tmp_path
     assert 'rel="noopener nofollow"' in page and "thumb hero" not in page
     assert any((out / "media").glob("*/photo.jpg"))
     home = (out / "index.html").read_text(encoding="utf-8")
-    assert home.count("photo.jpg") == 2  # beide Karten mit Foto
+    assert home.count("/photo.jpg\" srcset=") == 2 and home.count("photo-640.jpg 640w") == 2  # beide Karten mit Foto, kleine Variante fürs Handy
 
 
 def test_icons_are_picked_by_ai_choice_then_keywords():

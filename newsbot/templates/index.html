@@ -22,7 +22,7 @@
   </div>
   {% if records %}{% set r = records[0] %}{% set rub = r.article.rubrik or r.article.category %}
   <a class="hero-story" href="{{ base }}/a/{{ r.slug }}/">
-    <div class="card-img">{{ image_for(r, eager=True) }}</div>
+    <div class="card-img">{{ image_for(r, eager=True, sizes="(max-width:900px) calc(100vw - 72px), 540px") }}</div>
     <div class="hero-story-text">
       <div class="meta"><span class="pricetag" data-r="{{ rub | tagslug }}">{{ rub }}</span><time datetime="{{ r.created_at }}">{{ r.created_at | de_day }}</time></div>
       <h2>{{ r.article.headline }}</h2>

@@ -68,6 +68,7 @@ def test_prompts_contain_guides_and_commerce_rule(cfg, monkeypatch):
 def test_guides_are_drafts_until_approved_and_new_version_keeps_old_online(cfg, tmp_path):
     store = Store(tmp_path / "d")
     cfg.guides_per_run = 1
+    cfg.review = True  # Freigabe-Ablauf; im Modus auto gehen Kaufberater direkt online (eigener Test)
     (g,) = pipeline.generate_guides(cfg, store, StubGuideWriter())
     assert g["id"] == "kb-saugroboter" and g["article"] is None and g["draft"]
     assert "kb-saugroboter" in pipeline.drafts_markdown(store, cfg)
@@ -114,7 +115,7 @@ def test_site_has_seo_structure_and_internal_links(cfg, tmp_path):
 
     guide = (out / "kaufberater" / "saugroboter" / "index.html").read_text(encoding="utf-8")
     assert "Darauf solltest du achten" in guide and f"/a/{rec['slug']}/" in guide  # Kaufberater listet die News
-    assert "Wir testen keine Produkte" in guide
+    assert "So triffst du die richtige Wahl" in guide and "Wir testen keine Produkte" not in guide
     assert {"Article", "BreadcrumbList"} <= {b["@type"] for b in ld_blocks(guide)}
     assert (out / "media" / "kb-saugroboter" / "card.jpg").exists()
 
@@ -130,3 +131,10 @@ def test_guide_normalization_limits():
     g = StubGuideWriter().write({"slug": "x", "title": "X"}).model_copy(update={"seo_title": "t" * 99, "mistakes": ["m"] * 9})
     n = Guide.normalized(g)
     assert len(n.seo_title) <= 65 and len(n.mistakes) == 5
+
+
+def test_guides_go_live_directly_in_auto_mode(cfg, tmp_path):
+    store = Store(tmp_path / "d")
+    cfg.guides_per_run = 1
+    (g,) = pipeline.generate_guides(cfg, store, StubGuideWriter())
+    assert g["article"] and g["draft"] is None
