@@ -118,7 +118,7 @@ a.pricetag:hover{filter:brightness(.96)}
 @media (max-width:600px){.grid{grid-template-columns:1fr;gap:36px}main{padding-top:18px}.lead-story{padding-bottom:32px}.section-head{margin-top:32px}.guide-strip{padding:22px 20px}}
 
 /* Beitrag */
-.crumbs{max-width:var(--col);margin:0 auto 18px;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumbs{max-width:var(--col);margin:0 0 18px;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crumbs a{text-decoration:none}.crumbs a:hover{color:var(--ink);text-decoration:underline}
 .post{max-width:var(--col);margin:0 auto}
 .post h1{font-size:clamp(32px,5.4vw,52px);line-height:1.07;letter-spacing:-.034em;margin:18px 0 16px}
@@ -321,3 +321,4 @@ a.admin-row-title:hover{text-decoration:underline;text-decoration-color:var(--ac
 @media (max-width:900px){.hero-story{--story-rot:0deg}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 @media (max-width:600px){.filters{flex-wrap:nowrap;overflow-x:auto;margin:-6px -16px 22px;padding:0 16px 4px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filters button{flex:none}}
+.crumbs:has(+ .post){margin:0 auto 18px}

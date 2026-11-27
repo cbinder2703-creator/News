@@ -1,7 +1,18 @@
 {% extends "base.html" %}
+{% block title %}{{ cfg.brand_name }} – {{ cfg.tagline }}{% endblock %}
+{% block desc %}{{ cfg.brand_description or cfg.tagline }}{% endblock %}
 {% block head %}<link rel="canonical" href="{{ cfg.site_url }}/">
-<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.brand_name,
-  "url": cfg.site_url ~ "/", "inLanguage": "de-DE", "description": cfg.tagline} | tojson }}</script>{% endblock %}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ cfg.site_url }}/">
+<meta property="og:title" content="{{ cfg.brand_name }} – {{ cfg.tagline }}">
+<meta property="og:description" content="{{ cfg.brand_description or cfg.tagline }}">
+<meta property="og:image" content="{{ cfg.site_url }}/static/logo-512.png">
+<script type="application/ld+json">{{ [
+  {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.brand_name, "alternateName": [cfg.host, cfg.brand_name ~ ".de"],
+   "url": cfg.site_url ~ "/", "inLanguage": "de-DE", "description": cfg.brand_description or cfg.tagline},
+  {"@context": "https://schema.org", "@type": "Organization", "name": cfg.brand_name, "url": cfg.site_url ~ "/",
+   "logo": cfg.site_url ~ "/static/logo-512.png", "email": cfg.contact_email}
+] | tojson }}</script>{% endblock %}
 {% block main %}
 <section class="home-hero">
   <div class="hero-text">

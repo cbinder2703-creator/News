@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block main %}
+<header class="page-head"><h1>{{ rp.name }}</h1><p>{{ rp.intro }}</p></header>
+<div class="grid">
+{% for r in rp.records %}
+  {% include "_card.html" %}
+{% endfor %}
+</div>
+{% endblock %}

@@ -22,6 +22,18 @@ from .store import slugify
 PKG = Path(__file__).parent
 MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
           "September", "Oktober", "November", "Dezember"]
+# Rubrik-Seiten: feste, gut verlinkte Übersichten (Navigation und Unterlinks bei Google).
+RUBRIK_PAGES = (
+    ("deals", "Deals", ("Deal-Check",), "Deals: aktuelle Technik-Angebote im Check",
+     "Aktuelle Technik-Deals im Check: was du für den Preis bekommst und für wen sich das Angebot lohnt."),
+    ("neuheiten", "Neuheiten", ("Neuheiten-Check",), "Neuheiten: neue Geräte kurz erklärt",
+     "Neue Smartphones, Gadgets und Geräte: was neu ist, was es kann und für wen es spannend wird."),
+    ("ratgeber", "Ratgeber", ("Ratgeber", "Lohnt sich das?"), "Ratgeber: so findest du das passende Gerät",
+     "Ratgeber und Kaufhilfen: worauf es ankommt, damit du das Gerät findest, das zu dir passt."),
+    ("kurz-erklaert", "Kurz erklärt", ("Kurz erklärt",), "Kurz erklärt: Technik-News verständlich",
+     "Technik-News in einfachen Worten: was passiert ist und was du davon hast."),
+)
+
 STATIC_PAGES = (("ueber-uns", "Über uns"), ("so-arbeiten-wir", "So arbeiten wir"),
                 ("impressum", "Impressum"), ("datenschutz", "Datenschutz"))
 
@@ -82,7 +94,7 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         shutil.rmtree(out)
     out.mkdir(parents=True)
     (out / "static").mkdir()
-    for name in ("style.css", "logo.svg", "favicon.svg", "favicon-32.png", "contact.js", "theme.js", "site.js"):
+    for name in ("style.css", "logo.svg", "logo-512.png", "favicon.svg", "favicon-32.png", "favicon-48.png", "favicon-192.png", "contact.js", "theme.js", "site.js"):
         shutil.copy(PKG / "static" / name, out / "static" / name)
     for name in ("favicon.ico", "apple-touch-icon.png"):  # Browser suchen diese Dateien an der Wurzel
         shutil.copy(PKG / "static" / name, out / name)
@@ -106,6 +118,13 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
     env.globals.update(image_for=lambda rec, hero=False, eager=False: image_html(rec, cfg.base_path, hero, eager),
                        guide_image=guide_image_html, cfg=cfg, base=cfg.base_path, asset_v=css_version, year=datetime.now().year, has_guides=bool(guides),
                        affiliate_on=bool(active_programs(cfg)), amazon_on=has_amazon(cfg))
+
+    rubrik_pages = []
+    for slug, name, rubs, title, intro in RUBRIK_PAGES:
+        recs = [r for r in records if (r["article"].get("rubrik") or "") in rubs]
+        if recs:
+            rubrik_pages.append({"slug": slug, "name": name, "title": title, "intro": intro, "records": recs})
+    env.globals["rubrik_nav"] = rubrik_pages
 
     videos: dict[str, Path] = {}
     for n, rec in enumerate(records):
@@ -165,8 +184,13 @@ def build_site(cfg: Config, records: list[dict], out: Path, audio_dir: Path | No
         render("category.html", f"thema/{cat['slug']}/index.html", cat=cat, title=f"{cat['name']}: aktuelle Beiträge",
                canonical=f"/thema/{cat['slug']}/", crumbs=crumbs, crumbs_ld=breadcrumb_ld(cfg, crumbs),
                desc=f"Aktuelle Beiträge und Einordnungen zum Thema {cat['name']} bei {cfg.brand_name}.")
+    for rp in rubrik_pages:
+        crumbs = [("Start", "/"), (rp["name"], f"/{rp['slug']}/")]
+        render("rubrik.html", f"{rp['slug']}/index.html", rp=rp, title=rp["title"], canonical=f"/{rp['slug']}/",
+               desc=rp["intro"], crumbs=crumbs, crumbs_ld=breadcrumb_ld(cfg, crumbs))
     render("feed.xml", "feed.xml", records=records[:30])
-    render("sitemap.xml", "sitemap.xml", records=records, guides=guides, cats=cats, pages=STATIC_PAGES)
+    render("sitemap.xml", "sitemap.xml", records=records, guides=guides, cats=cats, pages=STATIC_PAGES,
+           rubriken=rubrik_pages)
     for slug, title in STATIC_PAGES:
         render(f"{slug}.html", f"{slug}/index.html", title=title, canonical=f"/{slug}/")
     if cfg.admin_api_url:

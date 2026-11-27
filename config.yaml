@@ -3,7 +3,8 @@
 
 brand:
   name: "DealPuls"
-  tagline: "Deals und Kaufberatung: Lohnt sich das wirklich?"
+  tagline: "Die besten Tech-Deals und Neuheiten, kurz erklärt"
+  description: "DealPuls zeigt jeden Tag die spannendsten Technik-Angebote und Neuheiten: was die Produkte können, für wen sie sich lohnen und wo es sie gibt."
   site_url: "https://dealpuls.de"       # ohne Slash am Ende; Domain muss in GitHub Pages als Custom Domain eingetragen sein
   accent: "#ff4d2e"
   contact_email: "kontakt@dealpuls.de"  # für Impressum; Postfach bei Strato einrichten
