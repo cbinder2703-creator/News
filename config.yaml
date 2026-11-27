@@ -105,3 +105,9 @@ sources:
   - { name: "Golem.de",     url: "https://rss.golem.de/rss.php?feed=RSS2.0" }
   - { name: "THE DECODER",  url: "https://the-decoder.de/feed/" }
   - { name: "t3n",          url: "https://t3n.de/rss.xml" }
+  # Deal-Seiten: konkrete Angebote mit Preis, verlinken meist direkt auf die Amazon-Produktseite
+  - { name: "Mein-Deal",    url: "https://www.mein-deal.com/feed/" }
+  - { name: "MyTopDeals",   url: "https://www.mytopdeals.net/feed/" }
+  - { name: "DealDoktor",   url: "https://www.dealdoktor.de/feed/" }
+  - { name: "TechStage",    url: "https://www.techstage.de/rss.xml" }
+  - { name: "ComputerBase", url: "https://www.computerbase.de/rss/news.xml" }

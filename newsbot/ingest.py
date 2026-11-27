@@ -22,6 +22,7 @@ class SourceItem:
     link: str
     source: str
     published: datetime
+    html: str = ""  # Roh-HTML aus dem Feed (enthält bei Deal-Seiten oft die Amazon-Links)
 
 
 def clean(text: str) -> str:
@@ -41,7 +42,8 @@ def parse_feed(content: bytes, source_name: str, now: datetime | None = None) ->
             continue
         ts = e.get("published_parsed") or e.get("updated_parsed")
         published = datetime(*ts[:6], tzinfo=timezone.utc) if ts else now
-        items.append(SourceItem(title, clean(e.get("summary", ""))[:1500], link, source_name, published))
+        raw = (e.get("content") or [{}])[0].get("value") or e.get("summary", "")
+        items.append(SourceItem(title, clean(e.get("summary", ""))[:1500], link, source_name, published, raw[:200000]))
     return items
 
 

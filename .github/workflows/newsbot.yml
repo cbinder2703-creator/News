@@ -4,7 +4,7 @@ name: newsbot
 # Actions > newsbot > Run workflow > Feld "approve" (IDs oder "alle"). Erst dann gehen Website und Social Media online.
 on:
   schedule:
-    - cron: "17 5 * * *"
+    - cron: "17 5,11,17 * * *"   # dreimal täglich (UTC), damit Deals nicht durchrutschen
   workflow_dispatch:
     inputs:
       approve:
@@ -78,6 +78,9 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python -m newsbot photos || true
+      - name: Direkte Amazon-Produktlinks holen
+        # Liest die Quellseiten nach amazon.de/dp/...-Links; ohne Treffer bleibt der Suchlink. Fehler stoppen den Lauf nicht.
+        run: python -m newsbot products || true
       - name: Entwürfe per WhatsApp schicken
         if: ${{ inputs.approve == '' && inputs.reject == '' && inputs.rewrite == '' && inputs.only_decisions != 'ja' }}
         env:

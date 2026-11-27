@@ -34,7 +34,9 @@ def has_amazon(cfg: Config) -> bool:
     return any(p.get("kind") == "amazon" for p in active_programs(cfg))
 
 
-def link_for(program: dict, query: str) -> str:
+def link_for(program: dict, query: str, asin: str = "") -> str:
+    if program["kind"] == "amazon" and re.fullmatch(r"[A-Z0-9]{10}", asin or ""):
+        return f"https://{program.get('domain', 'www.amazon.de')}/dp/{asin}?tag={quote(program['tag'].strip())}"
     if program["kind"] == "amazon":
         return f"https://{program.get('domain', 'www.amazon.de')}/s?k={quote_plus(query)}&tag={quote(program['tag'].strip())}"
     target = program["search_url"].replace("{query}", quote(query))
@@ -60,7 +62,8 @@ def build_shop_boxes(cfg: Config, ideas: list[dict]) -> list[dict]:
             continue
         seen.add(query.lower())
         boxes.append({"label": idea.get("label") or query, "reason": idea.get("reason", ""), "query": query,
-                      "links": [{"program": p["name"], "url": link_for(p, query)} for p in programs]})
+                      "asin": idea.get("asin", ""),
+                      "links": [{"program": p["name"], "url": link_for(p, query, idea.get("asin", ""))} for p in programs]})
         if len(boxes) >= cfg.affiliate_max:
             break
     return boxes

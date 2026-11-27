@@ -7,7 +7,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import notify, photos, pipeline
+from . import notify, photos, pipeline, products
 from .config import load_config
 from .store import Store
 from .editor import Editor, StubEditor
@@ -38,10 +38,11 @@ def _write_summary(markdown: str) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="newsbot", description="Automatische Nachrichtenmarke")
     ap.add_argument("command", choices=["generate", "approve", "reject", "decisions", "notify", "drafts", "build",
-                                        "publish", "run", "guide", "photos", "rewrite", "demo"],
+                                        "publish", "run", "guide", "photos", "products", "rewrite", "demo"],
                     help="generate: Entwürfe erzeugen (News + fehlende Kaufberater) | approve: Entwürfe freigeben | "
                          "reject: Entwürfe ablehnen | decisions: Klicks aus WhatsApp umsetzen (data/decisions) | "
                          "notify: neue Entwürfe per WhatsApp schicken | photos: Titelfotos holen (Pexels/Wikimedia, KI-geprüft) | "
+                         "products: direkte Amazon-Produktlinks aus den Quellen holen | "
                          "drafts: offene Entwürfe zeigen | build: Website | publish: Social-Posts | run: generate+build | "
                          "guide: Kaufberater <slug> neu schreiben (als Entwurf) | rewrite: Beiträge (IDs oder 'alle') nach "
                          "aktuellem Briefing neu schreiben (als Entwurf) | demo: Offline-Demo ohne API-Keys")
@@ -112,6 +113,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{notify.notify(cfg, store)} WhatsApp-Nachrichten gesendet")
     if args.command == "photos":
         print(f"{photos.backfill(store, model=cfg.model)} Fotos geholt")
+    if args.command == "products":
+        print(f"{products.backfill(store)} direkte Produktlinks zugeordnet")
     if args.command == "drafts":
         print(pipeline.drafts_markdown(store, cfg))
     if args.command in ("build", "run"):

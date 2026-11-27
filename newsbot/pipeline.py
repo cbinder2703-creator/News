@@ -16,6 +16,7 @@ from .guides import guide_id
 from .ingest import SourceItem, fetch, select
 from .site import build_site
 from .social import publish_pending
+from .products import attach_asins, extract_links
 from .store import Store, now_iso, slugify
 
 log = logging.getLogger("newsbot.pipeline")
@@ -98,6 +99,10 @@ def generate(cfg: Config, store: Store, writer, items: list[SourceItem] | None =
             "article": art.model_dump(),
             "published": {},
         }
+        try:  # direkte Amazon-Links aus dem Feed (ohne Netzabruf; Quellseiten liest der Schritt `products`)
+            attach_asins(rec["article"], [l for i in topic_items for l in extract_links(i.html)])
+        except Exception as exc:  # noqa: BLE001
+            log.warning("Produktlinks für %s nicht zugeordnet: %s", rec["id"], exc)
         store.save(rec)
         created.append(rec)
         if status == "live" and _voice_wanted(synth):
@@ -148,6 +153,7 @@ def rewrite(cfg: Config, store: Store, writer, selector: str) -> list[dict]:
         was_live = rec["status"] == "live"
         rec["article"] = art.model_dump()
         rec["rewritten_at"] = now_iso()
+        rec.pop("asin_checked", None)  # neue Produktideen: Quellen erneut nach direkten Links durchsuchen
         if cfg.review:
             rec["status"] = "draft"
             if was_live:
