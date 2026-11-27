@@ -227,3 +227,6 @@ footer{margin-top:64px;background:var(--canvas);color:var(--muted);font-size:15p
 .photo:has(.thumb){width:100%;left:0;transform:none}
 .thumb.hero{aspect-ratio:1200/400}
 .thumb.hero svg{width:11%;max-width:84px}
+
+.admin-section{margin-top:40px}
+.contact-form label.check span{flex:1}

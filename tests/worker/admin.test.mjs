@@ -105,4 +105,47 @@ globalThis.fetch = async () => new Response("nope", { status: 500 });
 res = await call("/drafts", { auth: tk });
 assert.equal(res.status, 502);
 
+// --- Kontaktformular
+class FakeKV {
+  constructor() { this.m = new Map(); }
+  async get(k) { return this.m.has(k) ? this.m.get(k) : null; }
+  async put(k, v) { this.m.set(k, v); }
+  async delete(k) { this.m.delete(k); }
+  async list({ prefix }) { return { keys: [...this.m.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) }; }
+}
+const kvEnv = { ...env, MESSAGES: new FakeKV() };
+const send = (body, origin = "https://dealpuls.de", ip = "1.2.3.4") => worker.fetch(new Request("https://admin.example/contact", {
+  method: "POST", body: JSON.stringify(body), headers: { "Content-Type": "application/json", Origin: origin, "CF-Connecting-IP": ip } }), kvEnv);
+const good = { name: "Max", email: "max@example.de", subject: "Frage", message: "Hallo <b>DealPuls</b>", privacy: true, website: "" };
+
+res = await worker.fetch(new Request("https://admin.example/contact", { method: "POST", body: JSON.stringify(good),
+  headers: { Origin: "https://dealpuls.de" } }), env);
+assert.equal(res.status, 503, "ohne KV-Bindung freundlicher Hinweis statt Absturz");
+assert.equal((await send(good, "https://evil.example")).status, 403, "nur von dealpuls.de");
+for (const bad of [{ ...good, email: "kein-at" }, { ...good, name: "" }, { ...good, message: " " }, { ...good, privacy: false }]) {
+  assert.equal((await send(bad)).status, 400, JSON.stringify(bad));
+}
+assert.equal((await send({ ...good, website: "http://spam" })).status, 200);
+assert.equal([...kvEnv.MESSAGES.m.keys()].filter((k) => k.startsWith("msg:")).length, 0, "Bot-Nachricht wird nicht gespeichert");
+assert.equal((await send(good)).status, 200);
+const stored = [...kvEnv.MESSAGES.m.entries()].filter(([k]) => k.startsWith("msg:"));
+assert.equal(stored.length, 1);
+assert.equal(JSON.parse(stored[0][1]).message, "Hallo <b>DealPuls</b>");
+assert.ok(![...kvEnv.MESSAGES.m.keys()].some((k) => k.includes("1.2.3.4")), "IP-Adresse nie im Klartext gespeichert");
+for (let i = 0; i < 4; i++) await send(good);
+assert.equal((await send(good)).status, 429, "höchstens 5 Nachrichten pro Stunde und Absender");
+assert.equal((await send(good, undefined, "5.6.7.8")).status, 200, "andere Absender nicht betroffen");
+
+// Nachrichten nur mit Anmeldung lesen und löschen
+const callKV = (path, { method = "GET", body, auth } = {}) => worker.fetch(new Request("https://admin.example" + path, {
+  method, body: body ? JSON.stringify(body) : undefined,
+  headers: { ...(auth ? { Authorization: "Bearer " + auth } : {}), "Content-Type": "application/json" } }), kvEnv);
+assert.equal((await callKV("/messages")).status, 401);
+const listing = await (await callKV("/messages", { auth: tk })).json();
+assert.equal(listing.messages.length, 6);
+assert.equal(listing.messages[0].email, "max@example.de");
+assert.equal((await callKV("/messages/delete", { method: "POST", auth: tk, body: { key: "rl:../x" } })).status, 400);
+assert.equal((await callKV("/messages/delete", { method: "POST", auth: tk, body: { key: listing.messages[0].key } })).status, 200);
+assert.equal((await (await callKV("/messages", { auth: tk })).json()).messages.length, 5);
+
 console.log("Admin-Worker: alle Prüfungen bestanden");

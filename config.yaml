@@ -78,11 +78,11 @@ guides:
 admin:
   api_url: "https://dealpuls-admin.c-binder2703.workers.dev"
 
-# Kontaktformular im Impressum (zweiter Kontaktweg neben der E-Mail). Dienst: Web3Forms (web3forms.com).
-# access_key: den kostenlosen Zugangsschlüssel bekommst du per E-Mail (er ist öffentlich gedacht und kein Geheimnis).
-# Leer lassen = kein Formular, nur die E-Mail-Adresse. Siehe README "Kontaktformular".
+# Kontaktformular im Impressum (zweiter Kontaktweg neben der E-Mail). Nachrichten gehen an den eigenen Admin-Worker
+# (kein fremder Dienst) und erscheinen auf der Admin-Seite unter "Nachrichten". Braucht admin.api_url und im Worker
+# die KV-Bindung MESSAGES (siehe worker/admin.js).
 contact_form:
-  access_key: ""
+  enabled: true
 
 pipeline:
   articles_per_run: 3      # Themen pro Lauf (täglich)

@@ -92,21 +92,24 @@ def test_admin_js_never_uses_html_injection():
         assert bad not in js, bad
 
 
-def test_contact_form_only_appears_with_an_access_key(cfg, store, tmp_path):
-    cfg.contact_form_key = ""
+def test_contact_form_goes_to_own_worker_not_a_third_party(cfg, store, tmp_path):
+    cfg.contact_form = False
     out = pipeline.build(cfg, store, tmp_path / "off")
     page = (out / "impressum" / "index.html").read_text(encoding="utf-8")
     assert "contact-form" not in page and "Zweiter Kontaktweg" not in page
-    assert "Web3Forms" not in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+    assert "Cloudflare" not in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
 
-    cfg.contact_form_key = "abc-123"
+    cfg.contact_form, cfg.admin_api_url = True, "https://dealpuls-admin.example.workers.dev"
     out = pipeline.build(cfg, store, tmp_path / "on")
     page = (out / "impressum" / "index.html").read_text(encoding="utf-8")
-    assert 'action="https://api.web3forms.com/submit"' in page and 'name="access_key" value="abc-123"' in page
+    assert 'action="https://dealpuls-admin.example.workers.dev/contact"' in page and "web3forms" not in page.lower()
     assert page.count("required") >= 4  # Name, E-Mail, Nachricht, Einwilligung
-    assert 'name="botcheck"' in page and "Zweiter Kontaktweg: Kontaktformular" in page
+    assert 'name="website"' in page and "Zweiter Kontaktweg: Kontaktformular" in page
     assert (out / "static" / "contact.js").exists()
-    assert "Web3Forms" in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+    privacy = (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+    assert "Cloudflare" in privacy and "180 Tage" in privacy and "Web3Forms" not in privacy
+    admin = (out / "admin" / "index.html").read_text(encoding="utf-8")
+    assert 'id="messages"' in admin
 
 
 def test_contact_js_never_uses_html_injection():

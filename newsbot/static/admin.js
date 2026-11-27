@@ -131,8 +131,52 @@
     }).catch(function () { say("app-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
   }
 
+  function message(m) {
+    var c = el("article", "admin-card");
+    var meta = el("div", "admin-meta");
+    var when = new Date(m.at);
+    meta.appendChild(el("span", null, isNaN(when) ? "" : when.toLocaleString("de-DE")));
+    c.appendChild(meta);
+    c.appendChild(el("h2", null, m.subject || "(ohne Betreff)"));
+    var from = el("p", "admin-note");
+    from.appendChild(document.createTextNode("Von " + m.name + " – "));
+    if (/^[^\s@<>]+@[^\s@<>]+$/.test(m.email || "")) {
+      var a = el("a", null, m.email); a.href = "mailto:" + encodeURIComponent(m.email).replace("%40", "@") +
+        "?subject=" + encodeURIComponent("Re: " + (m.subject || "Deine Nachricht an DealPuls"));
+      from.appendChild(a);
+    } else from.appendChild(document.createTextNode(m.email || ""));
+    c.appendChild(from);
+    paragraphs(c, m.message);
+    var row = el("div", "admin-actions");
+    var del = el("button", "admin-btn no", "Löschen"); del.type = "button";
+    del.addEventListener("click", function () {
+      if (!window.confirm("Nachricht von " + m.name + " endgültig löschen?")) return;
+      del.disabled = true;
+      api("/messages/delete", "POST", { key: m.key }).then(function (r) {
+        if (r.status === 401) return logout("Sitzung abgelaufen. Bitte neu anmelden.");
+        if (r.status !== 200) { del.disabled = false; return say("msg-msg", "Löschen hat nicht geklappt.", true); }
+        loadMessages();
+      }).catch(function () { del.disabled = false; say("msg-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
+    });
+    row.appendChild(del);
+    c.appendChild(row);
+    return c;
+  }
+
+  function loadMessages() {
+    api("/messages").then(function (r) {
+      if (r.status === 401) return;
+      var box = $("messages"); box.textContent = "";
+      if (r.status !== 200) return say("msg-msg", "Nachrichten konnten nicht geladen werden.", true);
+      if (!r.data.ready) return say("msg-msg", "Das Kontaktformular ist noch nicht eingerichtet (Speicher MESSAGES fehlt im Worker).", true);
+      var list = r.data.messages || [];
+      say("msg-msg", list.length ? list.length + (list.length === 1 ? " Nachricht" : " Nachrichten") : "Keine Nachrichten.");
+      list.forEach(function (m) { box.appendChild(message(m)); });
+    }).catch(function () { say("msg-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
+  }
+
   function start() {
-    show("login", false); show("app", true); load();
+    show("login", false); show("app", true); load(); loadMessages();
   }
 
   $("login-form").addEventListener("submit", function (ev) {
@@ -144,7 +188,7 @@
       else say("login-msg", r.status === 401 ? "Passwort falsch." : (r.data.error || "Anmeldung nicht möglich."), true);
     }).catch(function () { say("login-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
   });
-  $("reload").addEventListener("click", load);
+  $("reload").addEventListener("click", function () { load(); loadMessages(); });
   $("logout").addEventListener("click", function () { logout("Abgemeldet."); });
 
   if (token) start(); else show("login", true);

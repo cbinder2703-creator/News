@@ -8,3 +8,9 @@ compatibility_date = "2026-01-01"
 GITHUB_REPO = "cbinder2703-creator/News"
 GITHUB_BRANCH = "claude/affectionate-ramanujan-d0vjl6"
 ALLOWED_ORIGIN = "https://dealpuls.de"
+
+# Speicher für Nachrichten aus dem Kontaktformular (Cloudflare: Storage & Databases -> KV -> "dealpuls-nachrichten").
+# Die id steht nach dem Anlegen im Cloudflare-Dashboard.
+# [[kv_namespaces]]
+# binding = "MESSAGES"
+# id = "<id aus Cloudflare>"

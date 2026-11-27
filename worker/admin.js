@@ -11,6 +11,8 @@
 //   GITHUB_REPO      z. B. cbinder2703-creator/News
 //   GITHUB_BRANCH    Standard-Branch des Repos
 //   ALLOWED_ORIGIN   https://dealpuls.de (nur diese Seite darf den Worker im Browser aufrufen)
+// Bindung (Settings -> Bindings -> KV namespace):
+//   MESSAGES         KV-Speicher für Nachrichten aus dem Kontaktformular (ohne Bindung ist das Formular aus)
 
 const ID_RE = /^[a-z0-9][a-z0-9-]{2,60}$/;
 const TOKEN_TTL_SECONDS = 12 * 60 * 60;
@@ -109,6 +111,60 @@ async function decide(env, action, id) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// --- Kontaktformular (Impressum): Nachrichten landen im Cloudflare-KV-Speicher MESSAGES und erscheinen auf der Admin-Seite.
+// Kein fremder Dienst. Gespeichert wird nur, was im Formular steht, plus Zeitpunkt; nach 180 Tagen löscht Cloudflare
+// automatisch. Gegen Spam: verstecktes Feld, Herkunftsprüfung, höchstens 5 Nachrichten pro Stunde und Absender
+// (dafür nur ein Hash der IP-Adresse, 1 Stunde gespeichert).
+const MSG_TTL = 180 * 24 * 3600;
+const MSG_KEY_RE = /^msg:\d{13}:[a-z0-9]{8}$/;
+const EMAIL_RE = /^[^\s@<>]{1,64}@[^\s@<>]{1,190}\.[a-z]{2,24}$/i;
+
+function clip(v, max) {
+  return typeof v === "string" ? v.replace(/\r\n?/g, "\n").trim().slice(0, max) : "";
+}
+
+export function contactProblem(b) {
+  if (!b || typeof b !== "object") return "Ungültige Anfrage";
+  if (!clip(b.name, 120)) return "Bitte gib deinen Namen an.";
+  if (!EMAIL_RE.test(clip(b.email, 200))) return "Bitte gib eine gültige E-Mail-Adresse an.";
+  if (!clip(b.message, 5000)) return "Bitte schreib eine Nachricht.";
+  if (b.privacy !== true) return "Bitte bestätige den Hinweis zum Datenschutz.";
+  return "";
+}
+
+async function receiveContact(request, env, json) {
+  if (!env.MESSAGES) return json({ error: "Das Kontaktformular ist gerade nicht erreichbar. Bitte schreib uns per E-Mail." }, 503);
+  if ((request.headers.get("Origin") || "") !== env.ALLOWED_ORIGIN) return json({ error: "Nicht erlaubt" }, 403);
+  let b = {};
+  try { b = await request.json(); } catch { /* leer */ }
+  if (clip(b && b.website, 200)) return json({ ok: true }); // verstecktes Feld ausgefüllt: Bot, still verwerfen
+  const problem = contactProblem(b);
+  if (problem) return json({ error: problem }, 400);
+  const ip = request.headers.get("CF-Connecting-IP") || "unbekannt";
+  const rlKey = "rl:" + (await hmacHex(env.SESSION_SECRET || "dealpuls", ip)).slice(0, 32);
+  const count = parseInt((await env.MESSAGES.get(rlKey)) || "0", 10);
+  if (count >= 5) return json({ error: "Zu viele Nachrichten. Bitte versuch es später noch einmal oder schreib uns per E-Mail." }, 429);
+  await env.MESSAGES.put(rlKey, String(count + 1), { expirationTtl: 3600 });
+  const now = Date.now();
+  const rand = Array.from(crypto.getRandomValues(new Uint8Array(8)), (x) => "abcdefghijklmnopqrstuvwxyz0123456789"[x % 36]).join("");
+  const msg = { name: clip(b.name, 120), email: clip(b.email, 200), subject: clip(b.subject, 150),
+    message: clip(b.message, 5000), at: new Date(now).toISOString() };
+  await env.MESSAGES.put(`msg:${now}:${rand}`, JSON.stringify(msg), { expirationTtl: MSG_TTL });
+  return json({ ok: true });
+}
+
+async function listMessages(env) {
+  if (!env.MESSAGES) return [];
+  const listed = await env.MESSAGES.list({ prefix: "msg:", limit: 200 });
+  const out = [];
+  for (const k of listed.keys) {
+    const raw = await env.MESSAGES.get(k.name);
+    if (!raw) continue;
+    try { out.push({ key: k.name, ...JSON.parse(raw) }); } catch { /* kaputter Eintrag */ }
+  }
+  return out.sort((a, b) => (a.key < b.key ? 1 : -1)); // neueste zuerst
+}
+
 export default {
   async fetch(request, env) {
     const cors = {
@@ -137,6 +193,8 @@ export default {
         return json({ token: await makeToken(env.SESSION_SECRET) });
       }
 
+      if (path === "/contact" && request.method === "POST") return await receiveContact(request, env, json);
+
       const auth = request.headers.get("Authorization") || "";
       if (!(await tokenOk(env.SESSION_SECRET, auth.startsWith("Bearer ") ? auth.slice(7) : ""))) {
         return json({ error: "Nicht angemeldet" }, 401);
@@ -157,6 +215,17 @@ export default {
         const drafts = await readDrafts(env);
         if (!drafts.some((d) => d.id === id)) return json({ error: "Diesen Entwurf gibt es nicht (mehr)" }, 404);
         await decide(env, action, id);
+        return json({ ok: true });
+      }
+      if (path === "/messages" && request.method === "GET") {
+        return json({ messages: await listMessages(env), ready: Boolean(env.MESSAGES) });
+      }
+
+      if (path === "/messages/delete" && request.method === "POST") {
+        let body = {};
+        try { body = await request.json(); } catch { /* leer */ }
+        if (!env.MESSAGES || typeof body.key !== "string" || !MSG_KEY_RE.test(body.key)) return json({ error: "Ungültige Anfrage" }, 400);
+        await env.MESSAGES.delete(body.key);
         return json({ ok: true });
       }
       return json({ error: "Nicht gefunden" }, 404);
