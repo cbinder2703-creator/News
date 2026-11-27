@@ -15,6 +15,20 @@
     return n;
   }
   function show(id, on) { $(id).hidden = !on; }
+  var TABS = ["drafts", "live", "messages"];
+  var TAB_KEY = "dp_admin_tab";
+  function tab(name) {
+    TABS.forEach(function (t) {
+      var on = t === name;
+      $("panel-" + t).hidden = !on;
+      $("t-" + t).setAttribute("aria-selected", on ? "true" : "false");
+      $("t-" + t).className = on ? "on" : "";
+    });
+    try { sessionStorage.setItem(TAB_KEY, name); } catch (e) { /* ohne Speicher */ }
+  }
+  function count(name, n) {
+    var c = $("c-" + name); c.textContent = String(n); c.className = "count" + (n ? " has" : "");
+  }
   function say(id, text, bad) { var n = $(id); n.textContent = text || ""; n.className = "admin-msg" + (bad ? " bad" : ""); }
 
   function saveToken(t) {
@@ -34,7 +48,7 @@
 
   function logout(msg) {
     saveToken("");
-    show("app", false); show("login", true);
+    show("app", false); show("login", true); show("tabs", false); show("tools", false);
     say("login-msg", msg || "");
     $("pw").value = "";
   }
@@ -127,7 +141,13 @@
       var list = $("list"); list.textContent = "";
       var drafts = r.data.drafts || [], decided = r.data.pending || {};
       renderLive(r.data.live || [], decided);
-      if (!drafts.length) { say("app-msg", "Keine offenen Entwürfe."); return; }
+      count("drafts", drafts.length);
+      if (firstLoad) {
+        firstLoad = false;
+        var saved = ""; try { saved = sessionStorage.getItem(TAB_KEY) || ""; } catch (e) { saved = ""; }
+        tab(drafts.length ? "drafts" : (TABS.indexOf(saved) >= 0 ? saved : "live"));
+      }
+      if (!drafts.length) { say("app-msg", "Keine offenen Entwürfe. Neue Beiträge gehen automatisch online; nur Themen mit hohem Risiko landen hier."); return; }
       say("app-msg", drafts.length + (drafts.length === 1 ? " Entwurf" : " Entwürfe") + " warten auf dich.");
       drafts.forEach(function (d) { list.appendChild(card(d, decided[d.id])); });
     }).catch(function () { say("app-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
@@ -136,23 +156,22 @@
   function renderLive(items, decided) {
     var box = $("live"); box.textContent = "";
     var site = document.body.getAttribute("data-site") || "";
+    count("live", items.length);
     items.forEach(function (it) {
-      var row = el("article", "admin-card admin-live");
-      var meta = el("div", "admin-meta");
-      meta.appendChild(el("span", "tagline", it.rubrik));
-      var when = new Date(it.created_at);
-      meta.appendChild(el("span", null, isNaN(when) ? "" : when.toLocaleDateString("de-DE")));
-      row.appendChild(meta);
-      var h = el("h2");
+      var row = el("div", "admin-row");
+      row.setAttribute("data-text", (it.headline + " " + it.rubrik).toLowerCase());
+      var main = el("div", "admin-row-main");
       var href = safeUrl(site + "/a/" + encodeURIComponent(it.slug) + "/");
-      if (href) { var a = el("a", null, it.headline); a.href = href; a.target = "_blank"; a.rel = "noopener"; h.appendChild(a); }
-      else h.textContent = it.headline;
-      row.appendChild(h);
-      var act = el("div", "admin-actions");
+      if (href) { var a = el("a", "admin-row-title", it.headline); a.href = href; a.target = "_blank"; a.rel = "noopener"; main.appendChild(a); }
+      else main.appendChild(el("span", "admin-row-title", it.headline));
+      var when = new Date(it.created_at);
+      main.appendChild(el("span", "admin-row-meta", it.rubrik + (isNaN(when) ? "" : " · " + when.toLocaleDateString("de-DE"))));
+      row.appendChild(main);
+      var act = el("div", "admin-row-act");
       if (decided[it.id] === "unpublish") {
-        act.appendChild(el("p", "admin-msg", "Wird offline genommen. Die Seite wird in ca. 4 Minuten aktualisiert."));
+        act.appendChild(el("span", "admin-msg", "wird offline genommen …"));
       } else {
-        var off = el("button", "admin-btn no", "Offline nehmen"); off.type = "button";
+        var off = el("button", "admin-btn small no", "Offline nehmen"); off.type = "button";
         off.addEventListener("click", function () { decide(it, "unpublish", [off], act); });
         act.appendChild(off);
       }
@@ -160,6 +179,14 @@
       box.appendChild(row);
     });
     if (!items.length) box.appendChild(el("p", "admin-note", "Noch keine veröffentlichten Beiträge."));
+    filterLive();
+  }
+
+  function filterLive() {
+    var q = ($("live-search").value || "").toLowerCase().trim();
+    Array.prototype.forEach.call($("live").querySelectorAll(".admin-row"), function (r) {
+      r.hidden = q && r.getAttribute("data-text").indexOf(q) < 0;
+    });
   }
 
   function message(m) {
@@ -201,13 +228,15 @@
       if (r.status !== 200) return say("msg-msg", "Nachrichten konnten nicht geladen werden.", true);
       if (!r.data.ready) return say("msg-msg", "Das Kontaktformular ist noch nicht eingerichtet (Speicher MESSAGES fehlt im Worker).", true);
       var list = r.data.messages || [];
-      say("msg-msg", list.length ? list.length + (list.length === 1 ? " Nachricht" : " Nachrichten") : "Keine Nachrichten.");
+      count("messages", list.length);
+      say("msg-msg", list.length ? list.length + (list.length === 1 ? " Nachricht" : " Nachrichten") + ", neueste zuerst." : "Keine Nachrichten.");
       list.forEach(function (m) { box.appendChild(message(m)); });
     }).catch(function () { say("msg-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
   }
 
+  var firstLoad = true;
   function start() {
-    show("login", false); show("app", true); load(); loadMessages();
+    show("login", false); show("app", true); show("tabs", true); show("tools", true); load(); loadMessages();
   }
 
   $("login-form").addEventListener("submit", function (ev) {
@@ -220,6 +249,8 @@
     }).catch(function () { say("login-msg", "Keine Verbindung zum Freigabe-Dienst.", true); });
   });
   $("reload").addEventListener("click", function () { load(); loadMessages(); });
+  TABS.forEach(function (t) { $("t-" + t).addEventListener("click", function () { tab(t); }); });
+  $("live-search").addEventListener("input", filterLive);
   $("logout").addEventListener("click", function () { logout("Abgemeldet."); });
 
   if (token) start(); else show("login", true);

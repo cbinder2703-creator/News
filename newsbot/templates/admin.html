@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Freigabe · {{ cfg.brand_name }}</title>
+<title>Admin · {{ cfg.brand_name }}</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src {{ api_url }}; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
@@ -13,9 +13,20 @@
 <meta name="theme-color" content="{{ cfg.accent }}">
 <link rel="stylesheet" href="{{ base }}/static/style.css?v={{ asset_v }}">
 </head>
-<body data-api="{{ api_url }}" data-site="{{ cfg.site_url }}">
-<header><span class="brand"><span class="bar"></span>{{ cfg.brand_name }} · Freigabe</span></header>
-<main>
+<body class="admin" data-api="{{ api_url }}" data-site="{{ cfg.site_url }}">
+<header class="admin-top"><div class="admin-top-in">
+  <span class="brand"><img class="logo" src="{{ base }}/static/logo.svg" width="30" height="30" alt="">{{ cfg.brand_name }}<span class="admin-badge">Admin</span></span>
+  <nav class="admin-tabs" id="tabs" role="tablist" aria-label="Bereiche" hidden>
+    <button type="button" role="tab" id="t-drafts" data-tab="drafts" aria-controls="panel-drafts">Entwürfe <span class="count" id="c-drafts">0</span></button>
+    <button type="button" role="tab" id="t-live" data-tab="live" aria-controls="panel-live">Veröffentlicht <span class="count" id="c-live">0</span></button>
+    <button type="button" role="tab" id="t-messages" data-tab="messages" aria-controls="panel-messages">Nachrichten <span class="count" id="c-messages">0</span></button>
+  </nav>
+  <span class="admin-tools" id="tools" hidden>
+    <button id="reload" class="admin-btn small" type="button">Aktualisieren</button>
+    <button id="logout" class="admin-btn small ghost" type="button">Abmelden</button>
+  </span>
+</div></header>
+<main class="admin-main">
   <section id="login" class="admin-box" hidden>
     <h1>Anmelden</h1>
     <form id="login-form" autocomplete="on">
@@ -26,21 +37,23 @@
     </form>
   </section>
   <section id="app" hidden>
-    <div class="admin-bar">
-      <h1>Entwürfe</h1>
-      <span><button id="reload" class="admin-btn" type="button">Aktualisieren</button>
-      <button id="logout" class="admin-btn" type="button">Abmelden</button></span>
+    <div class="admin-panel" id="panel-drafts" role="tabpanel" aria-labelledby="t-drafts">
+      <p id="app-msg" class="admin-msg" role="status"></p>
+      <div id="list"></div>
     </div>
-    <p id="app-msg" class="admin-msg" role="status"></p>
-    <div id="list"></div>
-    <div class="admin-bar admin-section"><h1>Veröffentlicht</h1></div>
-    <p class="admin-note">Neue Beiträge gehen automatisch online. Hier nimmst du einen Beitrag wieder von der Seite.</p>
-    <div id="live"></div>
-    <div class="admin-bar admin-section"><h1>Nachrichten</h1></div>
-    <p id="msg-msg" class="admin-msg" role="status"></p>
-    <div id="messages"></div>
+    <div class="admin-panel" id="panel-live" role="tabpanel" aria-labelledby="t-live" hidden>
+      <div class="admin-panel-head">
+        <p class="admin-note">Neue Beiträge gehen automatisch online. Hier nimmst du einen Beitrag wieder von der Seite.</p>
+        <input id="live-search" class="admin-search" type="search" placeholder="Beiträge durchsuchen" aria-label="Beiträge durchsuchen">
+      </div>
+      <div id="live" class="admin-rows"></div>
+    </div>
+    <div class="admin-panel" id="panel-messages" role="tabpanel" aria-labelledby="t-messages" hidden>
+      <p id="msg-msg" class="admin-msg" role="status"></p>
+      <div id="messages"></div>
+    </div>
   </section>
-  <noscript><p>Für die Freigabe wird JavaScript gebraucht.</p></noscript>
+  <noscript><p>Für die Admin-Seite wird JavaScript gebraucht.</p></noscript>
 </main>
 <script src="{{ base }}/static/admin.js?v={{ asset_v }}"></script>
 </body>

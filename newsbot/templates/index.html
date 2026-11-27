@@ -3,7 +3,7 @@
 <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "WebSite", "name": cfg.brand_name,
   "url": cfg.site_url ~ "/", "inLanguage": "de-DE", "description": cfg.tagline} | tojson }}</script>{% endblock %}
 {% block main %}
-<section class="hero">
+<section class="home-hero">
   <div class="hero-text">
     <h1>Die Deals und Neuheiten, die sich lohnen.</h1>
     <p>Jeden Tag die spannendsten Technik-Angebote, kurz erklärt: was sie können und für wen sie ein Volltreffer sind.</p>
@@ -11,7 +11,7 @@
   </div>
   {% if records %}{% set r = records[0] %}{% set rub = r.article.rubrik or r.article.category %}
   <a class="hero-story" href="{{ base }}/a/{{ r.slug }}/">
-    {{ image_for(r, eager=True) }}
+    <div class="card-img">{{ image_for(r, eager=True) }}</div>
     <div class="hero-story-text">
       <div class="meta"><span class="pricetag" data-r="{{ rub | tagslug }}">{{ rub }}</span><time datetime="{{ r.created_at }}">{{ r.created_at | de_day }}</time></div>
       <h2>{{ r.article.headline }}</h2>
@@ -22,12 +22,18 @@
   <svg class="pulse" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M-10 55H200l26-38 36 66 34-92 30 76 22-12H1170"/><circle class="dot" cx="1176" cy="55" r="7"/></svg>
 </section>
 {% if records | length > 1 %}
+{% set rubs = records[1:] | map(attribute="article.rubrik") | select | unique | list %}
 <div class="section-head"><h2>Neu auf {{ cfg.brand_name }}</h2><a href="{{ base }}/thema/">Alle Themen</a></div>
-<div class="grid">
+{% if rubs | length > 1 %}<div class="filters" id="filters" role="group" aria-label="Nach Rubrik filtern" hidden>
+  <button type="button" data-f="" aria-pressed="true">Alle</button>
+  {% for rb in rubs %}<button type="button" data-f="{{ rb | tagslug }}" aria-pressed="false"><span class="dot" data-r="{{ rb | tagslug }}"></span>{{ rb }}</button>{% endfor %}
+</div>{% endif %}
+<div class="grid" id="feed">
 {% for r in records[1:] %}
   {% include "_card.html" %}
 {% endfor %}
 </div>
+<div class="more-wrap"><button type="button" id="more" class="more-btn" hidden>Mehr Beiträge anzeigen</button></div>
 {% endif %}
 {% if guides %}
 <section class="guide-strip" aria-label="Kaufberater">

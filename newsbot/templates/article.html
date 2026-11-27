@@ -34,7 +34,7 @@
   <h2>Worum es geht</h2>
   {% for p in a.body %}<p>{{ p }}</p>{% endfor %}
   {% for s in a.sections %}<h2>{{ s.heading }}</h2><p>{{ s.text }}</p>{% endfor %}
-  {% if a.verdict %}<blockquote class="verdict"><span class="kicker"><svg viewBox="0 0 52 28" aria-hidden="true"><path d="M2 15h9l5-11 8 20 5-10h21" fill="none" stroke="#ff4d2e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unsere Einschätzung</span>{{ a.verdict | replace("Unsere Einschätzung:", "") | trim }}</blockquote>{% endif %}
+  {% if a.verdict %}<blockquote class="verdict"><span class="kicker"><svg viewBox="0 0 52 28" aria-hidden="true"><path pathLength="1" d="M2 15h9l5-11 8 20 5-10h21" fill="none" stroke="#ff4d2e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unsere Einschätzung</span>{{ a.verdict | replace("Unsere Einschätzung:", "") | trim }}</blockquote>{% endif %}
   {% if guide %}
   <aside class="guide-box"><span class="kicker pricetag" data-r="kaufberater">Kaufberater</span>
     <a href="{{ base }}/kaufberater/{{ guide.slug }}/"><strong>{{ guide.article.headline }}</strong></a>
