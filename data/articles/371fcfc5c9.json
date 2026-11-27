@@ -1,8 +1,8 @@
 {
   "id": "371fcfc5c9",
   "slug": "logitech-g02-hero-371fcf",
-  "created_at": "2026-11-27T15:16:06+00:00",
-  "status": "draft",
+  "created_at": "2026-11-27T19:31:28+00:00",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-begehrte-gaming-maus-von-logitech-am-black-friday-fuer-nur-26-98-euro-2611-215753.html",
@@ -125,5 +125,6 @@
     "page_url": "https://pixabay.com/photos/gaming-mouse-mouse-pad-desk-6159549/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "drafted_at": "2026-11-27T15:16:06+00:00"
 }

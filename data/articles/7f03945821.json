@@ -1,8 +1,8 @@
 {
   "id": "7f03945821",
   "slug": "anker-laptop-powerbank-a1695-7f0394",
-  "created_at": "2026-11-27T15:15:37+00:00",
-  "status": "draft",
+  "created_at": "2026-11-27T19:31:28+00:00",
+  "status": "live",
   "source": {
     "name": "Golem.de",
     "url": "https://www.golem.de/news/anzeige-165-w-powerbank-von-anker-mit-display-und-zwei-kabeln-fuer-unter-75-euro-2611-215758.html",
@@ -125,5 +125,6 @@
     "page_url": "https://pixabay.com/photos/cafe-apple-food-sweet-menu-caffee-2002078/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "drafted_at": "2026-11-27T15:15:37+00:00"
 }

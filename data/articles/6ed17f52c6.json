@@ -1,8 +1,8 @@
 {
   "id": "6ed17f52c6",
   "slug": "balkonkraftwerk-mit-speicher-6ed17f",
-  "created_at": "2026-11-26T15:28:44+00:00",
-  "status": "draft",
+  "created_at": "2026-11-27T19:31:28+00:00",
+  "status": "live",
   "source": {
     "name": "t3n",
     "url": "https://t3n.de/news/solakon-balkonkraftwerk-set-speicher-1775185/?utm_source=rss&utm_medium=newsFeed&utm_campaign=newsFeed",
@@ -131,5 +131,6 @@
     "page_url": "https://pixabay.com/photos/ai-generated-balcony-power-station-8141276/",
     "source": "Pixabay",
     "license": "Pixabay-Lizenz"
-  }
+  },
+  "drafted_at": "2026-11-26T15:28:44+00:00"
 }
