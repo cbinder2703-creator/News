@@ -1,6 +1,30 @@
 {
- "updated_at": "2026-11-28T06:29:51+00:00",
+ "updated_at": "2026-11-28T06:44:49+00:00",
  "live": [
+  {
+   "id": "97d1faec57",
+   "slug": "balkonkraftwerk-bgh-urteil-97d1fa",
+   "created_at": "2026-11-28T06:43:43+00:00",
+   "rubrik": "Kurz erklärt",
+   "headline": "Balkonkraftwerk-Urteil: Optik allein reicht Vermietern nicht als Verbotsgrund",
+   "teaser": "Das BGH-Urteil zum Balkonkraftwerk macht dir den Einstieg in eigenen Solarstrom leichter: Eine veränderte Optik allein ist kein Verbotsgrund."
+  },
+  {
+   "id": "f004b32d50",
+   "slug": "handytarif-telekom-netz-f004b3",
+   "created_at": "2026-11-28T06:42:59+00:00",
+   "rubrik": "Deal-Check",
+   "headline": "Handytarif im Telekom-Netz: 80 GB 5G für 12,99 Euro im Monat",
+   "teaser": "HIGH mobile bringt zum Black Friday 80 GB 5G ins Telekom-Netz, ohne Anschlussgebühr. So sieht der Alltag mit so viel Volumen aus."
+  },
+  {
+   "id": "b02bd32230",
+   "slug": "black-friday-pixel-11-pro-b02bd3",
+   "created_at": "2026-11-28T06:42:22+00:00",
+   "rubrik": "Deal-Check",
+   "headline": "Pixel 11 Pro ab 649 Euro und Surface Pro für 799 Euro: Deals zum Black Friday",
+   "teaser": "Ein Top-Smartphone und ein flexibles Copilot+-Tablet zum Black-Friday-Preis: Hier siehst du, welcher Deal zu deinem Alltag passt."
+  },
   {
    "id": "9fc6c1f99f",
    "slug": "ugreen-nexode-100w-9fc6c1",
