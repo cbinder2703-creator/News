@@ -25,6 +25,43 @@
   }
   reveal(document.querySelectorAll(".section-head, .guide-strip, .post > h2, .post > p:not(.lead-text), .verdict, .shop, .faq, .guide-box, .related li, .topics li, .page-head"));
   reveal(document.querySelectorAll(".keypoints li"));
+
+  // --- Kopfzeile bekommt beim Scrollen einen Schatten
+  var top = document.querySelector(".top");
+  var onScroll = function () { if (top) top.classList.toggle("scrolled", window.scrollY > 8); };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // --- Kaufleiste: sichtbar, wenn der Kaufknopf oben aus dem Bild ist und der Kaufkasten noch nicht zu sehen ist
+  var buybar = document.getElementById("buybar"), quick = document.getElementById("quick-buy"), shop = document.querySelector(".shop");
+  if (buybar && quick && "IntersectionObserver" in window) {
+    var quickGone = false, shopSeen = false;
+    var sync = function () {
+      var on = quickGone && !shopSeen;
+      buybar.classList.toggle("show", on);
+      buybar.setAttribute("aria-hidden", on ? "false" : "true");
+      var link = buybar.querySelector("a"); if (link) link.tabIndex = on ? 0 : -1;
+    };
+    new IntersectionObserver(function (es) { es.forEach(function (e) { quickGone = !e.isIntersecting && e.boundingClientRect.top < 0; }); sync(); }).observe(quick);
+    if (shop) new IntersectionObserver(function (es) { es.forEach(function (e) { shopSeen = e.isIntersecting || e.boundingClientRect.top < 0; }); sync(); }).observe(shop);
+  }
+
+  // --- Titelbild im Beitrag: leichte Tiefenwirkung beim Scrollen
+  var hero = document.querySelector(".post .photo .media");
+  if (hero && !reduce) {
+    var ticking2 = false;
+    var drift = function () {
+      ticking2 = false;
+      var r = hero.parentNode.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      var room = r.height * 0.035; // Bild ist um 8 % vergrößert: so weit darf es wandern, ohne Ränder zu zeigen
+      var prog = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      var y = Math.max(-room, Math.min(room, prog * room * 2));
+      hero.style.setProperty("--py", y.toFixed(1) + "px");
+    };
+    window.addEventListener("scroll", function () { if (!ticking2) { ticking2 = true; window.requestAnimationFrame(drift); } }, { passive: true });
+    drift();
+  }
   reveal(document.querySelectorAll(".grid .card"));
 
   // --- Lesefortschritt auf Beitragsseiten

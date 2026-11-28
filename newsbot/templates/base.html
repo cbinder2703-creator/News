@@ -47,7 +47,7 @@
     <p>{{ cfg.tagline }}</p>
     <p>{% if cfg.review %}Mit KI entworfen, vor der Veröffentlichung von uns geprüft.{% else %}Mit KI erstellt und automatisch veröffentlicht. Wir sehen die Beiträge regelmäßig durch und korrigieren oder entfernen Fehlerhaftes.{% endif %}
        Fehler gefunden? Schreib uns: <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a></p>
-    {% if affiliate_on %}<p>Einige Links sind Affiliate-Links und als „Anzeige“ gekennzeichnet. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
+    {% if affiliate_on %}<p>Mit * markierte Links sind Affiliate-Links (Werbung): Kaufst du darüber, erhalten wir eventuell eine Provision, der Preis bleibt für dich gleich. {% if amazon_on and cfg.affiliate_amazon_notice %}{{ cfg.affiliate_amazon_notice }}{% endif %}</p>{% endif %}
   </div>
   <nav class="foot-links" aria-label="Weitere Seiten">
     <a href="{{ base }}/ueber-uns/">Über uns</a>

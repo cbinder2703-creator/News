@@ -79,7 +79,7 @@ def test_article_page_has_labelled_box_only_when_active(cfg, tmp_path):
     (rec,) = pipeline.generate(cfg, store, StubWriter(), items=items(), now=NOW)
     out = pipeline.build(cfg, store, tmp_path / "pub")
     html = (out / "a" / rec["slug"] / "index.html").read_text(encoding="utf-8")
-    assert "Hier bekommst du es" in html and ">Anzeige<" in html
+    assert "Hier bekommst du es" in html and "Affiliate-Link (Werbung)" in html and '<sup class="aff">*</sup>' in html
     assert 'rel="sponsored nofollow noopener"' in html and "tag=meinblog-21" in html
     assert "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen." in html      # Pflichthinweis
     assert "Affiliate-Links" in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")

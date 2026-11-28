@@ -49,7 +49,7 @@ editorial:
 affiliate:
   enabled: true              # erst auf true, wenn mindestens ein Programm unten aktiv ist
   max_links_per_article: 4
-  disclosure: "Anzeige: Wenn du über diese Links kaufst, erhalten wir eventuell eine Provision. Für dich ändert sich der Preis nicht. Unsere Einordnung im Beitrag ist davon unabhängig."
+  disclosure: "Affiliate-Links (Werbung): Wenn du über diese Links kaufst, erhalten wir eventuell eine Provision. Für dich ändert sich der Preis nicht."
   amazon_notice: "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen."   # Wortlaut bitte in PartnerNet prüfen
   programs:
     - name: "Amazon"

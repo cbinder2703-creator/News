@@ -1,10 +1,11 @@
 {% if shop %}
-<aside class="shop" aria-label="Anzeige">
-  <div class="shop-head"><h3>Hier bekommst du es</h3><span class="ad">Anzeige</span></div>
-  <ul>{% for sidea in shop %}<li>
+<aside class="shop" aria-label="Produkte (Affiliate-Links)">
+  <div class="shop-head"><h3>Hier bekommst du es</h3></div>
+  <ul>{% for sidea in shop %}<li class="shop-item">
+    <span class="shop-num" aria-hidden="true">{{ loop.index }}</span>
     <div class="shop-text"><strong>{{ sidea.label }}</strong>{% if sidea.reason %}<span>{{ sidea.reason }}</span>{% endif %}</div>
-    {% for l in sidea.links %}<a class="buy" href="{{ l.url }}" rel="sponsored nofollow noopener" target="_blank">Bei {{ l.program }} ansehen</a>{% endfor %}
+    {% set outer = loop %}{% for l in sidea.links %}<a class="buy{% if not outer.first %} buy-alt{% endif %}" href="{{ l.url }}" rel="sponsored nofollow noopener" target="_blank">Bei {{ l.program }} ansehen<sup class="aff">*</sup></a>{% endfor %}
   </li>{% endfor %}</ul>
-  <p class="shop-note">{{ cfg.affiliate_disclosure }}{% if amazon_on and cfg.affiliate_amazon_notice %} {{ cfg.affiliate_amazon_notice }}{% endif %}</p>
+  <p class="shop-note">* Affiliate-Link (Werbung): Kaufst du darüber, erhalten wir eventuell eine kleine Provision. Für dich ändert sich der Preis nicht.{% if amazon_on and cfg.affiliate_amazon_notice %} {{ cfg.affiliate_amazon_notice }}{% endif %}</p>
 </aside>
 {% endif %}
