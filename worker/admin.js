@@ -174,7 +174,21 @@ async function listMessages(env) {
   return out.sort((a, b) => (a.key < b.key ? 1 : -1)); // neueste zuerst
 }
 
+// --- Zeitsteuerung: Cloudflare startet den GitHub-Lauf pünktlich (GitHubs eigener Zeitplan wird oft verschoben oder fällt aus).
+// Cloudflare: Settings -> Trigger events -> Cron, z. B. "17 5,11,17 * * *" (UTC). Startet einen normalen Lauf ohne Eingaben.
+export async function startScheduledRun(env) {
+  const res = await gh(env, "/actions/workflows/newsbot.yml/dispatches", {
+    method: "POST",
+    body: JSON.stringify({ ref: env.GITHUB_BRANCH, inputs: {} }),
+  });
+  if (!res.ok) throw new Error(`GitHub Dispatch ${res.status}`);
+}
+
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(startScheduledRun(env).catch((err) => console.error("Zeitgesteuerter Lauf fehlgeschlagen:", err.message)));
+  },
+
   async fetch(request, env) {
     const cors = {
       "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "",

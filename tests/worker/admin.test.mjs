@@ -162,4 +162,21 @@ assert.equal((await callKV("/messages/delete", { method: "POST", auth: tk, body:
 assert.equal((await callKV("/messages/delete", { method: "POST", auth: tk, body: { key: listing.messages[0].key } })).status, 200);
 assert.equal((await (await callKV("/messages", { auth: tk })).json()).messages.length, 5);
 
+// --- Zeitsteuerung: startet einen normalen Lauf (ohne Eingaben)
+{
+  const sent = [];
+  globalThis.fetch = async (url, init = {}) => { sent.push({ url: String(url), body: init.body, auth: init.headers.Authorization }); return new Response(null, { status: 204 }); };
+  const waits = [];
+  await worker.scheduled({ cron: "17 5 * * *" }, env, { waitUntil: (p) => waits.push(p) });
+  await Promise.all(waits);
+  assert.equal(sent.length, 1);
+  assert.ok(sent[0].url.endsWith("/repos/o/r/actions/workflows/newsbot.yml/dispatches"));
+  assert.deepEqual(JSON.parse(sent[0].body), { ref: "main", inputs: {} });
+  assert.equal(sent[0].auth, "Bearer t");
+  globalThis.fetch = async () => new Response("nope", { status: 401 });
+  const waits2 = [];
+  await worker.scheduled({ cron: "17 5 * * *" }, env, { waitUntil: (p) => waits2.push(p) });
+  await Promise.all(waits2); // Fehler wird protokolliert, nicht geworfen
+}
+
 console.log("Admin-Worker: alle Prüfungen bestanden");

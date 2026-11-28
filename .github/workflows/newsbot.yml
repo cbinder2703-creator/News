@@ -3,8 +3,8 @@ name: newsbot
 # Täglich Entwürfe erzeugen. Du liest sie (Zusammenfassung des Laufs) und gibst sie frei:
 # Actions > newsbot > Run workflow > Feld "approve" (IDs oder "alle"). Erst dann gehen Website und Social Media online.
 on:
-  schedule:
-    - cron: "17 5,11,17 * * *"   # dreimal täglich (UTC), damit Deals nicht durchrutschen
+  # Zeitplan: startet der Cloudflare-Worker "dealpuls-admin" (Cron 17 5,11,17 * * * UTC, dreimal täglich).
+  # GitHubs eigener Zeitplan ("schedule") wurde entfernt, weil er oft verschoben wird oder ausfällt; so gibt es keine Doppelläufe.
   workflow_dispatch:
     inputs:
       approve:

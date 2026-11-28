@@ -15,3 +15,7 @@ ALLOWED_ORIGIN = "https://dealpuls.de"
 [[kv_namespaces]]
 binding = "MESSAGES"
 id = "9f23213e035e45ddba3529d5e71b2d46"
+
+# Zeitgesteuerte Läufe (UTC): 6, 12, 18 Uhr deutscher Winterzeit
+[triggers]
+crons = ["17 5,11,17 * * *"]
