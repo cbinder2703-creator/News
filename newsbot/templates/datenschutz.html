@@ -2,8 +2,9 @@
 {% block main %}
 <article class="post">
   <h1>Datenschutzerklärung</h1>
-  <p class="lead-text">Kurz gesagt: Diese Website setzt keine Cookies, nutzt kein Tracking und bindet keine Inhalte von Dritten ein.
-     Unten steht, welche Daten trotzdem technisch anfallen.</p>
+  <p class="lead-text">Kurz gesagt: Diese Website setzt keine Cookies und erstellt keine Nutzerprofile.{% if cfg.analytics_token %} Für eine anonyme
+     Besucherzählung nutzen wir Cloudflare Web Analytics, ebenfalls ohne Cookies.{% else %} Sie bindet keine Inhalte von Dritten ein.{% endif %}
+     Unten steht, welche Daten technisch anfallen.</p>
 
   <h2>1. Verantwortlicher</h2>
   <p>Christopher Binder, c/o Online-Impressum 12598, Europaring 90, 53757 Sankt Augustin, Deutschland.<br>
@@ -15,15 +16,24 @@
      Datum und Uhrzeit, aufgerufene Seite und Browserangaben, um die Seite auszuliefern und missbräuchliche Zugriffe abzuwehren.
      Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO).
      Eine Verarbeitung in den USA ist dabei möglich; Näheres und die Rechtsgrundlage für die Übermittlung nennt GitHub in der eigenen Datenschutzerklärung.
-     Wir selbst erstellen keine Nutzerprofile und werten Zugriffe nicht aus.</p>
+     Wir selbst erstellen keine Nutzerprofile.</p>
   <p>Die Domain wird bei der STRATO GmbH verwaltet. Dort werden Anfragen zur Auflösung des Domainnamens technisch verarbeitet.</p>
 
-  <h2>3. Cookies, Tracking und Drittinhalte</h2>
-  <p>Wir setzen keine Cookies, keine Analyse- oder Werbedienste und keine Social-Media-Plugins ein. Schriften, Bilder und Videos liegen auf unserer eigenen Domain.
-     Links zu externen Seiten (Quellen, Shops, soziale Netzwerke) führen erst beim Anklicken zu dem jeweiligen Anbieter.</p>
+  <h2>3. Cookies, Besucherzählung und Drittinhalte</h2>
+  <p>Wir setzen keine Cookies, keine Werbedienste und keine Social-Media-Plugins ein. Schriften und Bilder liegen auf unserer eigenen Domain.
+     Links zu externen Seiten (Shops, soziale Netzwerke) führen erst beim Anklicken zu dem jeweiligen Anbieter.</p>
+  {% if cfg.analytics_token %}<p><strong>Besucherzählung (Cloudflare Web Analytics):</strong> Um zu sehen, wie viele Menschen unsere Seiten aufrufen, welche Beiträge
+     gelesen werden und über welche Wege Besucher kommen (zum Beispiel über eine Suchmaschine), nutzen wir Cloudflare Web Analytics der Cloudflare, Inc.,
+     101 Townsend St., San Francisco, CA 94107, USA. Beim Aufruf einer Seite lädt dein Browser dafür ein kleines Skript von Cloudflare und übermittelt
+     die aufgerufene Seite, die verweisende Seite, Browser- und Gerätetyp, Ladezeiten sowie technisch bedingt deine IP-Adresse an Cloudflare.
+     Es werden keine Cookies oder ähnliche Kennungen auf deinem Gerät gespeichert und keine Profile über einzelne Besucher gebildet; wir sehen nur
+     zusammengefasste Zahlen. Cloudflare verarbeitet die Daten in unserem Auftrag; eine Verarbeitung in den USA ist möglich, Cloudflare ist nach dem
+     EU-US Data Privacy Framework zertifiziert. Rechtsgrundlage ist unser berechtigtes Interesse an einer datensparsamen Reichweitenmessung, um das
+     Angebot zu verbessern (Art. 6 Abs. 1 lit. f DSGVO). Du kannst die Zählung verhindern, indem du Skripte von static.cloudflareinsights.com blockierst
+     (zum Beispiel mit einem Inhaltsblocker).</p>{% endif %}
 
   {% if affiliate_on %}<h2>4. Affiliate-Links</h2>
-  <p>Einige Links führen zu Partnershops (zum Beispiel Amazon oder OTTO über das Netzwerk Awin) und sind als „Anzeige“ gekennzeichnet.
+  <p>Einige Links führen zu Partnershops (zum Beispiel Amazon oder OTTO über das Netzwerk Awin) und sind mit einem Sternchen (*) als Affiliate-Link (Werbung) gekennzeichnet.
      Erst wenn du einen solchen Link anklickst, verarbeiten der Partner bzw. das Netzwerk Daten und setzen unter Umständen Cookies, damit ein Kauf uns zugeordnet werden kann.
      Darauf haben wir keinen Einfluss; es gelten die Datenschutzerklärungen der Partner.</p>
   {% endif %}

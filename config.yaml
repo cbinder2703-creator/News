@@ -85,6 +85,11 @@ guides:
     - { slug: "heizkoerperthermostat", title: "Smartes Heizkörperthermostat", keyword: "smartes Heizkörperthermostat kaufen", category: "Smart Home" }
     - { slug: "bluetooth-lautsprecher", title: "Bluetooth-Lautsprecher", keyword: "Bluetooth Lautsprecher kaufen", category: "Audio" }
 
+# Besucherzählung ohne Cookies: Cloudflare Web Analytics (Seitenaufrufe, Herkunft, beliebte Seiten; keine Profile).
+# Der Token ist öffentlich (steht im Seitenquelltext). Leer lassen = keine Zählung. Auswertung: Cloudflare -> Web analytics.
+analytics:
+  cloudflare_token: "a264fcc01831492a9bcecf7cf5815d5f"
+
 # IndexNow: meldet neue Seiten sofort an Bing (auch Grundlage für ChatGPT-Suche, Copilot, DuckDuckGo). Der Schlüssel ist
 # absichtlich öffentlich (liegt als Datei auf der Website). Leer lassen = aus.
 indexnow:

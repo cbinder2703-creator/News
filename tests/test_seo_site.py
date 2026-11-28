@@ -102,3 +102,12 @@ def test_indexnow_reports_only_changes(tmp_path):
     assert indexnow.submit(cfg, store, Http()) == 0 and len(Http.calls) == 1  # nichts Neues, keine Meldung
     cfg.indexnow_key = ""
     assert indexnow.submit(cfg, store, Http()) == 0
+
+
+def test_cookieless_analytics_snippet_and_privacy_text(tmp_path):
+    cfg, store, out = _site(tmp_path)
+    home = (out / "index.html").read_text(encoding="utf-8")
+    assert "static.cloudflareinsights.com/beacon.min.js" in home and cfg.analytics_token in home
+    privacy = (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+    assert "Cloudflare Web Analytics" in privacy and "keine Cookies" in privacy
+    assert "cloudflareinsights" not in (out / "admin" / "index.html").read_text(encoding="utf-8")

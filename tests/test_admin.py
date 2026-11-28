@@ -97,7 +97,7 @@ def test_contact_form_goes_to_own_worker_not_a_third_party(cfg, store, tmp_path)
     out = pipeline.build(cfg, store, tmp_path / "off")
     page = (out / "impressum" / "index.html").read_text(encoding="utf-8")
     assert "contact-form" not in page and "Zweiter Kontaktweg" not in page
-    assert "Cloudflare" not in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
+    assert "Kontaktformular" not in (out / "datenschutz" / "index.html").read_text(encoding="utf-8")
 
     cfg.contact_form, cfg.admin_api_url = True, "https://dealpuls-admin.example.workers.dev"
     out = pipeline.build(cfg, store, tmp_path / "on")

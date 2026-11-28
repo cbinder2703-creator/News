@@ -34,6 +34,7 @@ class Config:
     review: bool = True
     brand_description: str = ""
     indexnow_key: str = ""
+    analytics_token: str = ""
     haltung: str = ""
     rubriken: list[dict] = field(default_factory=list)
     focus: list[str] = field(default_factory=list)
@@ -107,6 +108,7 @@ def load_config(path: str | Path = "config.yaml") -> Config:
         guide_topics=[t for t in (gd.get("topics") or []) if t.get("slug") and t.get("title")],
         show_sources=bool(ed.get("show_sources", True)),
         show_video=bool(ed.get("show_video", False)),
+        analytics_token=str((raw.get("analytics") or {}).get("cloudflare_token") or "").strip(),
         indexnow_key=str((raw.get("indexnow") or {}).get("key") or "").strip(),
         brand_description=str((raw.get("brand") or {}).get("description") or "").strip(),
         contact_form=bool((raw.get("contact_form") or {}).get("enabled")),
